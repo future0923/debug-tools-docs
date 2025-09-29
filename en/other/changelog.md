@@ -4,6 +4,17 @@ aside: false
 ---
 # ChangeLog
 
+## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
+
+- Fixed an issue where the ToolWindow occasionally returned null when switching projects.
+- [#127](https://github.com/java-hot-deploy/debug-tools/issues/127) - Optimized hot deployment file scanning and local compilation performance.
+- [#131](https://github.com/java-hot-deploy/debug-tools/issues/131) - Optimized the display of contextName information during Tomcat class loading by [@iwillmissu](https://github.com/iwillmissu)
+- [#129](https://github.com/java-hot-deploy/debug-tools/issues/129) - Fixed a bug where calling history list operations would block the UI process.
+- [#35](https://github.com/java-hot-deploy/debug-tools/issues/35) - Fixed occasional hot reload failure of Jackson when returning Spring data.
+- [#130](https://github.com/java-hot-deploy/debug-tools/issues/130) - Fixed a bug where hot reload of entity changes to the resultType in MyBatis XML did not take effect.
+- [#134](https://github.com/java-hot-deploy/debug-tools/issues/134) - Fixed a bug where resource file monitoring failed when a resource folder contained only one file and was hot-reloaded simultaneously with a class file.
+- [#135](https://github.com/java-hot-deploy/debug-tools/issues/135) - Fixed a bug where controller reload failed in Spring Boot 2.0.x and Spring MVC 5.0.x.
+
 ## [4.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.1...v4.4.0) (2025-09-18)
 
 - Support for viewing call log information

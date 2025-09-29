@@ -4,6 +4,17 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
+
+- 修复切换项目时ToolWindow偶发返回null
+- [#127](https://github.com/java-hot-deploy/debug-tools/issues/127) - 优化热部署扫描文件及本地编译性能
+- [#131](https://github.com/java-hot-deploy/debug-tools/issues/131) - 优化 tomcat 类加载展示 contextName 信息 by [@iwillmissu](https://github.com/iwillmissu)
+- [#129](https://github.com/java-hot-deploy/debug-tools/issues/129) - 修复调用历史列表操作阻塞 UI 进程的 bug
+- [#35](https://github.com/java-hot-deploy/debug-tools/issues/35) - 修复spring返回数据jackson偶尔热重载失败
+- [#130](https://github.com/java-hot-deploy/debug-tools/issues/130) - 修复 MyBatis xml 中的 resultType 的实体变化热重载未生效的 bug
+- [#134](https://github.com/java-hot-deploy/debug-tools/issues/134) - 修复资源文件夹只有一个文件时与 class 文件同时热重载后资源文件监听失败的 bug
+- [#135](https://github.com/java-hot-deploy/debug-tools/issues/135) - 修复 SpringBoot 2.0.x 、SpringMvc 5.0.x 下 Controller 重载失败的 bug
+
 ## [4.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.1...main) (2025-09-18)
 
 - 支持查看调用记录信息
