@@ -162,11 +162,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Idea插件说明',
       collapsed: false,
       items: [
-        {text: 'ToolsWindow', link: 'idea-tools-window'},
-        {text: '右键菜单', link: 'idea-menu'},
-        {text: '配置项', link: 'idea-config'},
-        {text: '调试面板', link: 'idea-panel'},
-        {text: '展示结果', link: 'idea-result'},
+        {text: '切换命名格式', link: 'toggle-camel-case'},
       ]
     },
   ]

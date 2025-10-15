@@ -4,6 +4,15 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+
+- [#142](https://github.com/java-hot-deploy/debug-tools/issues/142) - 支持命名格式切换
+- [#139](https://github.com/java-hot-deploy/debug-tools/issues/139) - 支持配置是否搜索依赖jar中的url
+- [#148](https://github.com/java-hot-deploy/debug-tools/issues/148) - 支持配置是否启用调用方法记录
+- [#144](https://github.com/java-hot-deploy/debug-tools/issues/144) - 修复Spring的BeanCopier热重载失败的bug
+- [#136](https://github.com/java-hot-deploy/debug-tools/issues/136) - 修复SQL打印时单引号没有转义导致打印sql失败的bug by [@fat-huhu](https://github.com/fat-huhu)
+- [#137](https://github.com/java-hot-deploy/debug-tools/issues/137) - 修复easyexcel读取时不加@ExcelIgnore顺序错乱的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
 
 - 修复切换项目时ToolWindow偶发返回null

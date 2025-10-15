@@ -4,6 +4,15 @@ aside: false
 ---
 # ChangeLog
 
+## [4.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+
+- [#142](https://github.com/java-hot-deploy/debug-tools/issues/142) - Supports switching naming formats
+- [#139](https://github.com/java-hot-deploy/debug-tools/issues/139) - Supports configuring whether to search for URLs in dependent JARs
+- [#148](https://github.com/java-hot-deploy/debug-tools/issues/148) - Supports configuring whether to enable method call logging
+- [#144](https://github.com/java-hot-deploy/debug-tools/issues/144) - Fixed a bug causing Spring's BeanCopier hot reload to fail
+- [#136](https://github.com/java-hot-deploy/debug-tools/issues/136) - Fixed a bug where single quotes were not escaped when printing SQL, causing SQL print failure. By [@fat-huhu](https://github.com/fat-huhu)
+- [#137](https://github.com/java-hot-deploy/debug-tools/issues/137) - Fixed a bug where the order of SQL statements was disrupted when reading from EasyExcel without adding @ExcelIgnore. By [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
 
 - Fixed an issue where the ToolWindow occasionally returned null when switching projects.

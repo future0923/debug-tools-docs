@@ -143,11 +143,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Idea plugin extension',
       collapsed: false,
       items: [
-        {text: 'Tools window', link: 'idea-tools-window'},
-        {text: 'Right-click menu', link: 'idea-menu'},
-        {text: 'Config', link: 'idea-config'},
-        {text: 'Debug panel', link: 'idea-panel'},
-        {text: 'Run result', link: 'idea-result'},
+        {text: 'Toggle Camel Case', link: 'toggle-camel-case'},
       ]
     },
   ]

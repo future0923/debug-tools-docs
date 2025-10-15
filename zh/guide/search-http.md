@@ -26,6 +26,12 @@
 
 ![search_tools_window.png](/images/search_tools_window.png){v-zoom}
 
+### 是否搜索依赖jar中的url
+
+![config_search_jar_url.png](/images/config_search_jar_url.png){v-zoom}
+
+开启配置后可以搜索依赖jar包中的url信息。
+
 ### 匹配Path信息 {#match-path}
 
 #### 强大的信息提取

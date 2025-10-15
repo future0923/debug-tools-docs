@@ -26,6 +26,12 @@ Click the <img src="/pluginIcon.svg" style="display: inline-block; width: 20px; 
 
 ![search_tools_window.png](/images/search_tools_window.png){v-zoom}
 
+### Whether to search URLs in dependent JARs
+
+![config_search_jar_url.png](/images/config_search_jar_url.png){v-zoom}
+
+Enabling this configuration allows you to search for URLs in dependent JARs.
+
 ### Match Path information {#match-path}
 
 #### Powerful information extraction

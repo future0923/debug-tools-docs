@@ -1,5 +1,11 @@
 # 方法调用历史
 
+## 开启
+
+![config_invoke_record.png](/images/config_invoke_record.png){v-zoom}
+
+开启配置可以生成调用的方法记录。
+
 ## 调用记录列表
 
 点击 Idea 右侧的 <img src="/pluginIcon.svg" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> 工具栏唤醒 DebugTools 的窗口查看调用历史（最多 500 条）列表。

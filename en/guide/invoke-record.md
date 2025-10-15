@@ -1,5 +1,11 @@
 # Invoke Method History
 
+## Enable
+
+![config_invoke_record.png](/images/config_invoke_record.png){v-zoom}
+
+Enabling this configuration will generate a record of method calls.
+
 ## Call History List
 
 Click the <img src="/pluginIcon.svg" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> toolbar on the right side of Idea to open the DebugTools window and view the call history list (up to 500 entries).
