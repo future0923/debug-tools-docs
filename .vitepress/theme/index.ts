@@ -21,6 +21,21 @@ export default {
           scrollOffset: 0,
         })
       }
-    })
+    });
+    router.onAfterRouteChange = (to) => {
+      trackPageView(to);
+    };
   }
 } satisfies Theme
+
+// 用于发送浏览量的函数
+async function trackPageView(path: string) {
+  try {
+    // await fetch(`http://127.0.0.1:8080/api/collect?path=${encodeURIComponent(path)}`, {
+    await fetch(`https://debug-tools.cc/api/collect?path=${encodeURIComponent(path)}`, {
+      method: 'GET',
+    });
+  } catch (err) {
+    console.warn('Failed to track page view:', err);
+  }
+}
