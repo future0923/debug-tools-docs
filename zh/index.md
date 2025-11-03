@@ -15,7 +15,7 @@ hero:
       link: /guide/install
     - theme: alt
       text: GitHub
-      link: https://github.com/java-hot-deploy/debug-tools
+      link: https://github.com/future0923/debug-tools
     - theme: alt
       text: Gitee
       link: https://gitee.com/future94/debug-tools

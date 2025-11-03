@@ -4,27 +4,35 @@ aside: false
 ---
 # ChangeLog
 
-## [4.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.2...v4.4.3) (2025-11-03)
 
-- [#142](https://github.com/java-hot-deploy/debug-tools/issues/142) - Supports switching naming formats
-- [#139](https://github.com/java-hot-deploy/debug-tools/issues/139) - Supports configuring whether to search for URLs in dependent JARs
-- [#148](https://github.com/java-hot-deploy/debug-tools/issues/148) - Supports configuring whether to enable method call logging
-- [#144](https://github.com/java-hot-deploy/debug-tools/issues/144) - Fixed a bug causing Spring's BeanCopier hot reload to fail
-- [#136](https://github.com/java-hot-deploy/debug-tools/issues/136) - Fixed a bug where single quotes were not escaped when printing SQL, causing SQL print failure. By [@fat-huhu](https://github.com/fat-huhu)
-- [#137](https://github.com/java-hot-deploy/debug-tools/issues/137) - Fixed a bug where the order of SQL statements was disrupted when reading from EasyExcel without adding @ExcelIgnore. By [@wangqiqi95](https://github.com/wangqiqi95)
+- [#150](https://github.com/future0923/debug-tools/issues/150) - 支持jdk25热重载
+- [#151](https://github.com/future0923/debug-tools/issues/151) - json方式查看调用结果配置变更
+- [#149](https://github.com/future0923/debug-tools/issues/149) - 优化调试窗口
+- [#153](https://github.com/future0923/debug-tools/issues/153) - 修复不同模块url相同时只能一个的bug
+- [#152](https://github.com/future0923/debug-tools/issues/152) - 修复热部署相同的类第二次远程编译时找不到类的bug
 
-## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
+## [4.4.2](https://github.com/future0923/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+
+- [#142](https://github.com/future0923/debug-tools/issues/142) - Supports switching naming formats
+- [#139](https://github.com/future0923/debug-tools/issues/139) - Supports configuring whether to search for URLs in dependent JARs
+- [#148](https://github.com/future0923/debug-tools/issues/148) - Supports configuring whether to enable method call logging
+- [#144](https://github.com/future0923/debug-tools/issues/144) - Fixed a bug causing Spring's BeanCopier hot reload to fail
+- [#136](https://github.com/future0923/debug-tools/issues/136) - Fixed a bug where single quotes were not escaped when printing SQL, causing SQL print failure. By [@fat-huhu](https://github.com/fat-huhu)
+- [#137](https://github.com/future0923/debug-tools/issues/137) - Fixed a bug where the order of SQL statements was disrupted when reading from EasyExcel without adding @ExcelIgnore. By [@wangqiqi95](https://github.com/wangqiqi95)
+
+## [4.4.1](https://github.com/future0923/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
 
 - Fixed an issue where the ToolWindow occasionally returned null when switching projects.
-- [#127](https://github.com/java-hot-deploy/debug-tools/issues/127) - Optimized hot deployment file scanning and local compilation performance.
-- [#131](https://github.com/java-hot-deploy/debug-tools/issues/131) - Optimized the display of contextName information during Tomcat class loading by [@iwillmissu](https://github.com/iwillmissu)
-- [#129](https://github.com/java-hot-deploy/debug-tools/issues/129) - Fixed a bug where calling history list operations would block the UI process.
-- [#35](https://github.com/java-hot-deploy/debug-tools/issues/35) - Fixed occasional hot reload failure of Jackson when returning Spring data.
-- [#130](https://github.com/java-hot-deploy/debug-tools/issues/130) - Fixed a bug where hot reload of entity changes to the resultType in MyBatis XML did not take effect.
-- [#134](https://github.com/java-hot-deploy/debug-tools/issues/134) - Fixed a bug where resource file monitoring failed when a resource folder contained only one file and was hot-reloaded simultaneously with a class file.
-- [#135](https://github.com/java-hot-deploy/debug-tools/issues/135) - Fixed a bug where controller reload failed in Spring Boot 2.0.x and Spring MVC 5.0.x.
+- [#127](https://github.com/future0923/debug-tools/issues/127) - Optimized hot deployment file scanning and local compilation performance.
+- [#131](https://github.com/future0923/debug-tools/issues/131) - Optimized the display of contextName information during Tomcat class loading by [@iwillmissu](https://github.com/iwillmissu)
+- [#129](https://github.com/future0923/debug-tools/issues/129) - Fixed a bug where calling history list operations would block the UI process.
+- [#35](https://github.com/future0923/debug-tools/issues/35) - Fixed occasional hot reload failure of Jackson when returning Spring data.
+- [#130](https://github.com/future0923/debug-tools/issues/130) - Fixed a bug where hot reload of entity changes to the resultType in MyBatis XML did not take effect.
+- [#134](https://github.com/future0923/debug-tools/issues/134) - Fixed a bug where resource file monitoring failed when a resource folder contained only one file and was hot-reloaded simultaneously with a class file.
+- [#135](https://github.com/future0923/debug-tools/issues/135) - Fixed a bug where controller reload failed in Spring Boot 2.0.x and Spring MVC 5.0.x.
 
-## [4.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.1...v4.4.0) (2025-09-18)
+## [4.4.0](https://github.com/future0923/debug-tools/compare/v4.3.1...v4.4.0) (2025-09-18)
 
 - Support for viewing call log information
 - Display the name of the currently attached application in the call parameters window/response information window
@@ -33,7 +41,7 @@ aside: false
 - Fixed a bug where Spring interface listeners could not receive events
 - Fixed a bug where ReflectUtil in earlier versions of HuTool could not find the getMethodsDirectly method
 
-## [4.3.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.0...4.3.1) (2025-09-03)
+## [4.3.1](https://github.com/future0923/debug-tools/compare/v4.3.0...4.3.1) (2025-09-03)
 
 - Hot deployment supports files in the resource directory
 - Hot deployment supports MyBatis XML files
@@ -41,7 +49,7 @@ aside: false
 - Fixed a bug where EasyExcel export styles were lost during hot reload by [@wangqiqi95](https://github.com/wangqiqi95)
 - Fixed a bug where hot deployment failed in Spring Boot 3.4.5
 
-## [4.3.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.2.0...4.3.0) (2025-08-25)
+## [4.3.0](https://github.com/future0923/debug-tools/compare/v4.2.0...4.3.0) (2025-08-25)
 
 - Added pre- and post-scripts for calling methods
 - Added a double-click/right-click menu to zoom in on SQL statements in trace mode
@@ -58,7 +66,7 @@ aside: false
 - Fixed a bug causing cglib bean startup failure in Spring Boot 3.4.5
 - Fixed a bug causing debug-tools-boot to fail to attach due to an incorrect application name being retrieved during remote attachment.
 
-## [4.2.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.2...v4.2.0) (2025-08-08)
+## [4.2.0](https://github.com/future0923/debug-tools/compare/v4.1.2...v4.2.0) (2025-08-08)
 
 - Added a trace function to display the link duration when calling methods.
 - Added a function to display the method call button when hovering the mouse over the line header.
@@ -75,7 +83,7 @@ aside: false
 - Fixed the bug in dynamic-datasource 3+ startup failures.
 - Fixed the bug in inner class constructors where the parent class's IoC property was null.
 
-## [4.1.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.1...v4.1.2) (2025-07-15)
+## [4.1.2](https://github.com/future0923/debug-tools/compare/v4.1.1...v4.1.2) (2025-07-15)
 
 - Fixed the bug of dynamic-datasource4.2+ startup failure
 - Fixed the bug of mybatis-spring2.0.2 startup failure
@@ -83,7 +91,7 @@ aside: false
 - Fixed the bug of unable to switch class loader
 - Fixed the bug of startup java.lang.NullPointerException: Cannot read field "string" because "utf" is null
 
-## [4.1.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.0...v4.1.1) (2025-07-09)
+## [4.1.1](https://github.com/future0923/debug-tools/compare/v4.1.0...v4.1.1) (2025-07-09)
 
 - Add ToolWindow quick jump settings and document buttons by [@ayuayue](https://github.com/ayuayue)
 - Add support for hot reload of JDK8 under MacOS aarch64 (M chip) [@yaoxinghuo](https://github.com/yaoxinghuo)
@@ -94,7 +102,7 @@ aside: false
 - Fixed the bug that Spring Class information could not be found in Groovy
 - Fixed the bug that the UI was stuck when viewing large json in the return result json mode
 
-## [4.1.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.0.1...v4.1.0) (2025-06-27)
+## [4.1.0](https://github.com/future0923/debug-tools/compare/v4.0.1...v4.1.0) (2025-06-27)
 
 - Hot deployment supports modifying MyBatis Mapper files
 - Hot deployment supports modifying MyBatis Plus Entity/Mapper files
@@ -112,84 +120,84 @@ aside: false
 - Fixed the bug that the status cannot be updated when the remote connection is disconnected
 - Fixed the bug that the application project cannot be packaged under jdk21
 
-## [4.0.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.0.0...v4.0.1) (2025-06-04)
+## [4.0.1](https://github.com/future0923/debug-tools/compare/v4.0.0...v4.0.1) (2025-06-04)
 
-- Fixed the bug that Exception in thread java.lang.UnsatisfiedLinkError: io.github.future0923.debug.tools.vm.VmTool.getInstances0(Ljava/lang/Class;I)[Ljava/lang/0bject; 的bug([#63](https://github.com/java-hot-deploy/debug-tools/issues/63))
+- Fixed the bug that Exception in thread java.lang.UnsatisfiedLinkError: io.github.future0923.debug.tools.vm.VmTool.getInstances0(Ljava/lang/Class;I)[Ljava/lang/0bject; 的bug([#63](https://github.com/future0923/debug-tools/issues/63))
 
-## [4.0.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.4...v4.0.0)(2025-06-03)
+## [4.0.0](https://github.com/future0923/debug-tools/compare/v3.4.4...v4.0.0)(2025-06-03)
 
 - Added hot deployment function to achieve hot update of remote application code in seconds.
 - Added remote dynamic compilation function. When hot deploying and hot reloading, you can choose to compile the code with local Idea or dynamically compile the code with remote application.
 - Added default class loader selection function, which allows you to select class loader when performing hot deployment, hot reload, and Groovy scripts
-- Added [dynamic-datasource](https://github.com/baomidou/dynamic-datasource) dynamic data source `@DS` annotation hot reload ([#8](https://github.com/java-hot-deploy/debug-tools/issues/8))
-- Added [hutool](https://hutool.cn) hot reload([#48](https://github.com/java-hot-deploy/debug-tools/issues/48))
-- Added [Gson](https://github.com/google/gson) hot reload([#49](https://github.com/java-hot-deploy/debug-tools/issues/49))
-- Added [EasyExcel](https://github.com/alibaba/easyexcel) hot reload([#46](https://github.com/java-hot-deploy/debug-tools/issues/46))
-- Added [FastJson](https://github.com/alibaba/fastjson)、[FastJson2](https://github.com/alibaba/fastjson2) hot reload([#56](https://github.com/java-hot-deploy/debug-tools/issues/56))
-- Added [Jackson](https://github.com/FasterXML/jackson-databind) hot reload([#50](https://github.com/java-hot-deploy/debug-tools/issues/50))
-- Added [hibernate-validator](https://github.com/hibernate/hibernate-validator) hot reload([#60](https://github.com/java-hot-deploy/debug-tools/issues/60))
+- Added [dynamic-datasource](https://github.com/baomidou/dynamic-datasource) dynamic data source `@DS` annotation hot reload ([#8](https://github.com/future0923/debug-tools/issues/8))
+- Added [hutool](https://hutool.cn) hot reload([#48](https://github.com/future0923/debug-tools/issues/48))
+- Added [Gson](https://github.com/google/gson) hot reload([#49](https://github.com/future0923/debug-tools/issues/49))
+- Added [EasyExcel](https://github.com/alibaba/easyexcel) hot reload([#46](https://github.com/future0923/debug-tools/issues/46))
+- Added [FastJson](https://github.com/alibaba/fastjson)、[FastJson2](https://github.com/alibaba/fastjson2) hot reload([#56](https://github.com/future0923/debug-tools/issues/56))
+- Added [Jackson](https://github.com/FasterXML/jackson-databind) hot reload([#50](https://github.com/future0923/debug-tools/issues/50))
+- Added [hibernate-validator](https://github.com/hibernate/hibernate-validator) hot reload([#60](https://github.com/future0923/debug-tools/issues/60))
 - Refactor the calling method function, remote calling supports hot deployment of classes
-- Supports calling internal class methods at more than two levels([#43](https://github.com/java-hot-deploy/debug-tools/issues/43))
-- Automatically attach the application launched in the current project([#58](https://github.com/java-hot-deploy/debug-tools/issues/58))
+- Supports calling internal class methods at more than two levels([#43](https://github.com/future0923/debug-tools/issues/43))
+- Automatically attach the application launched in the current project([#58](https://github.com/future0923/debug-tools/issues/58))
 - Optimized heartbeat logic
 - Optimize http timeout
-- Fixed the bug that RuntimeExceptionWithAttachments：Read access is allowed from inside read-action only([#38](https://github.com/java-hot-deploy/debug-tools/issues/38)).
+- Fixed the bug that RuntimeExceptionWithAttachments：Read access is allowed from inside read-action only([#38](https://github.com/future0923/debug-tools/issues/38)).
 
-## [3.4.4](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.3...v3.4.4) (2025-04-22)
+## [3.4.4](https://github.com/future0923/debug-tools/compare/v3.4.3...v3.4.4) (2025-04-22)
 
-- Support IntelliJ IDEA 2025.1 version ([#37](https://github.com/java-hot-deploy/debug-tools/issues/37)).
+- Support IntelliJ IDEA 2025.1 version ([#37](https://github.com/future0923/debug-tools/issues/37)).
 
-## [3.4.3](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.2...v3.4.3) (2025-04-01)
+## [3.4.3](https://github.com/future0923/debug-tools/compare/v3.4.2...v3.4.3) (2025-04-01)
 
-- Fixed the problem that there is only one Controller under the folder File renaming hot reload failed BUG ([#31](https://github.com/java-hot-deploy/debug-tools/issues/31)).
-- Modify JDK21 hot reload startup failure BUG ([#30](https://github.com/java-hot-deploy/debug-tools/issues/30)).
-- Modify WebFlux can not call BUG ([#29](https://github.com/java-hot-deploy/debug-tools/issues/29)).
+- Fixed the problem that there is only one Controller under the folder File renaming hot reload failed BUG ([#31](https://github.com/future0923/debug-tools/issues/31)).
+- Modify JDK21 hot reload startup failure BUG ([#30](https://github.com/future0923/debug-tools/issues/30)).
+- Modify WebFlux can not call BUG ([#29](https://github.com/future0923/debug-tools/issues/29)).
 
-## [3.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.1...v3.4.2) (2025-03-17)
+## [3.4.2](https://github.com/future0923/debug-tools/compare/v3.4.1...v3.4.2) (2025-03-17)
 
-- Add button to trigger compilation XML File to trigger ([#21](https://github.com/java-hot-deploy/debug-tools/issues/21)).
-- Fix the bug that hot reload cannot be triggered when the Controller file is renamed ([#23](https://github.com/java-hot-deploy/debug-tools/issues/23)).
-- Fix the bug that failed to connect to the remote application ([#27](https://github.com/java-hot-deploy/debug-tools/issues/27)).
+- Add button to trigger compilation XML File to trigger ([#21](https://github.com/future0923/debug-tools/issues/21)).
+- Fix the bug that hot reload cannot be triggered when the Controller file is renamed ([#23](https://github.com/future0923/debug-tools/issues/23)).
+- Fix the bug that failed to connect to the remote application ([#27](https://github.com/future0923/debug-tools/issues/27)).
 
-## [3.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.0...v3.4.1) (2025-02-27)
+## [3.4.1](https://github.com/future0923/debug-tools/compare/v3.4.0...v3.4.1) (2025-02-27)
 
-- Fix ConcurrentModificationException when multiple MyBatis Mappers are hot reloaded BUG ([#20](https://github.com/java-hot-deploy/debug-tools/issues/20)).
+- Fix ConcurrentModificationException when multiple MyBatis Mappers are hot reloaded BUG ([#20](https://github.com/future0923/debug-tools/issues/20)).
 
-## [3.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.3.0...v3.4.0) (2025-02-20)
+## [3.4.0](https://github.com/future0923/debug-tools/compare/v3.3.0...v3.4.0) (2025-02-20)
 
-- Hot reload supports static variables, static final variables, and static code blocks ([#10](https://github.com/java-hot-deploy/debug-tools/issues/10)).
-- Hot reload supports Enum ([#10](https://github.com/java-hot-deploy/debug-tools/issues/10))
-- Fixed the bug that non-Bean classes cannot be called in Spring environment ([#16](https://github.com/java-hot-deploy/debug-tools/issues/16)).
+- Hot reload supports static variables, static final variables, and static code blocks ([#10](https://github.com/future0923/debug-tools/issues/10)).
+- Hot reload supports Enum ([#10](https://github.com/future0923/debug-tools/issues/10))
+- Fixed the bug that non-Bean classes cannot be called in Spring environment ([#16](https://github.com/future0923/debug-tools/issues/16)).
 
-## [3.3.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.2.0...v3.3.0) (2025-02-11)
+## [3.3.0](https://github.com/future0923/debug-tools/compare/v3.2.0...v3.3.0) (2025-02-11)
 
 - Hot reload supports MyBatis Plus to add Entity, modify Entity, add Mapper, modify Mapper, add xml, modify xml.
 - Hot reload supports MyBatis to add Mapper, modify Mapper, add xml, modify xml.
-- Add the function of executing the last time through the default class loader ([#12](https://github.com/java-hot-deploy/debug-tools/issues/12)).
-- Fixed the bug that Maven commands cannot be executed when SQL printing is turned on ([#7](https://github.com/java-hot-deploy/debug-tools/issues/7)).
+- Add the function of executing the last time through the default class loader ([#12](https://github.com/future0923/debug-tools/issues/12)).
+- Fixed the bug that Maven commands cannot be executed when SQL printing is turned on ([#7](https://github.com/future0923/debug-tools/issues/7)).
 
-## [3.2.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.2...v3.2.0) (2025-01-09)
+## [3.2.0](https://github.com/future0923/debug-tools/compare/v3.1.2...v3.2.0) (2025-01-09)
 
 - Added hot reload function to make the written code effective without restarting the application.
 
-## [3.1.2](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.1...v3.1.2) (2024-12-30)
+## [3.1.2](https://github.com/future0923/debug-tools/compare/v3.1.1...v3.1.2) (2024-12-30)
 
-- Fix the bug that failed to remove ContextPath ([#3](https://github.com/java-hot-deploy/debug-tools/issues/3)).
-- Fix the bug that multiple projects share an additional button ([#4](https://github.com/java-hot-deploy/debug-tools/issues/4)).
+- Fix the bug that failed to remove ContextPath ([#3](https://github.com/future0923/debug-tools/issues/3)).
+- Fix the bug that multiple projects share an additional button ([#4](https://github.com/future0923/debug-tools/issues/4)).
 
-## [3.1.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.0...v3.1.1) (2024-12-18)
+## [3.1.1](https://github.com/future0923/debug-tools/compare/v3.1.0...v3.1.1) (2024-12-18)
 
 - ContextPath information can be removed when searching for http urls
 - Fix the bug that domain names cannot be matched when there is no http(s)
 
-## [3.1.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.0.1...v3.1.0) (2024-12-17)
+## [3.1.0](https://github.com/future0923/debug-tools/compare/v3.0.1...v3.1.0) (2024-12-17)
 
 - Added the function of searching http url.
 - Fixed the bug that the default class loader cannot be obtained when Groovy is executed in remote application.
 - Fixed the bug that DebugToolsClassLoader repeatedly loaded the AppClassLoader base package, causing an exception to be thrown when using DefaultClassLoader.
-- Optimize log printing ([#2](https://github.com/java-hot-deploy/debug-tools/issues/2))
+- Optimize log printing ([#2](https://github.com/future0923/debug-tools/issues/2))
 
-## [3.0.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.0.0...v3.0.1) (2024-12-12)
+## [3.0.1](https://github.com/future0923/debug-tools/compare/v3.0.0...v3.0.1) (2024-12-12)
 
 - Support IntelliJ IDEA 2024.3 version.
 - Fix the bug that Groovy cannot get the default class loader when executing in remote application.

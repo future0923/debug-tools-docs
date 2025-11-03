@@ -151,7 +151,7 @@ Please install or use the JRE or JDK that contains these missing components.
 
 :::
 
-### 2.3 JDK 17/21 {#jdk17-21}
+### 2.3 JDK 17/21/25 {#jdk17-21-25}
 
 使用 [JetBrainsRuntime](https://github.com/JetBrains/JetBrainsRuntime) JDK 可以支持热部署/热重载。
 
@@ -160,6 +160,8 @@ Please install or use the JRE or JDK that contains these missing components.
 Java 17 建议使用最新版 [17.0.14b1367.22](https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr-release-17.0.14b1367.22)
 
 Java 21 建议使用 [最新版](https://github.com/JetBrains/JetBrainsRuntime/releases) 即可
+
+Java 25 建议使用 [最新版](https://github.com/JetBrains/JetBrainsRuntime/releases)，如[25b176.4](https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr-release-25b176.4)。
 
 还可以在 Project Structure 中下载jdk,选择JetBrains Runtime (JCEF)  
 ![jdk_download_idea](/images/jdk_download_idea.png){v-zoom}

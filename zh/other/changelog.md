@@ -4,27 +4,35 @@ aside: false
 ---
 # 版本迭代记录
 
-## [4.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.2...v4.4.3) (2025-11-03)
 
-- [#142](https://github.com/java-hot-deploy/debug-tools/issues/142) - 支持命名格式切换
-- [#139](https://github.com/java-hot-deploy/debug-tools/issues/139) - 支持配置是否搜索依赖jar中的url
-- [#148](https://github.com/java-hot-deploy/debug-tools/issues/148) - 支持配置是否启用调用方法记录
-- [#144](https://github.com/java-hot-deploy/debug-tools/issues/144) - 修复Spring的BeanCopier热重载失败的bug
-- [#136](https://github.com/java-hot-deploy/debug-tools/issues/136) - 修复SQL打印时单引号没有转义导致打印sql失败的bug by [@fat-huhu](https://github.com/fat-huhu)
-- [#137](https://github.com/java-hot-deploy/debug-tools/issues/137) - 修复easyexcel读取时不加@ExcelIgnore顺序错乱的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#150](https://github.com/future0923/debug-tools/issues/150) - 支持jdk25热重载
+- [#151](https://github.com/future0923/debug-tools/issues/151) - json方式查看调用结果配置变更
+- [#149](https://github.com/future0923/debug-tools/issues/149) - 优化调试窗口
+- [#153](https://github.com/future0923/debug-tools/issues/153) - 修复不同模块url相同时只能一个的bug
+- [#152](https://github.com/future0923/debug-tools/issues/152) - 修复热部署相同的类第二次远程编译时找不到类的bug
 
-## [4.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
+## [4.4.2](https://github.com/future0923/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
+
+- [#142](https://github.com/future0923/debug-tools/issues/142) - 支持命名格式切换
+- [#139](https://github.com/future0923/debug-tools/issues/139) - 支持配置是否搜索依赖jar中的url
+- [#148](https://github.com/future0923/debug-tools/issues/148) - 支持配置是否启用调用方法记录
+- [#144](https://github.com/future0923/debug-tools/issues/144) - 修复Spring的BeanCopier热重载失败的bug
+- [#136](https://github.com/future0923/debug-tools/issues/136) - 修复SQL打印时单引号没有转义导致打印sql失败的bug by [@fat-huhu](https://github.com/fat-huhu)
+- [#137](https://github.com/future0923/debug-tools/issues/137) - 修复easyexcel读取时不加@ExcelIgnore顺序错乱的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+
+## [4.4.1](https://github.com/future0923/debug-tools/compare/v4.4.0...v4.4.1) (2025-09-29)
 
 - 修复切换项目时ToolWindow偶发返回null
-- [#127](https://github.com/java-hot-deploy/debug-tools/issues/127) - 优化热部署扫描文件及本地编译性能
-- [#131](https://github.com/java-hot-deploy/debug-tools/issues/131) - 优化 tomcat 类加载展示 contextName 信息 by [@iwillmissu](https://github.com/iwillmissu)
-- [#129](https://github.com/java-hot-deploy/debug-tools/issues/129) - 修复调用历史列表操作阻塞 UI 进程的 bug
-- [#35](https://github.com/java-hot-deploy/debug-tools/issues/35) - 修复spring返回数据jackson偶尔热重载失败
-- [#130](https://github.com/java-hot-deploy/debug-tools/issues/130) - 修复 MyBatis xml 中的 resultType 的实体变化热重载未生效的 bug
-- [#134](https://github.com/java-hot-deploy/debug-tools/issues/134) - 修复资源文件夹只有一个文件时与 class 文件同时热重载后资源文件监听失败的 bug
-- [#135](https://github.com/java-hot-deploy/debug-tools/issues/135) - 修复 SpringBoot 2.0.x 、SpringMvc 5.0.x 下 Controller 重载失败的 bug
+- [#127](https://github.com/future0923/debug-tools/issues/127) - 优化热部署扫描文件及本地编译性能
+- [#131](https://github.com/future0923/debug-tools/issues/131) - 优化 tomcat 类加载展示 contextName 信息 by [@iwillmissu](https://github.com/iwillmissu)
+- [#129](https://github.com/future0923/debug-tools/issues/129) - 修复调用历史列表操作阻塞 UI 进程的 bug
+- [#35](https://github.com/future0923/debug-tools/issues/35) - 修复spring返回数据jackson偶尔热重载失败
+- [#130](https://github.com/future0923/debug-tools/issues/130) - 修复 MyBatis xml 中的 resultType 的实体变化热重载未生效的 bug
+- [#134](https://github.com/future0923/debug-tools/issues/134) - 修复资源文件夹只有一个文件时与 class 文件同时热重载后资源文件监听失败的 bug
+- [#135](https://github.com/future0923/debug-tools/issues/135) - 修复 SpringBoot 2.0.x 、SpringMvc 5.0.x 下 Controller 重载失败的 bug
 
-## [4.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.1...main) (2025-09-18)
+## [4.4.0](https://github.com/future0923/debug-tools/compare/v4.3.1...main) (2025-09-18)
 
 - 支持查看调用记录信息
 - 调用参数窗口/响应信息窗口展示当前附着应用名称
@@ -33,7 +41,7 @@ aside: false
 - 修复Spring接口类型的listener收不到event事件的bug
 - 修复HuTool低版本ReflectUtil找不到getMethodsDirectly方法的bug
 
-## [4.3.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.3.0...4.3.1) (2025-09-03)
+## [4.3.1](https://github.com/future0923/debug-tools/compare/v4.3.0...4.3.1) (2025-09-03)
 
 - 热部署支持resource目录下的文件
 - 热部署支持mybatis的xml文件
@@ -41,7 +49,7 @@ aside: false
 - 修复EasyExcel在热重载启动下导出样式丢失的bug by [@wangqiqi95](https://github.com/wangqiqi95)
 - 修复SpringBoot3.4.5下热部署启动失败的bug
 
-## [4.3.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.2.0...4.3.0) (2025-08-25)
+## [4.3.0](https://github.com/future0923/debug-tools/compare/v4.2.0...4.3.0) (2025-08-25)
 
 - 增加调用方法前后置脚本
 - 增加trace方式sql语句双击/右键菜单放大查看
@@ -58,7 +66,7 @@ aside: false
 - 修复SpringBoot3.4.5下cglib的bean启动失败的bug
 - 修复debug-tools-boot附着远程获取应用名错误导致附着失败的bug
 
-## [4.2.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.2...v4.2.0) (2025-08-08)
+## [4.2.0](https://github.com/future0923/debug-tools/compare/v4.1.2...v4.2.0) (2025-08-08)
 
 - 增加调用方法时trace功能展示链路耗时功能
 - 增加鼠标放在行头展示调用方法按钮功能
@@ -75,7 +83,7 @@ aside: false
 - 修复dynamic-datasource3+启动失败的bug
 - 修复内部类构造函数使用父类ioc属性时为null的bug
 
-## [4.1.2](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.1...v4.1.2) (2025-07-15)
+## [4.1.2](https://github.com/future0923/debug-tools/compare/v4.1.1...v4.1.2) (2025-07-15)
 
 - 修复dynamic-datasource4.2+启动失败的bug
 - 修复mybatis-spring2.0.2启动失败的bug
@@ -83,7 +91,7 @@ aside: false
 - 修复无法切换类加载器
 - 修复启动java.lang.NullPointerException: Cannot read field "string" because "utf" is null的bug
 
-## [4.1.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.1.0...v4.1.1) (2025-07-09)
+## [4.1.1](https://github.com/future0923/debug-tools/compare/v4.1.0...v4.1.1) (2025-07-09)
 
 - 增加ToolWindow快捷跳转设置与文档按钮 by [@ayuayue](https://github.com/ayuayue)
 - 新增对 MacOS aarch64（M 芯片）下 JDK8 热重载的支持 [@yaoxinghuo](https://github.com/yaoxinghuo)
@@ -94,7 +102,7 @@ aside: false
 - 修复Groovy中找不到Spring的Class信息的bug
 - 修复返回结果json方式查看大json时UI卡顿的bug
 
-## [4.1.0](https://github.com/java-hot-deploy/debug-tools/compare/v4.0.1...v4.1.0) (2025-06-27)
+## [4.1.0](https://github.com/future0923/debug-tools/compare/v4.0.1...v4.1.0) (2025-06-27)
 
 - 热部署支持修改 MyBatis Mapper文件
 - 热部署支持修改 MyBatis Plus Entity/Mapper文件
@@ -112,11 +120,11 @@ aside: false
 - 修复远程连接断开时状态无法更新的bug
 - 修复应用项目在jdk21下无法打包的bug
 
-## [4.0.1](https://github.com/java-hot-deploy/debug-tools/compare/v4.0.0...v4.0.1) (2025-06-04)
+## [4.0.1](https://github.com/future0923/debug-tools/compare/v4.0.0...v4.0.1) (2025-06-04)
 
 - 修复 Exception in thread java.lang.UnsatisfiedLinkError: io.github.future0923.debug.tools.vm.VmTool.getInstances0(Ljava/lang/Class;I)[Ljava/lang/0bject; 的bug
 
-## [4.0.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.4...v4.0.0) (2025-06-03)
+## [4.0.0](https://github.com/future0923/debug-tools/compare/v3.4.4...v4.0.0) (2025-06-03)
 
 - 增加热部署功能，实现秒级一键热更新远程应用代码。
 - 增加远程动态编译功能，热部署、热重载时可以选择本地Idea编译还是远程应用动态编译代码
@@ -135,54 +143,54 @@ aside: false
 - 优化 http 超时时间
 - 修复RuntimeExceptionWithAttachments：Read access is allowed from inside read-action only的BUG by [@Aa580](https://github.com/Aa580)
 
-## [3.4.4](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.3...v3.4.4) (2025-04-22)
+## [3.4.4](https://github.com/future0923/debug-tools/compare/v3.4.3...v3.4.4) (2025-04-22)
 
 - 支持 intellij idea 2025.1 版本
 
-## [3.4.3](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.2...v3.4.3) (2025-04-01)
+## [3.4.3](https://github.com/future0923/debug-tools/compare/v3.4.2...v3.4.3) (2025-04-01)
 
 - 修复文件夹下只有一个 Controller 文件时改名热重载失败的BUG
 - 修改 JDK21 热重载启动失败的BUG
 - 修改 WebFlux 无法调用的BUB
 
-## [3.4.2](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.1...v3.4.2) (2025-03-17)
+## [3.4.2](https://github.com/future0923/debug-tools/compare/v3.4.1...v3.4.2) (2025-03-17)
 
 - 增加按钮触发编译 XML 文件以触发
 - 修复 Controller 文件重命名时无法触发热重载的BUG
 - 修复连接远程应用失败的BUG
 
-## [3.4.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.4.0...v3.4.1) (2025-02-27)
+## [3.4.1](https://github.com/future0923/debug-tools/compare/v3.4.0...v3.4.1) (2025-02-27)
 
 - 修复多个 MyBatis Mapper 热重载时 ConcurrentModificationException 的BUG
 
-## [3.4.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.3.0...v3.4.0) (2025-02-20)
+## [3.4.0](https://github.com/future0923/debug-tools/compare/v3.3.0...v3.4.0) (2025-02-20)
 
 - 热重载支持支持 static 变量、static final 变量、static 代码块
 - 热重载支持支持 Enum
 - 修复在Spring环境中无法调用非Bean类的BUG by [@yutimothy666](https://github.com/yutimothy666)
 
-## [3.3.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.2.0...v3.3.0) (2025-02-11)
+## [3.3.0](https://github.com/future0923/debug-tools/compare/v3.2.0...v3.3.0) (2025-02-11)
 
 - 热重载支持 MyBatis Plus 增加Entity、修改Entity、增加Mapper、修改Mapper、增加xml、修改xml.
 - 热重载支持 MyBatis 增加Mapper、修改Mapper、增加xml、修改xml.
 - 增加通过默认类加载器执行上一次功能
 - 修复开启SQL打印时无法执行Maven命令的BUG
 
-## [3.2.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.2...v3.2.0) (2025-01-09)
+## [3.2.0](https://github.com/future0923/debug-tools/compare/v3.1.2...v3.2.0) (2025-01-09)
 
 - 增加热重载功能，无需重启应用即可使编写的代码生效。
 
-## [3.1.2](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.1...v3.1.2) (2024-12-30)
+## [3.1.2](https://github.com/future0923/debug-tools/compare/v3.1.1...v3.1.2) (2024-12-30)
 
 - 修复移除 ContextPath 失败的BUG
 - 修复多个项目共享一个附加按钮的 bug
 
-## [3.1.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.1.0...v3.1.1) (2024-12-18)
+## [3.1.1](https://github.com/future0923/debug-tools/compare/v3.1.0...v3.1.1) (2024-12-18)
 
 - 搜索 http url时可以移除 ContextPath 信息
 - 修复没有 http(s) 时无法匹配域名的BUG
 
-## [3.1.0](https://github.com/java-hot-deploy/debug-tools/compare/v3.0.1...v3.1.0) (2024-12-17)
+## [3.1.0](https://github.com/future0923/debug-tools/compare/v3.0.1...v3.1.0) (2024-12-17)
 
 - 增加搜索 http url功能.
 - 修复远程应用时 Groovy 执行时无法获取默认类加载器的BUG.

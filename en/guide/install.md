@@ -153,7 +153,7 @@ It is recommended to use the latest version [11_0_15-b2043.56](https://github.co
 
 :::
 
-### 2.3 JDK 17/21 {#jdk17-21}
+### 2.3 JDK 17/21/25 {#jdk17-21-25}
 
 Using [JetBrainsRuntime](https://github.com/JetBrains/JetBrainsRuntime) JDK can support hot deployment/hot reload. 
 
@@ -162,6 +162,8 @@ Using [JetBrainsRuntime](https://github.com/JetBrains/JetBrainsRuntime) JDK can 
 For Java 17, we recommend using the latest version [17.0.14b1367.22](https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr-release-17.0.14b1367.22)
 
 For Java 21, we recommend using the [latest version](https://github.com/JetBrains/JetBrainsRuntime/releases)
+
+For Java 25, we recommend using the [latest version](https://github.com/JetBrains/JetBrainsRuntime/releases)，For example [25b176.4](https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr-release-25b176.4)。
 
 You can also download the JDK in Project Structure and select JetBrains Runtime (JCEF)  
 ![jdk_download_idea](/images/jdk_download_idea.png){v-zoom}
