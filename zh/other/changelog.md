@@ -4,6 +4,15 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
+
+- [#71](https://github.com/future0923/debug-tools/issues/71) - 增加动态控制打印SQL配置
+- [#154](https://github.com/future0923/debug-tools/pull/154) - 打印sql结尾增加分号 by [@javalover123](https://github.com/javalover123)
+- [#158](https://github.com/future0923/debug-tools/issues/158) - 优化MethodAround执行性能
+- [#155](https://github.com/future0923/debug-tools/issues/155) - 修复MyBatis和MyBatisPlus混用时MyBatis热重载失效的bug by [@ruhengChen](https://github.com/ruhengChen)
+- [#160](https://github.com/future0923/debug-tools/issues/160) - 修复扫描url时spring注解value为null的bug
+- [#161](https://github.com/future0923/debug-tools/issues/161) - 修复继承GenericFilterBean类后热重载无法启动的bug
+
 ## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.2...v4.4.3) (2025-11-03)
 
 - [#150](https://github.com/future0923/debug-tools/issues/150) - 支持jdk25热重载

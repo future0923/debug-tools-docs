@@ -54,19 +54,16 @@ WHERE
 
 ::: tip
 
-Since DebugTools prints SQL in bytecode, you need to restart the application to take effect after modifying the configuration.
+1. Since DebugTools prints SQL in bytecode, you need to restart the application to take effect after modifying the configuration.
+2. Enabling SQL printing configuration (Compress/Pretty) at application startup allows you to dynamically modify the SQL printing configuration after attaching the application.
 
 :::
 
-### Agent {#agent}
+### Dynamic Configuration
 
-Start the application by using `java -javaagent:/path/to/your/debug-tools-agent-{version}.jar -jar your-app.jar`
+Enabling SQL printing configuration (Compress/Pretty) at application startup allows you to dynamically modify the SQL printing configuration after attaching the application.
 
-::: details agent download address
-
-https://download.debug-tools.cc/debug-tools-agent.jar
-
-:::
+![dynamic_sql.png](/images/dynamic_sql.png){v-zoom}
 
 ## Warning {#warning}
 

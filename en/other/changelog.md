@@ -4,13 +4,22 @@ aside: false
 ---
 # ChangeLog
 
+## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
+
+- [#71](https://github.com/future0923/debug-tools/issues/71) - Added dynamic control over SQL printing configuration
+- [#154](https://github.com/future0923/debug-tools/pull/154) - Added a semicolon at the end of printed SQL by [@javalover123](https://github.com/javalover123)
+- [#158](https://github.com/future0923/debug-tools/issues/158) - Optimized MethodAround execution performance
+- [#155](https://github.com/future0923/debug-tools/issues/155) - Fixed a bug where MyBatis hot reload failed when MyBatis and MyBatisPlus were used together by [@ruhengChen](https://github.com/ruhengChen)
+- [#160](https://github.com/future0923/debug-tools/issues/160) - Fixed a bug where Spring annotation values were null when scanning URLs
+- [#161](https://github.com/future0923/debug-tools/issues/161) - Fixed a bug where hot reload failed to start after inheriting the GenericFilterBean class
+
 ## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.2...v4.4.3) (2025-11-03)
 
-- [#150](https://github.com/future0923/debug-tools/issues/150) - 支持jdk25热重载
-- [#151](https://github.com/future0923/debug-tools/issues/151) - json方式查看调用结果配置变更
-- [#149](https://github.com/future0923/debug-tools/issues/149) - 优化调试窗口
-- [#153](https://github.com/future0923/debug-tools/issues/153) - 修复不同模块url相同时只能一个的bug
-- [#152](https://github.com/future0923/debug-tools/issues/152) - 修复热部署相同的类第二次远程编译时找不到类的bug
+- [#150](https://github.com/future0923/debug-tools/issues/150) - Supports JDK 25 hot reload
+- [#151](https://github.com/future0923/debug-tools/issues/151) - View call results configuration changes via JSON
+- [#149](https://github.com/future0923/debug-tools/issues/149) - Optimize the debug window
+- [#153](https://github.com/future0923/debug-tools/issues/153) - Fixed a bug where only one instance of the same URL could be used across different modules
+- [#152](https://github.com/future0923/debug-tools/issues/152) - Fixed a bug where classes could not be found during the second remote compilation after hot deployment of the same class
 
 ## [4.4.2](https://github.com/future0923/debug-tools/compare/v4.4.1...v4.4.2) (2025-10-15)
 

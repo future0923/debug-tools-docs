@@ -54,19 +54,16 @@ WHERE
 
 ::: tip 注意
 
-由于 DebugTools 是通过字节码的方式打印SQL，所以修改配置后需要重新启动应用才能生效。
+1. 由于 DebugTools 是通过字节码的方式打印SQL，所以修改配置后需要重新启动应用才能生效。
+2. 启动应用时开启打印SQL配置(Compress / Pretty)可以在附着应用之后进行动态修改SQL打印配置。
 
 :::
 
-### Agent {#agent}
+### 动态配置
 
-通过使用 `java -javaagent:/path/to/your/debug-tools-agent-{version}.jar -jar your-app.jar` 启动应用
+启动应用时开启打印SQL配置(Compress / Pretty)，可以在附着应用之后进行动态修改SQL打印配置。
 
-::: details agent下载地址
-
-https://download.debug-tools.cc/debug-tools-agent.jar
-
-:::
+![dynamic_sql.png](/images/dynamic_sql.png){v-zoom}
 
 
 ## 警告 {#warning}
