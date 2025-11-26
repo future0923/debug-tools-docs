@@ -4,7 +4,7 @@ aside: false
 ---
 # 版本迭代记录
 
-## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
+## [4.4.4](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
 
 - [#71](https://github.com/future0923/debug-tools/issues/71) - 增加动态控制打印SQL配置
 - [#154](https://github.com/future0923/debug-tools/pull/154) - 打印sql结尾增加分号 by [@javalover123](https://github.com/javalover123)

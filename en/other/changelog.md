@@ -4,7 +4,7 @@ aside: false
 ---
 # ChangeLog
 
-## [4.4.3](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
+## [4.4.4](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
 
 - [#71](https://github.com/future0923/debug-tools/issues/71) - Added dynamic control over SQL printing configuration
 - [#154](https://github.com/future0923/debug-tools/pull/154) - Added a semicolon at the end of printed SQL by [@javalover123](https://github.com/javalover123)
