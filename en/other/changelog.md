@@ -4,6 +4,16 @@ aside: false
 ---
 # ChangeLog
 
+## [4.5.0](https://github.com/future0923/debug-tools/compare/v4.4.4...v4.5.0) (2025-12-22)
+
+- [#166](https://github.com/future0923/debug-tools/issues/166) - Added support for OpenFeign for hot reload/hot deployment
+- [#164](https://github.com/future0923/debug-tools/issues/164) - Added log level control by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#167](https://github.com/future0923/debug-tools/issues/167) - Fixed a bug in DM8 that caused a null pointer exception when printing SQL by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#170](https://github.com/future0923/debug-tools/issues/170) - Fixed a bug where breakpoint markers didn't update promptly when starting with the DebugTools executor.
+- [#172](https://github.com/future0923/debug-tools/issues/172) - Fixed a bug where starting two applications simultaneously on Windows would display DLL file usage, by [@ayuayue](https://github.com/ayuayue)
+- Optimized the hot reload lock mechanism for MyBatis and MyBatisPlus.
+- Fixed a bug where hot reload of anonymous inner classes occasionally caused JVM crashes.
+
 ## [4.4.4](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
 
 - [#71](https://github.com/future0923/debug-tools/issues/71) - Added dynamic control over SQL printing configuration

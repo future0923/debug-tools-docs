@@ -4,6 +4,16 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.5.0](https://github.com/future0923/debug-tools/compare/v4.4.4...v4.5.0) (2025-12-22)
+
+- [#166](https://github.com/future0923/debug-tools/issues/166) - 热重载/热部署支持openfeign
+- [#164](https://github.com/future0923/debug-tools/issues/164) - 增加日志级别控制 by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#167](https://github.com/future0923/debug-tools/issues/167) - 修复达梦8打印sql时空指针的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#170](https://github.com/future0923/debug-tools/issues/170) - 修复用DebugTools的执行器启动时断点的标识未及时变化的bug
+- [#172](https://github.com/future0923/debug-tools/issues/172) - 修复windows系统同时启动2个应用会显示dll文件占用的bug by [@ayuayue](https://github.com/ayuayue)
+- 优化MyBatis、MyBatisPlus热重载锁机制
+- 修复热重载修改匿名内部类偶尔导致jvm崩溃的bug
+
 ## [4.4.4](https://github.com/future0923/debug-tools/compare/v4.4.3...v4.4.4) (2025-11-24)
 
 - [#71](https://github.com/future0923/debug-tools/issues/71) - 增加动态控制打印SQL配置
