@@ -1,7 +1,7 @@
 # Hot Deploy <Badge type="warning" text="beta" /> {#hot-deploy}
 
 ::: info
-Hot deployment is complex and requires a lot of compatibility. If this project helps you save development time, you might as well click <a target="_blank" href="https://github.com/java-hot-deploy/debug-tools"><img src="https://img.shields.io/github/stars/java-hot-deploy/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a>. Your recognition will make more people discover it, and your support is my motivation to update. If it doesn't work, please submit <a target="_blank" href="https://github.com/java-hot-deploy/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/java-hot-deploy/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> to give feedback.
+Hot deployment is complex and requires a lot of compatibility. If this project helps you save development time, you might as well click <a target="_blank" href="https://github.com/future0923/debug-tools"><img src="https://img.shields.io/github/stars/future0923/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a>. Your recognition will make more people discover it, and your support is my motivation to update. If it doesn't work, please submit <a target="_blank" href="https://github.com/future0923/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/future0923/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> to give feedback.
 :::
 
 ## 1. What is hot deployment
@@ -20,6 +20,29 @@ Hot deployment is based on [hot reload](hot-reload). Hot reload only supports lo
 
 ::: tip
 Hot deployment requires a specific JDK to take effect. Please refer to [JDK Installation](install#jdk) to complete JDK initialization.
+:::
+
+Hot deployment requires downloading debug-tools-agent.jar
+
+::: code-group
+
+```text [URL]
+https://download.debug-tools.cc/debug-tools-agent.jar
+```
+
+```sh [Manual build]
+git clone https://github.com/future0923/debug-tools.git
+cd debug-tools
+# Currently, maven packaging needs to be built using the `java17+` version.
+mvn clean install -T 2C -Dmaven.test.skip=true
+# In the dist directory
+# debug-tools-agent.jar remote agent package
+```
+
+```text [github]
+https://github.com/future0923/debug-tools/releases
+```
+
 :::
 
 ### 2.1 Add JVM parameters

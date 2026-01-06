@@ -1,7 +1,7 @@
 # 热部署 <Badge type="warning" text="beta" /> {#hot-deploy}
 
 ::: info
-热部署实现复杂且需要兼容情况较多，如果这个项目帮你节省了开发时间，不妨点个 <a target="_blank" href="https://github.com/java-hot-deploy/debug-tools"><img src="https://img.shields.io/github/stars/java-hot-deploy/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a> <a target="_blank" href="https://gitee.com/future94/debug-tools"><img src="https://gitee.com/future94/debug-tools/badge/star.svg?theme=dark" style="display: inline-block; vertical-align: middle;" /></a>，你的认可会让更多人发现它，你的支持是我更新的动力。如果不生效麻烦提交 <a target="_blank" href="https://github.com/java-hot-deploy/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/java-hot-deploy/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> 反馈一下。
+热部署实现复杂且需要兼容情况较多，如果这个项目帮你节省了开发时间，不妨点个 <a target="_blank" href="https://github.com/future0923/debug-tools"><img src="https://img.shields.io/github/stars/future0923/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a> <a target="_blank" href="https://gitee.com/future94/debug-tools"><img src="https://gitee.com/future94/debug-tools/badge/star.svg?theme=dark" style="display: inline-block; vertical-align: middle;" /></a>，你的认可会让更多人发现它，你的支持是我更新的动力。如果不生效麻烦提交 <a target="_blank" href="https://github.com/future0923/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/future0923/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> 反馈一下。
 :::
 
 ## 1. 什么是热部署
@@ -20,6 +20,29 @@
 
 ::: tip
 热部署需要特定的jdk才能生效，请先参考[JDK安装](install#jdk)完成JDK的初始化。
+:::
+
+热部署需要下载 debug-tools-agent.jar
+
+::: code-group
+
+```text [网址]
+https://download.debug-tools.cc/debug-tools-agent.jar
+```
+
+```sh [手动构建]
+git clone https://github.com/future0923/debug-tools.git
+cd debug-tools
+# 目前maven打包需要使用 `java17+` 版本构建。
+mvn clean install -T 2C -Dmaven.test.skip=true
+# dist目录下
+# debug-tools-agent.jar 远程agent包
+```
+
+```text [github]
+https://github.com/future0923/debug-tools/releases
+```
+
 :::
 
 ### 2.1 添加JVM参数

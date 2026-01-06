@@ -25,7 +25,7 @@ https://download.debug-tools.cc/DebugToolsIdeaPlugin.zip
 ```
 
 ```sh [Manual build]
-git clone https://github.com/java-hot-deploy/debug-tools.git
+git clone https://github.com/future0923/debug-tools.git
 cd debug-tools
 # Maven packaging needs to use `java17+` version to build
 mvn clean install -T 2C -Dmaven.test.skip=true
@@ -39,7 +39,7 @@ cd debug-tools-idea
 ```
 
 ```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
+https://github.com/future0923/debug-tools/releases
 ```
 
 ```text [gitee]
@@ -69,12 +69,12 @@ Installation location.
 
 ::: details Download from github
 
-[https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-jdk-1.8.0_181](https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-jdk-1.8.0_181)
+[https://github.com/future0923/debug-tools/releases/tag/dcevm-jdk-1.8.0_181](https://github.com/future0923/debug-tools/releases/tag/dcevm-jdk-1.8.0_181)
 
-- [windows-jdk-8u181.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/windows-jdk-8u181.zip)
-- [mac-x64-jdk-8u181.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-x64-jdk-8u181.zip)
-- [mac-aarch64-jdk-8u282.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-aarch64-jdk-8u282.zip)
-- [linux-x64-jdk-8u181.tar.gz](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/linux-x64-jdk-8u181.tar.gz)
+- [windows-jdk-8u181.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/windows-jdk-8u181.zip)
+- [mac-x64-jdk-8u181.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-x64-jdk-8u181.zip)
+- [mac-aarch64-jdk-8u282.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-aarch64-jdk-8u282.zip)
+- [linux-x64-jdk-8u181.tar.gz](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/linux-x64-jdk-8u181.tar.gz)
 
 :::
 
@@ -98,12 +98,12 @@ Installation location.
 
 Download the corresponding version of the .jar file. <span style="color: red;">Currently only the following versions of JDK are supported, please select the corresponding version. </span>
 
-| java version | download by debug tools                                                                                | [download by github](https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-installer)                                       |
+| java version | download by debug tools                                                                                | [download by github](https://github.com/future0923/debug-tools/releases/tag/dcevm-installer)                                       |
 |--------------|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| 1.8.0_181    | [DCEVM-8u181-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u181-installer.jar) | [DCEVM-8u181-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u181-installer.jar) |
-| 1.8.0_172    | [DCEVM-8u172-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u172-installer.jar) | [DCEVM-8u172-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u172-installer.jar) |
-| 1.8.0_152    | [DCEVM-8u152-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u152-installer.jar) | [DCEVM-8u152-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u152-installer.jar) |
-| 1.8.0_144    | [DCEVM-8u144-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u144-installer.jar) | [DCEVM-8u144-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u144-installer.jar) |
+| 1.8.0_181    | [DCEVM-8u181-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u181-installer.jar) | [DCEVM-8u181-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u181-installer.jar) |
+| 1.8.0_172    | [DCEVM-8u172-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u172-installer.jar) | [DCEVM-8u172-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u172-installer.jar) |
+| 1.8.0_152    | [DCEVM-8u152-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u152-installer.jar) | [DCEVM-8u152-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u152-installer.jar) |
+| 1.8.0_144    | [DCEVM-8u144-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u144-installer.jar) | [DCEVM-8u144-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u144-installer.jar) |
 | 1.8.0_112    | [DCEVM-8u112-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u112-installer.jar) | [DCEVM-8u112-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u112-installer.jar) |
 | 1.8.0_92     | [DCEVM-8u92-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u92-installer.jar)   | [DCEVM-8u92-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u92-installer.jar)   |
 | 1.8.0_74     | [DCEVM-8u74-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u74-installer.jar)   | [DCEVM-8u74-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u74-installer.jar)   |
@@ -172,65 +172,5 @@ You can also download the JDK in Project Structure and select JetBrains Runtime 
 ::: info
 
 If the Apple system prompts that the JDK is damaged or the developer cannot be verified after downloading the JDK, you can enter `sudo xattr -r -d com.apple.quarantine /$jdkPath`, **$jdkPath** is your jdk directory
-
-:::
-
-## 3. Download debug-tools-agent.jar
-
-`debug-tools-agent.jar` is a Java Agent package, which is the core of DebugTools functions. DebugTools functions are all implemented through Java Agent.
-
-Only [hot-deploy](hot-deploy) requires this jar, and the others are already built into the Idea plugin.
-
-::: code-group
-
-```text [URL]
-https://download.debug-tools.cc/debug-tools-agent.jar
-```
-
-```sh [Manual build]
-git clone https://github.com/java-hot-deploy/debug-tools.git
-cd debug-tools
-# Currently, maven packaging needs to be built using the `java17+` version.
-mvn clean install -T 2C -Dmaven.test.skip=true
-# In the dist directory
-# debug-tools-agent.jar remote agent package
-```
-
-```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
-```
-
-```text [gitee]
-https://gitee.com/future94/debug-tools/releases
-```
-
-:::
-
-## 4. Download debug-tools-boot.jar
-
-Use `debug-tools-boot.jar` to dynamically start the debug tools server service after the application starts.
-
-::: code-group
-
-```text [URL]
-https://download.debug-tools.cc/debug-tools-boot.jar
-```
-
-```sh [Manual build]
-git clone https://github.com/java-hot-deploy/debug-tools.git
-cd debug-tools
-# Currently, maven packaging needs to be built using the `java17+` version.
-mvn clean install -T 2C -Dmaven.test.skip=true
-# In the dist directory
-# debug-tools-boot.jar remote agent package
-```
-
-```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
-```
-
-```text [gitee]
-https://gitee.com/future94/debug-tools/releases
-```
 
 :::

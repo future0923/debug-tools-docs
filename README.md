@@ -1,7 +1,7 @@
 <br/>
 
 <p align="center">
-    <a href="https://github.com/java-hot-deploy/debug-tools">
+    <a href="https://github.com/future0923/debug-tools">
       debug-tools
     </a>
 </p>

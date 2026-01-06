@@ -4,6 +4,11 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.5.1](https://github.com/future0923/debug-tools/compare/v4.5.0...v4.5.1) (2026-01-06)
+
+- [#180](https://github.com/future0923/debug-tools/issues/180) - 调用java方法支持file数组类型参数 by [@ayuayue](https://github.com/ayuayue)
+- 修复openfeign与spring的class冲突导致spring项目热重载识别失败的bug
+
 ## [4.5.0](https://github.com/future0923/debug-tools/compare/v4.4.4...v4.5.0) (2025-12-22)
 
 - [#166](https://github.com/future0923/debug-tools/issues/166) - 热重载/热部署支持openfeign
@@ -216,7 +221,7 @@ aside: false
 - 修复 DebugToolsClassLoader 重复加载 AppClassLoader 基础包导致使用 DefaultClassLoader 抛出异常的BUG。
 - 优化日志打印
 
-## [3.0.1](https://github.com/java-hot-deploy/debug-tools/compare/v3.0.0...v3.0.1) (2024-12-12)
+## [3.0.1](https://github.com/future0923/debug-tools/compare/v3.0.0...v3.0.1) (2024-12-12)
 
 - 支持 intellij idea 2024.3 版本.
 - 修复远程应用时 Groovy 执行时无法获取默认类加载器的BUG.

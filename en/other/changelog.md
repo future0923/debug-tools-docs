@@ -4,6 +4,11 @@ aside: false
 ---
 # ChangeLog
 
+## [4.5.1](https://github.com/future0923/debug-tools/compare/v4.5.0...v4.5.1) (2026-01-06)
+
+- [#180](https://github.com/future0923/debug-tools/issues/180) - Added support for file array type parameters when calling Java methods by [@ayuayue](https://github.com/ayuayue)
+- Fixed a bug where OpenFeign and Spring class conflicts caused Spring projects to fail to recognize hot reload.
+
 ## [4.5.0](https://github.com/future0923/debug-tools/compare/v4.4.4...v4.5.0) (2025-12-22)
 
 - [#166](https://github.com/future0923/debug-tools/issues/166) - Added support for OpenFeign for hot reload/hot deployment

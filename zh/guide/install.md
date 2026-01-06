@@ -23,7 +23,7 @@ https://download.debug-tools.cc/DebugToolsIdeaPlugin.zip
 ```
 
 ```sh [手动构建]
-git clone https://github.com/java-hot-deploy/debug-tools.git
+git clone https://github.com/future0923/debug-tools.git
 cd debug-tools
 # maven打包需要使用 `java17+` 版本构建
 mvn clean install -T 2C -Dmaven.test.skip=true
@@ -37,7 +37,7 @@ cd debug-tools-idea
 ```
 
 ```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
+https://github.com/future0923/debug-tools/releases
 ```
 
 ```text [gitee]
@@ -67,12 +67,12 @@ wget https://download.debug-tools.cc/install/linux-install.tar.gz -O linux-insta
 
 ::: details 通过github下载
 
-[https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-jdk-1.8.0_181](https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-jdk-1.8.0_181)
+[https://github.com/future0923/debug-tools/releases/tag/dcevm-jdk-1.8.0_181](https://github.com/future0923/debug-tools/releases/tag/dcevm-jdk-1.8.0_181)
 
-- [windows-jdk-8u181.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/windows-jdk-8u181.zip)
-- [mac-x64-jdk-8u181.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-x64-jdk-8u181.zip)
-- [mac-aarch64-jdk-8u282.zip](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-aarch64-jdk-8u282.zip)
-- [linux-x64-jdk-8u181.tar.gz](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-jdk-1.8.0_181/linux-x64-jdk-8u181.tar.gz)
+- [windows-jdk-8u181.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/windows-jdk-8u181.zip)
+- [mac-x64-jdk-8u181.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-x64-jdk-8u181.zip)
+- [mac-aarch64-jdk-8u282.zip](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/mac-aarch64-jdk-8u282.zip)
+- [linux-x64-jdk-8u181.tar.gz](https://github.com/future0923/debug-tools/releases/download/dcevm-jdk-1.8.0_181/linux-x64-jdk-8u181.tar.gz)
 
 :::
 
@@ -96,17 +96,17 @@ wget https://download.debug-tools.cc/install/linux-install.tar.gz -O linux-insta
 
 下载对应版本的 .jar 文件。<span style="color: red;">目前只支持下面版本的JDK，请选择对应版本的。</span>
 
-| java version | download by debug tools                                                                                | [download by github](https://github.com/java-hot-deploy/debug-tools/releases/tag/dcevm-installer)                                       |
+| java version | download by debug tools                                                                                | [download by github](https://github.com/future0923/debug-tools/releases/tag/dcevm-installer)                                       |
 |--------------|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| 1.8.0_181    | [DCEVM-8u181-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u181-installer.jar) | [DCEVM-8u181-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u181-installer.jar) |
-| 1.8.0_172    | [DCEVM-8u172-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u172-installer.jar) | [DCEVM-8u172-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u172-installer.jar) |
-| 1.8.0_152    | [DCEVM-8u152-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u152-installer.jar) | [DCEVM-8u152-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u152-installer.jar) |
-| 1.8.0_144    | [DCEVM-8u144-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u144-installer.jar) | [DCEVM-8u144-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u144-installer.jar) |
-| 1.8.0_112    | [DCEVM-8u112-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u112-installer.jar) | [DCEVM-8u112-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u112-installer.jar) |
-| 1.8.0_92     | [DCEVM-8u92-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u92-installer.jar)   | [DCEVM-8u92-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u92-installer.jar)   |
-| 1.8.0_74     | [DCEVM-8u74-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u74-installer.jar)   | [DCEVM-8u74-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u74-installer.jar)   |
-| 1.8.0_66     | [DCEVM-8u66-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u66-installer.jar)   | [DCEVM-8u66-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u66-installer.jar)   |
-| 1.8.0_51     | [DCEVM-8u51-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u51-installer.jar)   | [DCEVM-8u51-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u51-installer.jar)   |
+| 1.8.0_181    | [DCEVM-8u181-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u181-installer.jar) | [DCEVM-8u181-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u181-installer.jar) |
+| 1.8.0_172    | [DCEVM-8u172-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u172-installer.jar) | [DCEVM-8u172-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u172-installer.jar) |
+| 1.8.0_152    | [DCEVM-8u152-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u152-installer.jar) | [DCEVM-8u152-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u152-installer.jar) |
+| 1.8.0_144    | [DCEVM-8u144-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u144-installer.jar) | [DCEVM-8u144-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u144-installer.jar) |
+| 1.8.0_112    | [DCEVM-8u112-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u112-installer.jar) | [DCEVM-8u112-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u112-installer.jar) |
+| 1.8.0_92     | [DCEVM-8u92-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u92-installer.jar)   | [DCEVM-8u92-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u92-installer.jar)   |
+| 1.8.0_74     | [DCEVM-8u74-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u74-installer.jar)   | [DCEVM-8u74-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u74-installer.jar)   |
+| 1.8.0_66     | [DCEVM-8u66-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u66-installer.jar)   | [DCEVM-8u66-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u66-installer.jar)   |
+| 1.8.0_51     | [DCEVM-8u51-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u51-installer.jar)   | [DCEVM-8u51-installer.jar](https://github.com/future0923/debug-tools/releases/download/dcevm-installer/DCEVM-8u51-installer.jar)   |
 | 1.8.0_45     | [DCEVM-8u45-installer.jar](https://download.debug-tools.cc/dcevm-installer/DCEVM-8u45-installer.jar)   | [DCEVM-8u45-installer.jar](https://github.com/java-hot-deploy/debug-tools/releases/download/dcevm-installer/DCEVM-8u45-installer.jar)   |
 
 运行对应的 `java -jar DCEVM-8uXX-installer.jar` 文件，找到对应的版本，点击 `Install DCEVM as altjvm` 按钮即可。
@@ -170,65 +170,5 @@ Java 25 建议使用 [最新版](https://github.com/JetBrains/JetBrainsRuntime/r
 ::: info
 
 苹果系统如果下载JDK后提示已损坏或无法验证开发者等原因不能启动JDK，输入 `sudo xattr -r -d com.apple.quarantine /$jdkPath` 即可， **$jdkPath** 是你的jdk目录
-
-:::
-
-## 3. 下载debug-tools-agent.jar
-
-`debug-tools-agent.jar` 是一个 Java Agent 包，他是 DebugTools 功能的核心，DebugTools 功能都是通过 Java Agent 实现。
-
-只有[热部署](hot-deploy)需要此jar，其他在Idea插件中已经内置了。
-
-::: code-group
-
-```text [网址]
-https://download.debug-tools.cc/debug-tools-agent.jar
-```
-
-```sh [手动构建]
-git clone https://github.com/java-hot-deploy/debug-tools.git
-cd debug-tools
-# 目前maven打包需要使用 `java17+` 版本构建。
-mvn clean install -T 2C -Dmaven.test.skip=true
-# dist目录下
-# debug-tools-agent.jar 远程agent包
-```
-
-```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
-```
-
-```text [gitee]
-https://gitee.com/future94/debug-tools/releases
-```
-
-:::
-
-## 4. 下载debug-tools-boot.jar
-
-使用 `debug-tools-boot.jar` 可以在应用启动后动态启动 debug tools server 服务。
-
-::: code-group
-
-```text [网址]
-https://download.debug-tools.cc/debug-tools-boot.jar
-```
-
-```sh [手动构建]
-git clone https://github.com/java-hot-deploy/debug-tools.git
-cd debug-tools
-# 目前maven打包需要使用 `java17+` 版本构建。
-mvn clean install -T 2C -Dmaven.test.skip=true
-# dist目录下
-# debug-tools-boot.jar 远程agent包
-```
-
-```text [github]
-https://github.com/java-hot-deploy/debug-tools/releases
-```
-
-```text [gitee]
-https://gitee.com/future94/debug-tools/releases
-```
 
 :::
