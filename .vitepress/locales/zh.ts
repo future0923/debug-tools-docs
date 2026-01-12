@@ -69,6 +69,15 @@ function nav(): DefaultTheme.NavItem[] {
       link: '/blog/java-env',
     },
     {
+      text: '视频教程',
+      items: [
+        {
+          text: '如何断点调式DebugTools项目',
+          link: 'https://www.bilibili.com/video/BV1i66oBXEmC'
+        },
+      ]
+    },
+    {
       text: '联系我',
       link: '/contact-me',
     },
