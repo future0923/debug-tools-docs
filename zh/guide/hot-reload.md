@@ -100,6 +100,10 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 
 详细点击 [class文件热重载](hot-reload-class.md) 查看
 
+::: tip 静态信息变动特别注意
+静态字段<span style="color: red;">热重载会编译时初始化的值覆盖掉运行时的值</span>，具体[点击](hot-reload-class#static-change)查看
+:::
+
 ### 3.2 代理类
 
 - java JDK 代理类。

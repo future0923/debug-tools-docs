@@ -4,6 +4,17 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.5.2](https://github.com/future0923/debug-tools/compare/v4.5.1...v4.5.2) (2026-01-15)
+
+- [#185](https://github.com/future0923/debug-tools/issues/185) - 增加热重载保留类静态变量用运行时数据的配置
+- [#186](https://github.com/future0923/debug-tools/issues/186) - 修复JdbcTemplate无法打印sql的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#187](https://github.com/future0923/debug-tools/issues/187) - 修复修复热部署本地编译VFS同步刷新死锁的bug
+- [#190](https://github.com/future0923/debug-tools/issues/190) - 修复OpenFeign的项目如果没有Mybatis无法启动的bug
+- [#191](https://github.com/future0923/debug-tools/issues/191) - 修复MacOS切换jdk8与jdk17时dylib无法重新加载的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#196](https://github.com/future0923/debug-tools/issues/196) - 修复使用ServerPreparedStatement的无法格式化打印sql的bug
+- [#198](https://github.com/future0923/debug-tools/issues/198) - 修复搜索url无法识别controller注解放入自定注解中的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#202](https://github.com/future0923/debug-tools/issues/202) - 优化搜索 url 返回样式，搜索注释及中文首字母，增加double shift展示搜索url选项 by [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [4.5.1](https://github.com/future0923/debug-tools/compare/v4.5.0...v4.5.1) (2026-01-06)
 
 - [#180](https://github.com/future0923/debug-tools/issues/180) - 调用java方法支持file数组类型参数 by [@ayuayue](https://github.com/ayuayue)

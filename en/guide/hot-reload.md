@@ -98,6 +98,12 @@ The changed `xml` file can also trigger hot reload separately through the `Compi
 
 Click [class file hot reload](hot-reload-class.md) for details
 
+:::tip Pay special attention to changes in static information
+
+<span style="color: red;">Hot reloading of static fields will cause the values initialized at compile time to overwrite the values at runtime</span>. See [click](hot-reload-class#static-change) for details.
+
+:::
+
 ### 3.2 Proxy class
 
 - Java JDK proxy class.

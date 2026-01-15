@@ -4,6 +4,17 @@ aside: false
 ---
 # ChangeLog
 
+## [4.5.2](https://github.com/future0923/debug-tools/compare/v4.5.1...v4.5.2) (2026-01-15)
+
+- [#185](https://github.com/future0923/debug-tools/issues/185) - Add configuration for hot reload to retain static variables of class using runtime data.
+- [#186](https://github.com/future0923/debug-tools/issues/186) - Fixed a bug where JdbcTemplate could not print SQL by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#187](https://github.com/future0923/debug-tools/issues/187) - Fixed a bug where hot deployment of local compilation of VFS would result in a deadlock during synchronous refresh. [#190](https://github.com/future0923/debug-tools/issues/190) - Fixed a bug where OpenFeign projects would not start without Mybatis.
+- [#190](https://github.com/future0923/debug-tools/issues/190) - Fixed a bug where OpenFeign projects would not start without Mybatis.
+- [#191](https://github.com/future0923/debug-tools/issues/191) - Fixed a bug where dylib would not reload when switching between JDK 8 and JDK 17 on macOS by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#196](https://github.com/future0923/debug-tools/issues/196) - Fixed a bug where SQL could not be formatted when using ServerPreparedStatement.
+- [#198](https://github.com/future0923/debug-tools/issues/198) - Fixed a bug where searching URLs could not recognize controller annotations inserted into custom annotations by [@wangqiqi95](https://github.com/wangqiqi95) [@wangqiqi95](https://github.com/wangqiqi95)
+- [#202](https://github.com/future0923/debug-tools/issues/202) - Optimized the search URL return style, added a double shift option to display the search URL by [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [4.5.1](https://github.com/future0923/debug-tools/compare/v4.5.0...v4.5.1) (2026-01-06)
 
 - [#180](https://github.com/future0923/debug-tools/issues/180) - Added support for file array type parameters when calling Java methods by [@ayuayue](https://github.com/ayuayue)

@@ -70,15 +70,16 @@ https://github.com/future0923/debug-tools/releases
 
 ### 2.2 可选配置
 
-| 可选key项             | 含义                           | value取值                 | 取值示例                                               |
-|--------------------|------------------------------|-------------------------|----------------------------------------------------|
-| applicationName    | 应用名称                         | 附着应用的名称，不传也可以自动获取       | DebugTools                                         |
-| hotswap            | 是否开启热重载/热部署                  | true:开启 <br /> false:关闭 | ture                                               |
-| server             | 是否启动Server给客户端连接             | true:开启 <br /> false:关闭 | ture                                               |
-| tcpPort            | 监听的TCP端口 (server=true时才生效)   | 可用端口                    | 12345                                              |
-| httpPort           | 监听的HTTP端口  (server=true时才生效) | 可用端口                    | 22222                                              |
-| printSql           | 是否打印执行的SQL语句                 | true:开启 <br /> false:关闭 | ture                                               |
-| propertiesFilePath | 外部配置文件路径                     | 配置文件地址                  | /etc/debug-tools/conf/debug-tools-agent.properties |
+| 可选key项                | 含义                           | value取值                 | 取值示例                                               |
+|-----------------------|------------------------------|-------------------------|----------------------------------------------------|
+| applicationName       | 应用名称                         | 附着应用的名称，不传也可以自动获取       | DebugTools                                         |
+| hotswap               | 是否开启热重载/热部署                  | true:开启 <br /> false:关闭 | ture                                               |
+| server                | 是否启动Server给客户端连接             | true:开启 <br /> false:关闭 | ture                                               |
+| tcpPort               | 监听的TCP端口 (server=true时才生效)   | 可用端口                    | 12345                                              |
+| httpPort              | 监听的HTTP端口  (server=true时才生效) | 可用端口                    | 22222                                              |
+| printSql              | 是否打印执行的SQL语句                 | true:开启 <br /> false:关闭 | ture                                               |
+| ignoreStaticFieldPath | 热重载时忽略哪些静态配置路径               | 配置文件地址                  | /etc/debug-tools/conf/debug-tools-ignore.conf      |
+| propertiesFilePath    | 外部配置文件路径                     | 配置文件地址                  | /etc/debug-tools/conf/debug-tools-agent.properties |
 
 propertiesFilePath 配置
 

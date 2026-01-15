@@ -43,7 +43,7 @@ public class UserUtils {
 - You can use the new `getUserName` method.
 - Remove the `getUserDefaultUser` method, and use the new `genDefaultUser` method.
 
-## Static information changes
+## Static information changes{#static-change}
 
 Support static variables, static final variables, and static code blocks.
 
@@ -68,6 +68,52 @@ public class StaticClass {
 ```
 
 After being overloaded, the values of variables var1, var2, and var3 are changed.
+
+
+::: tip
+Hot reloading of static variables will re-execute the class's `clinit` method, so <span style="color: red;">hot reloading will overwrite the runtime value with the value initialized at compile time</span>.
+
+If the following changes are not overridden, var1 will not change from String to Integer.
+```java
+private static String var1 = "debug"; // [!code --]
+private static Integer var1 = 666; // [!code ++]
+```
+
+However, in the following scenario, var1 will add data at runtime. If you overwrite it, you will lose the runtime data.
+
+```java
+private static Map<String, Long> var1 = new HashMap<>();
+```
+
+Therefore, <span style="color: red;">DebugTools will overwrite runtime data by default, but you can prevent overwriting of field runtime data using the following method</span>.
+
+**Method 1:** Specify in the static code library that the variable should only be assigned a value when it is empty, such as:
+
+```java
+private static Map<String, Long> var1;
+
+static {
+    // This way, executing this code block when calling the clinit method will not overwrite runtime data.
+    if (var1 == null) {
+        var1 = new HashMap<>();
+    }
+}
+```
+
+**Method 2: Configure in plugin**
+
+When the mouse hovers over a field, you can add configuration options via the right-click menu to ignore the field during hot reload, so that the runtime value is not overridden by the compile-time value. After adding, an icon will appear at the top of the line, and clicking it will remove the field from the ignore list.
+
+![hotswap_ignores_this_field.png](/images/hotswap_ignores_this_field.png){v-zoom}
+
+Adding configuration options to the page allows users to write and switch between different configuration files.
+
+![setting_hotswap_ignores_field.png](/images/setting_hotswap_ignores_field.png){v-zoom}
+
+The file content is a regular conf file; both `class#fieldname` and `class.fieldname` are acceptable, and comments are supported (`#` and `;`).
+
+![hotswap_ignores_field_conf.png](/images/hotswap_ignores_field_conf.png){v-zoom}
+:::
 
 ## Enumeration class information changes.
 

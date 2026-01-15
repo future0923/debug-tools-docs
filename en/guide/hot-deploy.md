@@ -70,15 +70,16 @@ https://github.com/future0923/debug-tools/releases
 
 ### 2.2 Optional configuration
 
-| Optional key       | Meaning                                              | Value                                                                            | Example                                            |
-|--------------------|------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------|
-| applicationName    | Application name                                     | The name of the application, which can be obtained automatically without passing | DebugTools                                         |
-| hotswap            | Whether to enable hot reload/hot deployment          | true: Enable <br /> false: Disable                                               | true                                               |
-| server             | Whether to start the server for client connections   | true: Enable <br /> false: Disable                                               | true                                               |
-| tcpPort            | TCP port to listen to (valid only when server=true)  | Available ports                                                                  | 12345                                              |
-| httpPort           | HTTP port to listen to (valid only when server=true) | Available ports                                                                  | 22222                                              |
-| printSql           | Whether to print the executed SQL statement          | true: Enable <br /> false: Disable                                               | true                                               |
-| propertiesFilePath | External configuration file path                     | Configuration file address                                                       | /etc/debug-tools/conf/debug-tools-agent.properties |
+| Optional key          | Meaning                                                        | Value                                                                            | Example                                            |
+|-----------------------|----------------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------|
+| applicationName       | Application name                                               | The name of the application, which can be obtained automatically without passing | DebugTools                                         |
+| hotswap               | Whether to enable hot reload/hot deployment                    | true: Enable <br /> false: Disable                                               | true                                               |
+| server                | Whether to start the server for client connections             | true: Enable <br /> false: Disable                                               | true                                               |
+| tcpPort               | TCP port to listen to (valid only when server=true)            | Available ports                                                                  | 12345                                              |
+| httpPort              | HTTP port to listen to (valid only when server=true)           | Available ports                                                                  | 22222                                              |
+| printSql              | Whether to print the executed SQL statement                    | true: Enable <br /> false: Disable                                               | true                                               |
+| ignoreStaticFieldPath | Which static configuration paths are ignored during hot reload | Configuration file address                                                       | /etc/debug-tools/conf/debug-tools-ignore.conf      |
+| propertiesFilePath    | External configuration file path                               | Configuration file address                                                       | /etc/debug-tools/conf/debug-tools-agent.properties |
 
 propertiesFilePath configuration
 

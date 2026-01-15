@@ -16,9 +16,19 @@
 
 ![search_http_keymap.png](/images/search_http_keymap.png){v-zoom}
 
-唤醒搜索框输入url，选择对应的url后跳转代码定义的位置。
+唤醒搜索框输入url，选择对应的url后跳转代码定义的位置
+
+- 支持分词
 
 ![search_http.png](/images/search_http.png){v-zoom}
+
+- 支持注释
+
+![search_http_chinese.png](/images/search_http_chinese.png){v-zoom}
+
+- 支持注释中文及中文首字母
+
+![search_http_chinese_first.png](/images/search_http_chinese_first.png){v-zoom}
 
 ### 工具栏
 
