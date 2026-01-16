@@ -36,6 +36,12 @@
 
 ![search_tools_window.png](/images/search_tools_window.png){v-zoom}
 
+### searchanywhere 支持
+
+双击 shift 唤醒搜索 searchanywhere ，切换到 DebugTools 选项卡，唤醒搜索框。默认不显示路由,输入后才开始匹配检索
+![search_anywhere_httpurl.png](/images/search_anywhere_httpurl.png){v-zoom}
+
+
 ### 是否搜索依赖jar中的url
 
 ![config_search_jar_url.png](/images/config_search_jar_url.png){v-zoom}
