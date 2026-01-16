@@ -184,6 +184,101 @@ urb("testBean")
 unregisterBean("testBean")
 ```
 
+### Get Bean Definition {#get-bean-definition}
+
+Get the Bean definition information by calling `gtbd` / `getBeanDefinition`.
+
+**Function definition**
+
+```java
+/**
+ * Get the Bean definition information for the specified Bean in the Spring container
+ *
+ * @param beanName The Bean name to query
+ * @return Bean definition information
+ * @throws Exception if an exception occurs during the process
+ */
+public BeanDefinition gtbd(String beanName) {}
+
+/**
+ * Get the Bean definition information for the specified Bean in the Spring container
+ *
+ * @param beanName The Bean name to query
+ * @return Bean definition information
+ * @throws Exception if an exception occurs during the process
+ */
+public BeanDefinition getBeanDefinition(String beanName) {}
+```
+
+**Usage example**
+
+```groovy
+gtbd("testBean")
+getBeanDefinition("testBean")
+```
+
+### Get Bean Names {#get-bean-names}
+
+Get all Bean names for the specified type in the Spring container by calling `gtbn` / `getBeanNamesForType`.
+
+**Function definition**
+
+```java
+/**
+ * Get all Bean names of the specified type in the Spring container
+ *
+ * @param type The class type to query
+ * @return Bean name array
+ * @throws Exception if an exception occurs during the process
+ */
+public String[] gtbn(Class<?> type) {}
+
+/**
+ * Get all Bean names of the specified type in the Spring container
+ *
+ * @param type The class type to query
+ * @return Bean name array
+ * @throws Exception if an exception occurs during the process
+ */
+public String[] getBeanNamesForType(Class<?> type) {}
+```
+
+**Usage example**
+
+```groovy
+gtbn(TestBean.class)
+getBeanNamesForType(TestBean.class)
+```
+
+### Destroy Bean and Definition {#destroy-bean-and-definition}
+
+Destroy the Bean with the specified name and its definition by calling `urbd` / `unregisterBeanAndDefinition`.
+
+**Function definition**
+
+```java
+/**
+ * Destroy the Bean with the specified name and its definition
+ *
+ * @param beanName The name of the Bean to destroy
+ */
+public void urbd(String beanName) {}
+
+/**
+ * Destroy the Bean with the specified name and its definition
+ *
+ * @param beanName The name of the Bean to destroy
+ */
+public void unregisterBeanAndDefinition(String beanName) {}
+```
+
+**Usage example**
+
+```groovy
+urbd("testBean")
+unregisterBeanAndDefinition("testBean")
+```
+
 ## Get the Spring runtime environment {#environment-config}
 
 Get the `spring.profiles.active` configuration information by calling `gActive` / `getSpringProfilesActive`.
@@ -246,6 +341,101 @@ getSpringConfig("spring.application.name")
 getSpringConfig "spring.application.name"
 ```
 
+## AOP Proxy Operation {#aop-proxy-operation}
+
+### Get Proxy Target Object {#get-target-object}
+
+Get the original target object of the AOP proxy by calling `getTargetObject`.
+
+**Function definition**
+
+```java
+/**
+ * Get the original target object of the AOP proxy object
+ * @param candidate The proxy object
+ * @param <T> Target object type
+ * @return The original target object, or itself if not a proxy object
+ */
+public <T> T getTargetObject(Object candidate) {}
+```
+
+**Usage example**
+
+```groovy
+getTargetObject(proxyBean)
+```
+
+### Get Proxy Target Class {#get-target-class}
+
+Get the original target class of the AOP proxy object by calling `gtClass` / `getTargetClass`.
+
+**Function definition**
+
+```java
+/**
+ * Get the original target class of the AOP proxy object
+ * @param candidate The proxy object
+ * @return The original target class, or its own class if not a proxy object
+ */
+public Class<?> gtClass(Object candidate) {}
+
+/**
+ * Get the original target class of the AOP proxy object
+ * @param candidate The proxy object
+ * @return The original target class, or its own class if not a proxy object
+ */
+public Class<?> getTargetClass(Object candidate) {}
+```
+
+**Usage example**
+
+```groovy
+gtClass(proxyBean)
+getTargetClass(proxyBean)
+```
+
+### Check if AOP Proxy {#is-aop-proxy}
+
+Check if the invocation handler is a Spring AOP proxy by calling `isAopProxy`.
+
+**Function definition**
+
+```java
+/**
+ * Check if the invocation handler is a Spring AOP proxy
+ * @param invocationHandler The invocation handler
+ * @return Returns true if it is a Spring AOP proxy, otherwise false
+ */
+public boolean isAopProxy(InvocationHandler invocationHandler) {}
+```
+
+**Usage example**
+
+```groovy
+isAopProxy(invocationHandler)
+```
+
+### Find Bridged Method {#find-bridged-method}
+
+Find the original method corresponding to the bridged method by calling `findBridgedMethod`.
+
+**Function definition**
+
+```java
+/**
+ * Find the original method corresponding to the bridged method
+ * @param targetMethod The possible bridged method
+ * @return The original method, or itself if not a bridged method
+ */
+public Method findBridgedMethod(Method targetMethod) {}
+```
+
+**Usage example**
+
+```groovy
+findBridgedMethod(method)
+```
+
 ## Complete Example {#complete-example}
 
 ```groovy
@@ -285,7 +475,8 @@ getInstances ApplicationContext.class
 def testBean = new TestBean()
 // Inject beans into spring
 rb(testBean)
-//rb("testBean", testBean)
+rb("testBean", testBean)
+rb("testBeanClazz", TestBean)
 //registerBean(testBean)
 //registerBean("testBean", testBean)
 
@@ -300,9 +491,19 @@ getBean(TestBean.class)
 getBean("testBean")
 getBean TestBean.class
 
+// Get Bean names
+def beanNames = gtbn(TestBean.class)
+
+// Get Bean definition
+def beanDef = gtbd("testBean")
+
 // destroy bean
 urb("testBean")
 //unregisterBean("testBean")
+
+// destroy bean and definition
+urbd("testBeanClazz")
+//unregisterBeanAndDefinition("testBeanClazz")
 
 // Active or get SpringProfilesActive to get the current spring environment
 def v3 = gActive()
