@@ -4,7 +4,8 @@
 
 **痛点：** 当我们测试业务的时候，需要查看实际执行的SQL与耗时时间，很多上层的驱动会有多种开启打印的方式，很多都需要修改代码或修改配置打印。
 
-DebugTools 通过在 [jdbc](https://www.oracle.com/database/technologies/appdev/jdbc.html) 层通过 `修改数据库驱动字节码` 实现在运行时打印SQL与耗时，从而避免上层数据库链接池的不同影响SQL的打印。
+DebugTools 通过在 [jdbc](https://www.oracle.com/database/technologies/appdev/jdbc.html) 层通过 `修改数据库驱动字节码`
+实现在运行时打印SQL与耗时，从而避免上层数据库链接池的不同影响SQL的打印。
 
 **理论上支持所有通过Jdbc链接的数据库驱动：**
 
@@ -65,6 +66,52 @@ WHERE
 
 ![dynamic_sql.png](/images/dynamic_sql.png){v-zoom}
 
+### 过滤 sql
+
+当 sql 太多的时候，我们可以配置过滤指定sql。
+
+![filter_sql_setting.png](/images/filter_sql_setting.png){v-zoom}
+
+::: tip
+只有开启打印 sql 的时候才能看见忽略 SQL 的配置
+:::
+
+**支持如下的四个配置**
+
+- `sql.print.packages`：打印指定调用链路包下的SQL
+    - **识别方式是通过执行线程堆栈信息是否正则匹配配置的包名**
+    - **该配置优先级高于 sql.print.ignore-packages**
+    - **支持正则**
+- `sql.print.ignore-packages`：忽略打印指定调用链路包下的SQL
+    - **识别方式是通过执行线程堆栈信息是否正则匹配配置的包名**
+    - **如果配置了 sql.print.packages 则该配置失效**
+    - **支持正则**
+- `sql.print.statement`：打印指定SQL语句
+    - **该配置优先级高于 sql.print.ignore-statement**
+    - **支持正则**
+- `sql.print.ignore-statement`：忽略指定SQL语句
+    - **如果配置了 sql.print.statement 则该配置失效**
+    - **支持正则**
+
+文件内容就是普通的txt，内容写到对应段的下面，支持 `#` 和 `;` 注释。`[[xxx]]` 是固定格式。支持多行。如：
+
+```txt
+[[sql.print.packages]]
+com.example.demo
+com.example.test
+
+[[sql.print.ignore-packages]]
+com.example.demo
+com.example.test
+
+[[sql.print.statement]]
+select 1
+select * from user
+
+[[sql.print.ignore-statement]]
+select 1
+select * from user
+```
 
 ## 警告 {#warning}
 

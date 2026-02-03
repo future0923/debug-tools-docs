@@ -4,6 +4,18 @@ aside: false
 ---
 # ChangeLog
 
+## [4.5.3](https://github.com/future0923/debug-tools/compare/v4.5.2...v4.5.3) (2026-02-03)
+
+- [#200](https://github.com/future0923/debug-tools/issues/200) - Fixed a bug where PostgreSQL placeholder variables were not replaced by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#205](https://github.com/future0923/debug-tools/issues/205) - Added support for converting enumeration parameters of array and generic collection types by [@ayuayue](https://github.com/ayuayue)
+- [#210](https://github.com/future0923/debug-tools/issues/210) - Added support for hot reloading of the @RequestParam annotation
+- [#212](https://github.com/future0923/debug-tools/issues/212) - Added support for regular expression filtering packages and statements in SQL printing by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#214](https://github.com/future0923/debug-tools/issues/214) - Optimized search URL speed by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#218](https://github.com/future0923/debug-tools/issues/218) - Optimized message sending to avoid blocking the IDEA UI process
+- [#219](https://github.com/future0923/debug-tools/issues/219) - Fixed an occasional NPE bug when switching to a new project
+- [#226](https://github.com/future0923/debug-tools/issues/226) - Optimized the JVM list retrieval and Attach functions to avoid blocking the UI thread.
+- [#230](https://github.com/future0923/debug-tools/issues/230) - Optimized quick debug time type to support more formats and automatic conversion by [@ayuayue](https://github.com/ayuayue)
+
 ## [4.5.2](https://github.com/future0923/debug-tools/compare/v4.5.1...v4.5.2) (2026-01-15)
 
 - [#185](https://github.com/future0923/debug-tools/issues/185) - Add configuration for hot reload to retain static variables of class using runtime data.

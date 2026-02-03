@@ -4,6 +4,18 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.5.3](https://github.com/future0923/debug-tools/compare/v4.5.2...v4.5.3) (2026-02-03)
+
+- [#200](https://github.com/future0923/debug-tools/issues/200) - 修复PostgreSQL占位符变量未替换的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#205](https://github.com/future0923/debug-tools/issues/205) - 支持数组和泛型集合类型的枚举参数转换 by [@ayuayue](https://github.com/ayuayue)
+- [#210](https://github.com/future0923/debug-tools/issues/210) - 支持修改@RequestParam注解热重载
+- [#212](https://github.com/future0923/debug-tools/issues/212) - 打印sql支持正则过滤包和语句 by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#214](https://github.com/future0923/debug-tools/issues/214) - 优化搜索url搜索速度和double shift卡死的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#218](https://github.com/future0923/debug-tools/issues/218) - 优化发送消息避免阻塞idea的ui进程
+- [#219](https://github.com/future0923/debug-tools/issues/219) - 修复切换新项目时偶尔NPE的bug
+- [#226](https://github.com/future0923/debug-tools/issues/226) - 优化获取JVM列表和Attach功能避免阻塞UI线程
+- [#230](https://github.com/future0923/debug-tools/issues/230) - 优化quick debug时间类型支持更多格式自动转化 by [@ayuayue](https://github.com/ayuayue)
+
 ## [4.5.2](https://github.com/future0923/debug-tools/compare/v4.5.1...v4.5.2) (2026-01-15)
 
 - [#185](https://github.com/future0923/debug-tools/issues/185) - 增加热重载保留类静态变量用运行时数据的配置
