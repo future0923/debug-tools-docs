@@ -4,6 +4,17 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
+
+- 重构通讯模块，同时调用多个方法、热部署、groovy等互不影响
+- 重构设置页面ui
+- [#197](https://github.com/future0923/debug-tools/issues/197) - 增加热重载启动禁用指定插件功能 by [@fat-huhu](https://github.com/fat-huhu)
+- [#236](https://github.com/future0923/debug-tools/issues/236) - 修复低版本springboot无法热重载单个@RequestParam注解的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#240](https://github.com/future0923/debug-tools/issues/240) - 修复热重载启动时EasyExcel设置setHeadRowNumber(0)时空指针的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#249](https://github.com/future0923/debug-tools/issues/249) - 修复MacOS系统M芯片切换jdk偶尔失败的bug
+- [#249](https://github.com/future0923/debug-tools/issues/249) - 修复idea2025.3.3+下'attach失败:Failed to load agent library: 0'的bug by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#238](https://github.com/future0923/debug-tools/issues/238) - 修复命令风格转换选中一个字母报错的bug by [@ayuayue](https://github.com/ayuayue)
+
 ## [4.5.3](https://github.com/future0923/debug-tools/compare/v4.5.2...v4.5.3) (2026-02-03)
 
 - [#200](https://github.com/future0923/debug-tools/issues/200) - 修复PostgreSQL占位符变量未替换的bug by [@wangqiqi95](https://github.com/wangqiqi95)

@@ -4,6 +4,17 @@ aside: false
 ---
 # ChangeLog
 
+## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
+
+- Refactored the communication module to ensure that simultaneous calls to multiple methods, hot deployment, and Groovy operations do not interfere with each other.
+- Refactored the settings page UI.
+- [#197](https://github.com/future0923/debug-tools/issues/197) - Added the ability to hot-reload and disable specified plugins by [@fat-huhu](https://github.com/fat-huhu)
+- [#236](https://github.com/future0923/debug-tools/issues/236) - Fixed a bug where older versions of Spring Boot could not hot-reload a single @RequestParam annotation by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#240](https://github.com/future0923/debug-tools/issues/240) - Fixed a bug where EasyExcel would return a null pointer when setting setHeadRowNumber(0) during hot reload startup by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#249](https://github.com/future0923/debug-tools/issues/249) - Fixed a bug where switching JDK on the M chip in macOS would occasionally fail
+- [#249](https://github.com/future0923/debug-tools/issues/249) - Fixed a bug in IntelliJ IDEA 2025.3.3+ where 'attach failed: Failed to load agent library: 0' by [@wangqiqi95](https://github.com/wangqiqi95)
+- [#238](https://github.com/future0923/debug-tools/issues/238) - Fixed a bug where selecting a single letter in command style switching would cause an error by [@ayuayue](https://github.com/ayuayue)
+
 ## [4.5.3](https://github.com/future0923/debug-tools/compare/v4.5.2...v4.5.3) (2026-02-03)
 
 - [#200](https://github.com/future0923/debug-tools/issues/200) - Fixed a bug where PostgreSQL placeholder variables were not replaced by [@wangqiqi95](https://github.com/wangqiqi95)
