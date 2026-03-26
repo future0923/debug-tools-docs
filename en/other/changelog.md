@@ -4,6 +4,10 @@ aside: false
 ---
 # ChangeLog
 
+## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-03-26)
+
+- [#255](https://github.com/future0923/debug-tools/issues/255) - Setting the inability to modify SQL printing configuration
+
 ## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
 
 - Refactored the communication module to ensure that simultaneous calls to multiple methods, hot deployment, and Groovy operations do not interfere with each other.

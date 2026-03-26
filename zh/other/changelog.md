@@ -4,6 +4,10 @@ aside: false
 ---
 # 版本迭代记录
 
+## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-03-26)
+
+- [#255](https://github.com/future0923/debug-tools/issues/255) - 设置无法修改sql打印配置
+
 ## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
 
 - 重构通讯模块，同时调用多个方法、热部署、groovy等互不影响
