@@ -63,6 +63,20 @@
 
 ![url-extract.png](/images/url-extract.png){v-zoom}
 
+#### 数字参数模糊匹配
+
+开启后将url中数字类型PathVariable信息替换为{}进行搜索匹配。
+
+如搜索 `test/123/0`，实际转为`test/{}/{}`进行搜索。
+
+配置：
+
+![search_replace_number_setting.png](/images/search_replace_number_setting.png){v-zoom}
+
+效果：
+
+![search_replace_number.png](/images/search_replace_number.png){v-zoom}
+
 #### 移除ContextPath信息
 
 很多时候我们会配置 `server.servlet.context-path`，这样在搜索的时候就会无法匹配到对应的方法；或者有网关转发时会有多余的 Path 信息。

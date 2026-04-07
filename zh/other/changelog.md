@@ -4,9 +4,19 @@ aside: false
 ---
 # 版本迭代记录
 
-## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-03-26)
+## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-04-07)
 
-- [#255](https://github.com/future0923/debug-tools/issues/255) - 设置无法修改sql打印配置
+- 改为异步获取类加载器避免应用假死时获取延迟阻塞idea主UI进程
+- 支持SpringBoot2的WebFlux请求头信息
+- [#254](https://github.com/future0923/debug-tools/issues/254) - 支持SpringBoot3请求上下文及添加头信息
+- [#231](https://github.com/future0923/debug-tools/issues/231) - 支持将url中数字类型PathVariable信息替换为{}进行搜索匹配
+- [#255](https://github.com/future0923/debug-tools/issues/255) - 修复设置无法修改sql打印配置的bug
+- [#258](https://github.com/future0923/debug-tools/issues/258) - 获取jvm列表时忽略Gradle守护进程
+- [#256](https://github.com/future0923/debug-tools/issues/256) [#259](https://github.com/future0923/debug-tools/issues/259) - idea2026.1方法调用图标从鼠标移动改为常驻行头
+- [#257](https://github.com/future0923/debug-tools/issues/257) - 修复idea2026.1调用窗口获取类信息报错的bug
+- [#261](https://github.com/future0923/debug-tools/issues/261) - 修复idea2026.1调用窗口获取方法信息报错的bug
+- 修复idea2026.1搜索url报错的bug
+- [#262](https://github.com/future0923/debug-tools/issues/262) - 修复切换项目时偶尔附着失败的bug
 
 ## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
 

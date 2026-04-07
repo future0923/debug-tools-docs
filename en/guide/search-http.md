@@ -53,6 +53,20 @@ Enabling this configuration allows you to search for URLs in dependent JARs.
 
 ![url-extract.png](/images/url-extract.png){v-zoom}
 
+#### Match numeric path variables
+
+Replace numeric path segments in URLs with {} during search.
+
+For example, 'test/123/0' becomes 'test/{}/{}'.
+
+Setting:
+
+![search_replace_number_setting.png](/images/search_replace_number_setting.png){v-zoom}
+
+Result:
+
+![search_replace_number.png](/images/search_replace_number.png){v-zoom}
+
 #### Remove ContextPath information
 
 Many times we configure `server.servlet.context-path`, which will result in the corresponding method not being matched during search; or there will be redundant Path information when there is gateway forwarding.

@@ -4,9 +4,19 @@ aside: false
 ---
 # ChangeLog
 
-## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-03-26)
+## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-04-07)
 
-- [#255](https://github.com/future0923/debug-tools/issues/255) - Setting the inability to modify SQL printing configuration
+- Changed to asynchronous class loader retrieval to avoid delays blocking the main IntelliJ IDEA UI process when the application appears to freeze.
+- Added support for Spring Boot 2 WebFlux request headers.
+- [#254](https://github.com/future0923/debug-tools/issues/254) - Added support for Spring Boot 3 request context and header addition.
+- [#231](https://github.com/future0923/debug-tools/issues/231) - Added support for replacing numeric PathVariable information in URLs with {} for search matching.
+- [#255](https://github.com/future0923/debug-tools/issues/255) - Fixed a bug where SQL printing configuration could not be modified.
+- [#258](https://github.com/future0923/debug-tools/issues/258) - Ignored the Gradle daemon when retrieving the JVM list. 
+- [#256](https://github.com/future0923/debug-tools/issues/256) [#259](https://github.com/future0923/debug-tools/issues/259) - Fixed the method call icon in IDEA 2026.1 from being hovered over the mouse to being permanently displayed in the header.
+- [#257](https://github.com/future0923/debug-tools/issues/257) - Fixed a bug in IDEA 2026.1 where the call window would throw an error when retrieving class information.
+- [#261](https://github.com/future0923/debug-tools/issues/261) - Fixed a bug in IDEA 2026.1 where the call window would throw an error when retrieving method information.
+- Fixed a bug in IntelliJ IDEA 2026.1 that caused an error when searching URLs.
+- [#262](https://github.com/future0923/debug-tools/issues/262) - Fixed a bug where attaching occasionally failed when switching projects.
 
 ## [4.6.0](https://github.com/future0923/debug-tools/compare/v4.5.3...v4.6.0) (2026-03-25)
 
