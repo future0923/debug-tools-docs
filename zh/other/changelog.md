@@ -4,6 +4,31 @@ aside: false
 ---
 # 版本迭代记录
 
+## [5.0.0](https://github.com/future0923/debug-tools/compare/v4.6.1...v5.0.0) (2026-06-09)
+
+- 插件整体重构，UI 全新升级，交互体验大幅优化
+- 支持多应用附着，所有功能都支持多应用同时操作
+- 扫描应用列表增加模块、项目信息，优化 jps 命令扫不到 java 应用的问题
+- [#269](https://github.com/future0923/debug-tools/issues/269) - 增加 json 编辑器、header 输入等各种提示功能
+- [#279](https://github.com/future0923/debug-tools/issues/279) - 支持 publisher、Mono、Flux、SSE 展示，调试 ai 方法响应更丝滑
+- [#273](https://github.com/future0923/debug-tools/issues/273) - 全面支持 record 类
+  - 热重载支持 record 类型
+  - 调用方法支持 record 类型入参
+  - 调用方法支持查看 record 类型返回值（json、debug）
+- 全面适配 idea 中 shorten command line 的 classpath file 模式启动应用
+  - [#267](https://github.com/future0923/debug-tools/issues/267) - 附着列表可以识别应用
+  - [#277](https://github.com/future0923/debug-tools/issues/277) - 不用热重载方式启动也可以开启打印 sql
+  - [#278](https://github.com/future0923/debug-tools/issues/278) - 不用热重载方式启动也可以调用方法
+  - 默认类加载器自动选择
+  - 用 `ClassLoader.getSystemResourceAsStream("")` 也可以找到资源文件
+- [#260](https://github.com/future0923/debug-tools/issues/260) - 调用历史支持查看方法返回值
+- [#264](https://github.com/future0923/debug-tools/issues/264) - 设置改为全局存储
+- [#271](https://github.com/future0923/debug-tools/issues/271) - 支持 xxl-job 的3+版本
+- [#268](https://github.com/future0923/debug-tools/issues/268) - 调用方法支持反序列化 hutool 的JSONObject类型
+- [#253](https://github.com/future0923/debug-tools/issues/253) - 调用方法支持嵌套类型的 file、MultipartFile 类型
+- [#266](https://github.com/future0923/debug-tools/issues/266) - 修复内存泄露
+- 修复2026.1+的各种 edt 线程错误
+
 ## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-04-07)
 
 - 改为异步获取类加载器避免应用假死时获取延迟阻塞idea主UI进程
