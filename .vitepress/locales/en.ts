@@ -104,17 +104,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Quickly call java method',
       collapsed: false,
       items: [
-        {text: 'Attach local', link: 'attach-local'},
-        {text: 'Attach remote', link: 'attach-remote'},
-        {text: 'Debug panel', link: 'quick-debug'},
-        {text: 'Run result', link: 'run-result'},
-        {text: 'Method around', link: 'method-around'},
-        {text: 'Trace method', link: 'trace-method'},
-        {text: 'ClassLoader', link: 'classloader'},
-        {text: 'Header parameter', link: 'header'},
-        {text: 'Xxl-job parameter', link: 'xxl-job'},
-        {text: 'Execute last', link: 'execute-last'},
-        {text: 'Invoke Method History', link: 'invoke-record'},
       ]
     },
     {

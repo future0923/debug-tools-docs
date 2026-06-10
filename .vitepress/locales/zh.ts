@@ -132,17 +132,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: '快速调用Java方法',
       collapsed: false,
       items: [
-        {text: '附着本地', link: 'attach-local'},
-        {text: '附着远程', link: 'attach-remote'},
-        {text: '调试面板', link: 'quick-debug'},
-        {text: '运行结果', link: 'run-result'},
-        {text: '前后置脚本', link: 'method-around'},
-        {text: '方法耗时', link: 'trace-method'},
-        {text: '类加载器', link: 'classloader'},
-        {text: 'header参数', link: 'header'},
-        {text: 'xxl-job参数', link: 'xxl-job'},
-        {text: '快捷调用上一次', link: 'execute-last'},
-        {text: '方法调用历史', link: 'invoke-record'},
+        {text: '如何使用', link: 'method-invoke'},
       ]
     },
     {
