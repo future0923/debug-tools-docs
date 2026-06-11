@@ -104,6 +104,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Quickly call java method',
       collapsed: false,
       items: [
+        {text: 'Quick start', link: 'method/quick-start'},
       ]
     },
     {

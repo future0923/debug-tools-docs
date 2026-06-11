@@ -85,7 +85,7 @@ public class UserService {
 }
 ```
 
-After hot reloading, we can call the new methods of UserMapper and UserService through [Call Method Function](attach-local.md) and they can be executed normally.
+After hot reloading, we can call the new methods of UserMapper and UserService through [Call Method Function](method/quick-start) and they can be executed normally.
 
 #### Modify example {#modify-mapper}
 
@@ -123,7 +123,7 @@ public interface UserMapper {
 }
 ```
 
-After hot reloading, we can call the modified method of UserMapper through [Call Method Function](attach-local.md) and it can be executed normally.
+After hot reloading, we can call the modified method of UserMapper through [Call Method Function](method/quick-start) and it can be executed normally.
 
 ## Xml hot reload
 

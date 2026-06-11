@@ -36,8 +36,8 @@ features:
     link: /guide/hot-reload
   - icon: 🚗
     title: 调用任意Java方法
-    details: 快捷调用任意Java方法(本地/远程)，如静态方法、实例方法、通过Spring管理的Bean的方法(Dubbo、XxlJob、MQ等)、Mybatis Mapper方法等，支持多维度多类型参数传参、传递header参数信息进行鉴权、传递XxlJob参数进行任务执行等。不需要编写测试用例或者从API工具一层层调用，大大节省了开发者的调试时间。
-    link: /guide/attach-local
+    details: 直接调用本地或远程应用中的 Java 方法，支持静态方法、实例方法、Spring Bean 方法、Dubbo、XXL-JOB、MQ、MyBatis Mapper 等场景，可传递复杂参数、Header 与任务参数，减少临时代码和重复请求构造。
+    link: /guide/method/quick-start
   - icon: 🤔
     title: 执行Groovy脚本
     details: 依托附着应用，可以执行编写Groovy脚本及对附着应用调试。可以快速获取应用程序信息，执行对应功能代码。并内置常用Groovy函数，帮助开发者定位应用程序问题。

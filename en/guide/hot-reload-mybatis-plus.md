@@ -162,7 +162,7 @@ public class UserService {
 }
 ```
 
-After hot reloading, we can call the newly added methods of UserDao and UserService through [call method function](attach-local.md) and they can be executed normally. 
+After hot reloading, we can call the newly added methods of UserDao and UserService through [call method function](method/quick-start) and they can be executed normally. 
 
 #### Modify
 
@@ -304,4 +304,4 @@ modify the `xml` file
 </mapper>
 ```
 
-After hot reloading, we can call the modified methods of UserDao through [call method function](attach-local.md) and they can be executed normally.
+After hot reloading, we can call the modified methods of UserDao through [call method function](method/quick-start) and they can be executed normally.

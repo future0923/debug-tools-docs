@@ -85,7 +85,7 @@ public class UserService {
 }
 ```
 
-热重载之后，我们通过 [调用方法功能](attach-local.md) 调用 UserMapper 和 UserService 新增的方法都可以正常执行。
+热重载之后，我们通过 [调用方法功能](method/quick-start) 调用 UserMapper 和 UserService 新增的方法都可以正常执行。
 
 #### 修改示例 {#modify-mapper}
 
@@ -140,7 +140,7 @@ public interface UserMapper {
 </mapper>
 ```
 
-热重载之后，我们通过 [调用方法功能](attach-local.md) 调用 UserMapper 修改后的方法都可以正常执行。
+热重载之后，我们通过 [调用方法功能](method/quick-start) 调用 UserMapper 修改后的方法都可以正常执行。
 
 ## Xml热重载
 

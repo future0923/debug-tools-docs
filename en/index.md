@@ -37,7 +37,7 @@ features:
   - icon: 🚗
     title: Call any Java method
     details: Quickly call any Java method (local/remote), such as static methods, instance methods, methods of Beans managed by Spring (Dubbo, XxlJob, MQ, etc.), Mybatis Mapper methods, etc., support multi-dimensional and multi-type parameter passing, passing header parameter information for authentication, passing XxlJob parameters for task execution, etc. There is no need to write test cases or call from API tools layer by layer, which greatly saves developers' debugging time.
-    link: /en/guide/attach-local
+    link: /en/guide/method/quick-start
   - icon: 🤔
     title: Execute Groovy script
     details: With the attached application, you can write Groovy scripts and debug the attached application. You can quickly obtain application information and execute the corresponding functional code. It also has built-in common Groovy functions to help developers locate application problems.

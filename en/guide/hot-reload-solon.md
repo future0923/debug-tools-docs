@@ -2,7 +2,7 @@
 
 - Support adding and modifying beans in Solon container
 
-- [Quickly call java method](attach-local.md) Support calling Solon beans
+- [Quickly call java method](method/quick-start) Support calling Solon beans
 
 ### Controller
 

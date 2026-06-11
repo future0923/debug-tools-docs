@@ -132,7 +132,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: '快速调用Java方法',
       collapsed: false,
       items: [
-        {text: '如何使用', link: 'method-invoke'},
+        {text: '快速开始', link: 'method/quick-start'},
       ]
     },
     {

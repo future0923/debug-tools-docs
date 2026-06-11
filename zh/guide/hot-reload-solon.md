@@ -1,7 +1,7 @@
 # Solon热重载 <Badge type="warning" text="beta" />
 
 - 支持Solon容器的bean新增、修改
-- [快捷调用java方法](attach-local.md)支持调用Solon的bean
+- [快捷调用java方法](method/quick-start)支持调用Solon的bean
 
 ### Controller
 
