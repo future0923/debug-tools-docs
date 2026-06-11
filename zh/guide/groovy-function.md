@@ -318,6 +318,6 @@ getSpringConfig "spring.application.name"
 return result
 ```
 
-通过 [debug](./run-result#debug) 方式查看到返回结果。
+通过 [Debug](./method/quick-start#查看结果) 方式查看到返回结果。
 
 ![groovy_example_debug](/images/groovy_example_debug.png){v-zoom}

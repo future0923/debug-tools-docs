@@ -38,7 +38,6 @@ Groovy 自身天然可以支持 Java 代码，所以 DebugTools 可以编写 Gro
 
 ## 结果
 
-运行结果会在底部弹出展示，提供 [toString](./run-result#toString) 和 [debug](./run-result#debug) 方法查看。
+运行结果会在底部弹出展示，提供 [toString 和 Debug](./method/quick-start#查看结果) 方法查看。
 
 ![groovy_run_result](/images/groovy_run_result.png){v-zoom}
-

@@ -318,6 +318,6 @@ getSpringConfig "spring.application.name"
 return result
 ```
 
-Use [debug](./run-result#debug) to view the returned results.
+Use [Debug](./method/quick-start#view-results) to view the returned results.
 
 ![groovy_example_debug](/images/groovy_example_debug.png){v-zoom}

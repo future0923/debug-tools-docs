@@ -56,7 +56,7 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -XXaltjv
 
 ![run_remote_debug.png](/images/run_remote_debug.png){v-zoom}
 
-打断点后，通过API调用或者使用[DebugTools](../guide/attach-remote)调用远程方法，debug生效。
+打断点后，通过API调用或者使用[DebugTools](../guide/method/quick-start)调用远程方法，debug生效。
 
 ### 例子3 {#example3}
 
@@ -91,4 +91,3 @@ java -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=192.168.0.104
 idea 收到连接后，会自动连接上。断点生效。
 
 ![server_n_idea.png](/images/server_n_idea.png){v-zoom}
-

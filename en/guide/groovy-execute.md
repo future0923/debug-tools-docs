@@ -38,7 +38,6 @@ In the `console.groovy` file, invoke the right-click menu and click the `Run 'co
 
 ## Result
 
-The running results will be displayed in a pop-up at the bottom, and the [toString](./run-result#toString) and [debug](./run-result#debug) methods are provided for viewing.
+The running results will be displayed in a pop-up at the bottom, and the [toString and Debug](./method/quick-start#view-results) methods are provided for viewing.
 
 ![groovy_run_result](/images/groovy_run_result.png){v-zoom}
-
