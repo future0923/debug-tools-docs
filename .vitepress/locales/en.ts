@@ -106,6 +106,8 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         {text: 'Quick start', link: 'method/quick-start'},
         {text: 'Connection Management', link: 'method/connect-manage'},
+        {text: 'Method Invocation', link: 'method/invoke-page'},
+        {text: 'Method Parameter JSON', link: 'method/param-json'},
       ]
     },
     {
