@@ -101,11 +101,21 @@ DebugTools 支持方法级、连接级、项目级三种 Header 设置方式，�
 
 ### XxlJob
 
-`XxlJob` 页签填写 XXL-JOB 参数。调用 `execute` 等任务方法时，把调度参数写入该文本框，插件会随本次请求一起发送。
+`XxlJob` 页签填写 XXL-JOB 调度参数，内容会作为一段普通字符串随本次请求发送。
+
+目标 JVM 执行方法前，DebugTools 会把这段字符串写入 XXL-JOB 上下文。
+
+目标方法内部如果通过 `XxlJobHelper.getJobParam()`、`XxlJobContext.getXxlJobContext().getJobParam()` 等 XXL-JOB API 读取任务参数，就会读到这里填写的内容。
 
 ![method_invoke_xxl_job.png](/images/method/method_invoke_xxl_job.png){v-zoom}
 
-例如截图中调用 `LeaseBrokerWageJob#execute()`，`XxlJob` 页签填写 `2`，下方结果区返回 `Void`，表示任务方法已经按当前参数完成调用。
+例如截图中调用 `LeaseBrokerWageJob#execute()`，`XxlJob` 页签填写 `2`。如果该任务方法内部读取 XXL-JOB 任务参数，就会得到字符串 `2`。
+
+::: tip
+- 这里填写的内容不会进入方法参数 JSON，也不会作为目标方法的某个入参传入。
+- 如果方法本身有入参，仍然需要在 `方法参数` 页签中填写。
+- 普通方法或不依赖 XXL-JOB 上下文的方法可以留空。留空时，本次调用不会额外设置 XXL-JOB 参数。
+:::
 
 ### 链路耗时
 

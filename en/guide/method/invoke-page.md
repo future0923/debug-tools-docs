@@ -98,11 +98,17 @@ For script entry points, template methods, execution order, and examples, see [M
 
 ### XxlJob
 
-The `XxlJob` tab is used to fill in XXL-JOB parameters. When invoking task methods such as `execute`, fill the scheduling parameter in this text box, and DebugTools sends it with the current request.
+The `XxlJob` tab is used to fill in the XXL-JOB scheduling parameter. The content is sent with the current request as a plain string.
+
+Before the target JVM executes the method, DebugTools writes this string into the XXL-JOB context. If the target method reads the task parameter through XXL-JOB APIs such as `XxlJobHelper.getJobParam()` or `XxlJobContext.getXxlJobContext().getJobParam()`, it reads the value filled in this tab.
+
+The content entered here is not part of the method parameter JSON and is not passed as a target method argument. If the method itself has parameters, you still need to fill them in the `Method Parameters` tab.
+
+For ordinary methods, or methods that do not depend on XXL-JOB context, leave this tab empty. When it is empty, DebugTools does not set an extra XXL-JOB parameter for this invocation.
 
 ![method_invoke_xxl_job.png](/images/method/method_invoke_xxl_job.png){v-zoom}
 
-In the screenshot, `LeaseBrokerWageJob#execute()` is invoked with `2` in the `XxlJob` tab. The result area returns `Void`, meaning the task method has completed with the current parameter.
+In the screenshot, `LeaseBrokerWageJob#execute()` is invoked with `2` in the `XxlJob` tab. If this task method reads the XXL-JOB task parameter internally, it receives the string `2`; the result area returns `Void`, meaning the task method has completed.
 
 ### Trace
 
