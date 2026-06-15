@@ -85,7 +85,7 @@
 
 `请求头` 页签填写本次方法调用携带的 Header。只勾选启用的 Header 会参与调用，适合传递鉴权、租户、语言、灰度标识等上下文。
 
-如果连接管理页已经配置了全局 Header 或当前连接 Header，方法调用时可以在这里继续补充本方法专用 Header。相同业务场景需要长期复用时，建议点击 <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="保存请求参数" /> 保存到方法缓存。
+DebugTools 支持方法级、连接级、项目级三种 Header 设置方式，最终优先级为 `方法级 > 连接级 > 项目级`。详细配置入口、合并规则和使用建议详见 [请求头](./request-header)。
 
 ### 方法脚本
 

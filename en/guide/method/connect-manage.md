@@ -142,8 +142,8 @@ After expanding a connection card, you can view the headers already saved for th
 
 ::: tip
 - If the same IDEA project connects to multiple applications, it is recommended to configure authentication, tenant, or environment headers on specific connections to avoid affecting other applications.
-- Method-level headers are also available later, and they have the highest priority.
-- Method-level > connection-level > project-level.
+- Headers can also be configured per method on the method invocation page. For details, see [Request Headers](./request-header).
+- Priority: `Method-level > connection-level > project-level`.
 :::
 
 ### Adjust Connection Configuration
@@ -185,12 +185,14 @@ Deleting a connection opens a confirmation dialog. After deletion, the connectio
 
 Click <img class="dt-inline-icon" src="/icon/method/clear.svg" alt="Clear Cache" /> to open the cache cleanup menu. Select the cache items you want to clear, then click `Clear`. Click `Cancel` to close the menu without clearing anything.
 
+![Clear cache menu](/images/method/clear_cache_menu.png){v-zoom}
+
 The supported cache items are:
 
 - `Core jar cache`: clears the core Jar cache used when DebugTools injects into the target JVM. After upgrading the plugin, when attach fails, or when you suspect the local Agent cache is inconsistent, clear this item and attach the application again.
 - `Method param cache`: clears the method invocation parameter cache. After clearing it, reopening the same method invocation page will no longer restore the previously filled parameters, headers, scripts, and other request form content.
 
-Click `Clear all` to clear the core Jar cache, method parameter cache, and global Header cache at once. After the cleanup finishes, IDEA shows a success notification.
+Click `Clear all` to clear the core Jar cache, method parameter cache, and Global Header settings at once. After the cleanup finishes, IDEA shows a success notification.
 
 ::: warning
 Clearing cache does not disconnect current connections and does not delete remote connection history. However, `Clear all` clears the default headers saved through the Global Header entry, so make sure those headers are no longer needed before running it.

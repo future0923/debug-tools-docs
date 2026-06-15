@@ -108,6 +108,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Connection Management', link: 'method/connect-manage'},
         {text: 'Method Invocation', link: 'method/invoke-page'},
         {text: 'Method Parameter JSON', link: 'method/param-json'},
+        {text: 'Request Headers', link: 'method/request-header'},
       ]
     },
     {

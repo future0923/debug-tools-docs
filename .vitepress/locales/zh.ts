@@ -136,6 +136,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: '连接管理', link: 'method/connect-manage'},
         {text: '方法调用', link: 'method/invoke-page'},
         {text: '方法参数JSON', link: 'method/param-json'},
+        {text: '请求头', link: 'method/request-header'},
       ]
     },
     {

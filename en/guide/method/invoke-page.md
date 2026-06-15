@@ -84,7 +84,7 @@ For the full format, type examples, completion behavior, and editor actions, see
 
 The `Headers` tab is used to fill in headers for the current method invocation. Only enabled headers are included in the request. It is useful for authentication, tenant, language, gray release, and other context values.
 
-If global headers or connection-level headers have already been configured on the connection management page, you can add method-specific headers here. For scenarios that need to be reused for a long time, click <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> to save them to the method cache.
+DebugTools supports headers at three levels: method-level, connection-level, and project-level. The final priority is `Method-level > connection-level > project-level`. For configuration entries, merge rules, and usage recommendations, see [Request Headers](./request-header).
 
 ### Method Script
 
