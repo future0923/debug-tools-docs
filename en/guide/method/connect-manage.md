@@ -152,7 +152,7 @@ After expanding a card, you can directly modify common call configuration for th
 
 - `ClassLoader`: select the ClassLoader used when invoking methods or executing scripts.
 - `SQL`: switch the SQL printing mode.
-- `Method script`: select the default Method Around script for the current connection, or add, view, delete, and refresh scripts.
+- `Method script`: select the default Method Around script for the current connection, or add, view, delete, and refresh scripts. See [Method Pre/Post Scripts](./method-script).
 - `Header`: view the current connection header key-value pairs.
 
 These settings are saved per connection. When multiple applications are attached, each connection can maintain its own ClassLoader, SQL setting, method script, and headers.

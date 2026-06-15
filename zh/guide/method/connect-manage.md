@@ -152,7 +152,7 @@
 
 - `ClassLoader`：选择调用方法、执行脚本时使用的 ClassLoader。
 - `SQL`：切换 SQL 打印模式。
-- `方法脚本`：选择当前连接默认使用的 Method Around 脚本，也可以新增、查看、删除或刷新脚本。
+- `方法脚本`：选择当前连接默认使用的 Method Around 脚本，也可以新增、查看、删除或刷新脚本，详见 [方法前后置脚本](./method-script)。
 - `Header`：查看当前连接 Header 键值。
 
 这些配置按连接保存。多应用同时附着时，每个连接都可以维护自己的 ClassLoader、SQL 设置、方法脚本和 Header。

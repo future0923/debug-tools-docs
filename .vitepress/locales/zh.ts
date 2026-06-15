@@ -137,6 +137,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: '方法调用', link: 'method/invoke-page'},
         {text: '方法参数JSON', link: 'method/param-json'},
         {text: '请求头', link: 'method/request-header'},
+        {text: '前后置脚本', link: 'method/method-script'},
       ]
     },
     {

@@ -88,9 +88,13 @@ DebugTools supports headers at three levels: method-level, connection-level, and
 
 ### Method Script
 
-The `Method Script` tab selects a Method Around script. The script can process parameters, results, or context before and after the target method invocation. It is useful for temporarily preparing login state, environment variables, `ThreadLocal`, and other prerequisites.
+The `Method Script` tab selects a Java script.
 
-After a script is selected, the current connection records the default script name. When opening other method invocation pages under the same connection, this default script is filled in first. If a single method cache has saved a script, the method cache takes precedence.
+The script can execute corresponding code `before` the target method call, `after` it returns, `when an exception occurs`, and `after final cleanup`.
+
+It helps process parameters, results, or context, and is useful for temporarily preparing login state, environment variables, `ThreadLocal`, and other prerequisites.
+
+For script entry points, template methods, execution order, and examples, see [Method Pre/Post Scripts](./method-script).
 
 ### XxlJob
 

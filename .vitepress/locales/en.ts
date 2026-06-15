@@ -109,6 +109,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Method Invocation', link: 'method/invoke-page'},
         {text: 'Method Parameter JSON', link: 'method/param-json'},
         {text: 'Request Headers', link: 'method/request-header'},
+        {text: 'Method Pre/Post Scripts', link: 'method/method-script'},
       ]
     },
     {
