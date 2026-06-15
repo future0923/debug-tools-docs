@@ -135,13 +135,15 @@
 
 连接管理页提供两类 Header：
 
-- <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" />：通过工具栏入口配置，对后续调用默认生效。
-- <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" />：在单个连接卡片点击 Header 按钮配置，只对当前连接生效。
+- 通过工具栏 <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> 入口配置，对所有连接应用生效。
+- 在单个连接卡片点击 <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> 按钮配置，只对当前连接生效。
 
-展开连接卡片后，可以在详情区域查看当前连接已经保存的 Header。这里是只读展示，如需修改请通过连接卡片上的 Header 按钮进入配置弹窗。
+展开连接卡片后，可以在详情区域查看当前连接已经保存的 Header。这里是只读展示，如需修改请通过连接卡片上的 <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> 按钮进入配置弹窗。
 
 ::: tip
-如果同一个 IDEA 项目同时连接多个应用，建议把鉴权、租户、环境标识等 Header 配置在具体连接上，避免不同应用之间互相影响。
+- 如果同一个 IDEA 项目同时连接多个应用，建议把鉴权、租户、环境标识等 Header 配置在具体连接上，避免不同应用之间互相影响。
+- 后面还有方法级别的 header，优先级是最高的。
+- 方法级 > 连接级 > 项目级
 :::
 
 ### 调整连接配置

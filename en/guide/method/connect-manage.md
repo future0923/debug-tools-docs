@@ -135,13 +135,15 @@ Press Enter to save the remark, or click the save button. Press `Esc` or click t
 
 The connection management page provides two types of headers:
 
-- <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" />: configured through the toolbar entry and used as the default for later calls.
-- <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" />: configured on a single connection card and applied only to that connection.
+- Configure through the toolbar <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> entry to apply headers to all connected applications.
+- Click <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> on a single connection card to configure headers that apply only to that connection.
 
-After expanding a connection card, you can view the headers already saved for the current connection in the details area. This area is read-only. To modify headers, open the Header dialog from the connection card.
+After expanding a connection card, you can view the headers already saved for the current connection in the details area. This area is read-only. To modify headers, open the Header dialog from <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> on the connection card.
 
 ::: tip
-If the same IDEA project connects to multiple applications, it is recommended to configure authentication, tenant, or environment headers on specific connections to avoid affecting other applications.
+- If the same IDEA project connects to multiple applications, it is recommended to configure authentication, tenant, or environment headers on specific connections to avoid affecting other applications.
+- Method-level headers are also available later, and they have the highest priority.
+- Method-level > connection-level > project-level.
 :::
 
 ### Adjust Connection Configuration
