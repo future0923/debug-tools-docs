@@ -105,6 +105,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'Quick start', link: 'method/quick-start'},
+        {text: 'Connection Management', link: 'method/connect-manage'},
       ]
     },
     {

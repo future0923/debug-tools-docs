@@ -133,6 +133,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: '快速开始', link: 'method/quick-start'},
+        {text: '连接管理', link: 'method/connect-manage'},
       ]
     },
     {
