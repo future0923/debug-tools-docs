@@ -114,7 +114,7 @@ In the screenshot, `LeaseBrokerWageJob#execute()` is invoked with `2` in the `Xx
 
 The `Trace` tab is used to enable trace collection for the current invocation. After enabling it, you can configure the maximum depth, whether to record MyBatis and SQL, whether to skip getter/setter methods, and use business packages or ignored packages to narrow the collection range.
 
-After the invocation completes, the result area shows a trace view for inspecting the method call chain, SQL, and execution time. If you only need to verify the return value, keep it disabled to reduce extra collection overhead in the target application.
+After the invocation completes, the result area shows a trace view for inspecting the method call chain, SQL, and execution time. For detailed options, trace tree operations, and usage recommendations, see [Trace](./trace-method).
 
 ### Reactive
 

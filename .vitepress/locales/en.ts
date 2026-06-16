@@ -110,6 +110,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Method Parameter JSON', link: 'method/param-json'},
         {text: 'Request Headers', link: 'method/request-header'},
         {text: 'Method Pre/Post Scripts', link: 'method/method-script'},
+        {text: 'Trace', link: 'method/trace-method'},
       ]
     },
     {
