@@ -137,20 +137,71 @@ DebugTools 支持方法级、连接级、项目级三种 Header 设置方式，�
 
 ## 查看结果
 
-请求返回前，结果区显示 `暂无请求结果`。普通返回值会嵌入结果面板，支持 `toString`、`JSON`、`调试`、`追踪`、`控制台` 等视图，实际出现哪些页签取决于本次返回内容和调用配置。
+请求返回前，结果区显示 `暂无请求结果`。响应到达后，结果区会按本次返回类型切换为普通结果、异常结果或 Reactive 流式结果。普通调用如果开启了链路耗时，还会额外出现 `追踪` 页签。
+
+### toString
+
+`toString` 是普通调用成功后的默认页签，用来快速查看目标方法返回值的文本形式。
+
+![result_to_string.png](/images/method/result_to_string.png){v-zoom}
+
+- `void` 方法显示 `Void`。
+- 返回 `null` 时显示 `NULL`。
+- 返回数字、字符串、布尔值、日期等简单类型时，显示转换后的文本。
+- 返回对象时，显示对象自己的 `toString()` 结果。如果业务类没有重写 `toString()`，这里通常只会看到类似 `com.example.User@xxxx` 的对象标识。
+
+### JSON
+
+`JSON` 页签会把结果转换成 JSON 文本展示
 
 ![result_json.png](/images/method/result_json.png){v-zoom}
 
-`Void` 和 `Null` 返回值可以直接在 `toString` 或文本结果中查看，但不支持调试树展开。方法抛出异常时，结果区会展示异常结果，便于复制堆栈或回到源码继续定位。
+不同返回类型的展示方式略有区别：
 
-对于流式响应，页面会在首次事件到达时切换为流式结果面板。调用未结束时可以点击 `停止` 取消当前流式请求；再次发起请求或关闭标签页时，插件也会主动终止仍在推送的流式响应。
+- `void` 会展示为包含 `Void` 的结果对象。
+- `null` 会展示为包含 `Null` 的结果对象。
+- 简单类型会包装到 `result` 字段中展示。
+- 对象类型会在切换到 `JSON` 页签时，再从目标应用读取对象详情并序列化。
 
-## 参数缓存和调用记录
+### 调试
 
-点击 <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="保存请求参数" /> 会保存当前方法的参数 JSON、Header、XXL-JOB 参数、链路配置和脚本选择。下次打开同一个方法时，页面会自动恢复这些内容。
+`调试` 页签把返回结果展示成可展开的树，适合查看对象字段、集合元素、Map 键值和嵌套结构。
 
-每次发起请求时，插件会生成调用记录，并在响应回来后补充结果。后续从调用记录恢复请求时，会回填当时的参数 JSON、Header、ClassLoader、XXL-JOB 参数、链路配置和方法脚本，便于复现历史调用。
+![result_debug.png](/images/method/result_debug.png){v-zoom}
 
-::: warning
-方法调用页会直接在目标 JVM 中执行当前方法。对写数据库、发消息、调用外部接口或触发定时任务的方法，运行前请确认应用环境、Header、ClassLoader 和参数都正确。
+普通对象会在切换到 `调试` 页签时按需读取对象详情。树节点展开后，可以继续查看子字段和值；对于只想确认某个字段是否正确的场景，通常比复制整段 JSON 更直观。
+
+::: tip
+- `void` 和 `null` 返回值不支持调试树展开。
+- 简单类型会作为 `result` 叶子节点展示。
 :::
+
+### exception
+
+方法抛出异常、参数解析失败、目标类或方法查找失败时，结果区会显示异常结果。异常结果包含 `控制台` 和 `调试` 两个页签：
+
+- `控制台` 页签展示异常堆栈，适合复制错误信息、定位抛错类和行号。
+
+![result_exception_console.png](/images/method/result_exception_console.png){v-zoom}
+
+- `调试` 页签展示异常对象详情，适合查看异常类型、message、cause、suppressed 等结构化信息。
+
+![result_exception_debug.png](/images/method/result_exception_debug.png){v-zoom}
+
+异常结果不会进入普通返回值的 `toString`、`JSON` 页签。修正参数、Header、ClassLoader 或目标方法代码后，再次点击 <img class="dt-inline-icon" src="/icon/method/idea_execute.svg" alt="请求" /> 会清空旧异常并展示新结果。
+
+### 追踪
+
+`追踪` 页签用于查看本次方法调用采集到的 Trace 树。只有在 `链路耗时` 页签勾选 `追踪方法耗时` 并成功完成调用后，结果区才会显示这个页签。
+
+![method_trace_result_tree.png](/images/method/method_trace_result_tree.png){v-zoom}
+
+详细配置项、节点说明和结果树操作见 [链路耗时](./trace-method)。
+
+### Reactive
+
+当目标方法返回 Reactive 类型时，结果区会在首个流式事件到达后切换为流式结果面板，而不是普通的 `toString`、`JSON`、`调试` 页签。
+
+![method_reactive_sse.gif](/images/method/method_reactive_sse.gif){v-zoom}
+
+详细配置项、提取路径写法和示例见 [Reactive](./reactive)。

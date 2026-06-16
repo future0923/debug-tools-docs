@@ -128,13 +128,74 @@ For detailed display behavior, extract path rules, and subscription cancellation
 
 ## View Results
 
-Before the request returns, the result area shows `No request result`. A normal return value is embedded in the result panel. It supports views such as `toString`, `JSON`, `Debug`, `Trace`, and `Console`. The actual tabs depend on the current return content and invocation configuration.
+Before the request returns, the result area shows `No request result`. After the response arrives, the result area switches to a normal result, exception result, or Reactive streaming result depending on the return type. For a normal invocation, if trace collection is enabled, an additional `Trace` tab is shown.
+
+### toString
+
+`toString` is the default tab after a normal successful invocation. It is used to quickly inspect the return value as text.
+
+![result_to_string.png](/images/method/result_to_string.png){v-zoom}
+
+- A `void` method shows `Void`.
+- A `null` return value shows `NULL`.
+- Numbers, strings, booleans, dates, and other simple types are shown as converted text.
+- Object return values show the object's own `toString()` result. If the business class does not override `toString()`, this usually looks like `com.example.User@xxxx`.
+
+### JSON
+
+The `JSON` tab converts the result into JSON text.
 
 ![result_json.png](/images/method/result_json.png){v-zoom}
 
-`Void` and `Null` return values can be viewed directly in `toString` or the text result, but they cannot be expanded in the debug tree. If the method throws an exception, the result area displays the exception result so you can copy the stack trace or return to the source code for further diagnosis.
+Different return types are displayed slightly differently:
 
-For streaming responses, the page switches to the streaming result panel when the first event arrives. While the invocation is still running, click `Stop` to cancel the current streaming request. Starting another request or closing the tab also terminates any active streaming response.
+- `void` is displayed as a result object containing `Void`.
+- `null` is displayed as a result object containing `Null`.
+- Simple types are wrapped in the `result` field.
+- Object types are loaded from the target application and serialized when you switch to the `JSON` tab.
+
+### Debug
+
+The `Debug` tab displays the return result as an expandable tree. It is useful for inspecting object fields, collection elements, map entries, and nested structures.
+
+![result_debug.png](/images/method/result_debug.png){v-zoom}
+
+For normal objects, details are loaded on demand when you switch to the `Debug` tab. After expanding tree nodes, you can continue inspecting child fields and values. This is usually more direct than copying the whole JSON when you only need to verify one field.
+
+::: tip
+- `void` and `null` return values cannot be expanded in the debug tree.
+- Simple types are displayed as a `result` leaf node.
+:::
+
+### exception
+
+When the method throws an exception, parameter parsing fails, or the target class or method cannot be found, the result area shows an exception result. Exception results contain two tabs: `Console` and `Debug`.
+
+- The `Console` tab shows the exception stack trace, which is useful for copying error information and locating the class and line number where the error was thrown.
+
+![result_exception_console.png](/images/method/result_exception_console.png){v-zoom}
+
+- The `Debug` tab shows exception object details, including the exception type, message, cause, and suppressed exceptions.
+
+![result_exception_debug.png](/images/method/result_exception_debug.png){v-zoom}
+
+Exception results do not enter the normal `toString` or `JSON` tabs. After fixing parameters, headers, ClassLoader, or target method code, click <img class="dt-inline-icon" src="/icon/method/idea_execute.svg" alt="Request" /> again to clear the old exception and show the new result.
+
+### Trace
+
+The `Trace` tab is used to inspect the Trace tree collected for the current method invocation. It is shown only after `Trace method time` is enabled in the `Trace` tab and the invocation completes successfully.
+
+![method_trace_result_tree.png](/images/method/method_trace_result_tree.png){v-zoom}
+
+For detailed configuration, node descriptions, and result tree operations, see [Trace](./trace-method).
+
+### Reactive
+
+When the target method returns a Reactive type, the result area switches to the streaming result panel after the first streaming event arrives, instead of showing the normal `toString`, `JSON`, or `Debug` tabs.
+
+![method_reactive_sse.gif](/images/method/method_reactive_sse.gif){v-zoom}
+
+For detailed configuration, extract path rules, and examples, see [Reactive](./reactive).
 
 ## Parameter Cache and Invocation Records
 
