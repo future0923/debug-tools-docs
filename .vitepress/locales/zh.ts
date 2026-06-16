@@ -140,6 +140,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: '前后置脚本', link: 'method/method-script'},
         {text: '链路耗时', link: 'method/trace-method'},
         {text: 'Reactive', link: 'method/reactive'},
+        {text: '调用历史', link: 'method/invoke-record'},
       ]
     },
     {

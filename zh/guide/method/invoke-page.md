@@ -205,3 +205,13 @@ DebugTools 支持方法级、连接级、项目级三种 Header 设置方式，�
 ![method_reactive_sse.gif](/images/method/method_reactive_sse.gif){v-zoom}
 
 详细配置项、提取路径写法和示例见 [Reactive](./reactive)。
+
+## 调用历史
+
+方法调用完成后，如果已开启调用历史，DebugTools 会把本次请求和结果保存到本机。
+
+需要重新运行、回看返回值、失败堆栈，或复用之前的参数继续调试时。
+
+![invoke_record_tree.png](/images/method/invoke_record_tree.png){v-zoom}
+
+详细操作见 [调用历史](./invoke-record)。

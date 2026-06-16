@@ -197,11 +197,17 @@ When the target method returns a Reactive type, the result area switches to the 
 
 For detailed configuration, extract path rules, and examples, see [Reactive](./reactive).
 
-## Parameter Cache and Invocation Records
+## Parameter Cache and Invocation History
 
 Click <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> to save the current method parameter JSON, headers, XXL-JOB parameter, trace configuration, and selected script. The next time the same method is opened, the page restores these values automatically.
 
-Every invocation creates a record. After the response returns, DebugTools supplements the record with the result. When restoring a request from invocation history, DebugTools fills in the parameter JSON, headers, ClassLoader, XXL-JOB parameter, trace configuration, and method script from that record, making it easier to reproduce previous calls.
+After a method invocation completes, if invocation history is enabled, DebugTools saves the request and result locally.
+
+When you need to rerun a request, review a return value, inspect a failure stack, or reuse previous parameters for further debugging, open invocation history from the DebugTools tool window.
+
+![invoke_record_tree.png](/images/method/invoke_record_tree.png){v-zoom}
+
+For detailed actions, see [Invocation History](./invoke-record).
 
 ::: warning
 The method invocation page directly executes the current method in the target JVM. For methods that write to a database, send messages, call external services, or trigger scheduled jobs, confirm the application environment, headers, ClassLoader, and parameters before running.
