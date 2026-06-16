@@ -111,6 +111,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Request Headers', link: 'method/request-header'},
         {text: 'Method Pre/Post Scripts', link: 'method/method-script'},
         {text: 'Trace', link: 'method/trace-method'},
+        {text: 'Reactive', link: 'method/reactive'},
       ]
     },
     {

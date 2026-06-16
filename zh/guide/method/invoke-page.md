@@ -121,13 +121,19 @@ DebugTools 支持方法级、连接级、项目级三种 Header 设置方式，�
 
 `链路耗时` 页签用于打开本次调用的 Trace。启用后可以配置最大深度，并选择是否记录 MyBatis、SQL、是否跳过 get/set 方法，还可以用业务包和忽略包缩小采集范围。
 
-调用完成后，结果区会出现追踪视图，用于查看方法调用链路、SQL 和耗时信息。详细配置项、结果树操作和使用建议见 [链路耗时](./trace-method)。
+调用完成后，结果区会出现追踪视图，用于查看方法调用链路、SQL 和耗时信息。
+
+详细配置项、结果树操作和使用建议见 [链路耗时](./trace-method)。
 
 ### Reactive
 
 当目标方法返回 `Flux`、`Mono`、`org.reactivestreams.Publisher` 或 `java.util.concurrent.Flow.Publisher` 时，页面会显示 `Reactive` 页签。这里的配置只影响工具窗口展示，不改变远端方法执行逻辑。
 
+调试大模型、Agent、SSE 等 AI 流式接口时，它可以把分段事件直接提取并拼接成连续结果，是排查 AI 流式输出的调试神器。
+
 `返回后先展示` 可以选择事件列表或提取结果。使用提取结果时，`提取路径` 支持按 JSON Path 从流式 `data` 中取值并拼接，例如 `$.content`；也可以用 `$[event].path` 只提取指定 SSE event 的字段。
+
+详细展示方式、提取路径规则和停止订阅说明见 [Reactive](./reactive)。
 
 ## 查看结果
 

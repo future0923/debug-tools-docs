@@ -139,6 +139,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: '请求头', link: 'method/request-header'},
         {text: '前后置脚本', link: 'method/method-script'},
         {text: '链路耗时', link: 'method/trace-method'},
+        {text: 'Reactive', link: 'method/reactive'},
       ]
     },
     {

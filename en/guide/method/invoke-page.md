@@ -120,7 +120,11 @@ After the invocation completes, the result area shows a trace view for inspectin
 
 When the target method returns `Flux`, `Mono`, `org.reactivestreams.Publisher`, or `java.util.concurrent.Flow.Publisher`, the page shows the `Reactive` tab. These settings only affect how the tool window displays the result; they do not change the remote method execution logic.
 
+When debugging LLM, Agent, SSE, and other AI streaming APIs, it can extract fragmented events and join them into a continuous result, which makes it especially useful for diagnosing AI streaming output.
+
 `Display after return` can show either the event list or extracted result. When using extracted result, `Extract path` supports JSON Path for extracting and joining values from streaming `data`, such as `$.content`. You can also use `$[event].path` to extract only fields from a specified SSE event.
+
+For detailed display behavior, extract path rules, and subscription cancellation, see [Reactive](./reactive).
 
 ## View Results
 
