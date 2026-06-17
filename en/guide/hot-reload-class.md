@@ -70,9 +70,11 @@ public class StaticClass {
 After being overloaded, the values of variables var1, var2, and var3 are changed.
 
 
-::: tip
+::: warning
 Hot reloading of static variables will re-execute the class's `clinit` method, so <span style="color: red;">hot reloading will overwrite the runtime value with the value initialized at compile time</span>.
+:::
 
+::: details Cause
 If the following changes are not overridden, var1 will not change from String to Integer.
 ```java
 private static String var1 = "debug"; // [!code --]
@@ -87,7 +89,9 @@ private static Map<String, Long> var1 = new HashMap<>();
 
 Therefore, <span style="color: red;">DebugTools will overwrite runtime data by default, but you can prevent overwriting of field runtime data using the following method</span>.
 
-**Method 1:** Specify in the static code library that the variable should only be assigned a value when it is empty, such as:
+:::
+
+::: details Solution 1: assign the variable only when it is empty in the static code block
 
 ```java
 private static Map<String, Long> var1;
@@ -99,20 +103,28 @@ static {
     }
 }
 ```
+:::
 
-**Method 2: Configure in plugin**
+::: details Solution 2: configure it in the plugin
 
-When the mouse hovers over a field, you can add configuration options via the right-click menu to ignore the field during hot reload, so that the runtime value is not overridden by the compile-time value. After adding, an icon will appear at the top of the line, and clicking it will remove the field from the ignore list.
+When the mouse is on a static field, open the context menu and click `Ignore this static field during hot reload`.
 
-![hotswap_ignores_this_field.png](/images/hotswap_ignores_this_field.png){v-zoom}
+After adding it, a hint icon appears in the gutter. Click the icon to remove the ignore rule from the current configuration.
 
-Adding configuration options to the page allows users to write and switch between different configuration files.
+![hot_reload_ignore_static_field_action.png](/images/method/hot_reload_ignore_static_field_action.png){v-zoom}
 
-![setting_hotswap_ignores_field.png](/images/setting_hotswap_ignores_field.png){v-zoom}
+You can also maintain ignored static field configuration in `Settings | DebugTools | Hot Reload`. This page can switch the active configuration file, reload the list, view details, or add a new configuration.
 
-The file content is a regular conf file; both `class#fieldname` and `class.fieldname` are acceptable, and comments are supported (`#` and `;`).
+![hot_reload_ignore_static_field_setting.png](/images/method/hot_reload_ignore_static_field_setting.png){v-zoom}
 
-![hotswap_ignores_field_conf.png](/images/hotswap_ignores_field_conf.png){v-zoom}
+- Dropdown: select the ignored static field configuration used when hot reload starts. The default configuration name is `default`.
+- `Reload`: reread the configuration file list from the local configuration directory.
+- `Detail`: open the selected configuration file so you can edit the rules directly.
+- `Add`: create a new ignored static field configuration file, useful for saving different rule sets for different projects or scenarios.
+
+Configuration files are stored under `.debugTools/IgnoreStaticField/` in the local user directory. The file content is regular `.conf` text. Rules support both `class#fieldName` and `class.fieldName`, and comments starting with `#` or `;`.
+
+![hot_reload_ignore_static_field_conf.png](/images/method/hot_reload_ignore_static_field_conf.png){v-zoom}
 :::
 
 ## Enumeration class information changes.

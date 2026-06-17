@@ -16,7 +16,9 @@
 
 ![start_hotswap.png](/images/start_hotswap.png){v-zoom}
 
-如果觉得每次都要展开 `More Actions` 比较繁琐，可以将按钮配置在 `Main Toolbar` 中，比如在右侧添加按钮如下图所示：
+::: details 如果觉得每次都要展开 `More Actions` 比较繁琐，可以将按钮配置在 `Main Toolbar` 中
+
+比如在右侧添加按钮如下图所示：
 
 ![main_toolbar.png](/images/main_toolbar.png){v-zoom}
 
@@ -27,6 +29,8 @@
 这样就可以在外面点击了
 
 ![start_hotswap_toolbar.png](/images/start_hotswap_toolbar.png){v-zoom}
+
+:::
 
 ::: tip
 - 热重载需要特定的jdk才能生效，请先参考[JDK安装](install#jdk)完成JDK的初始化。
@@ -197,3 +201,25 @@ MyBatisPlus 目前支持在 `Spring` 环境下，其他情况未知。
 ### 3.15 其他
 
 其他情况热重载尝试一下，这里不一一举例了，如果不能生效麻烦提交个 [issues](https://github.com/future0923/debug-tools/issues) 反馈一下。
+
+## 4. 禁用热重载插件
+
+如果某个热重载插件在当前项目中存在兼容问题，可以先在 `Settings | DebugTools | 热重载` 中临时禁用指定插件，再重新以热重载方式启动应用。
+
+![hot_reload_disable_plugins.png](/images/method/hot_reload_disable_plugins.png){v-zoom}
+
+`禁用插件` 会把选中的插件名称写入热重载启动参数 `disabledPlugins`。Agent 初始化时会根据插件名跳过对应插件，适合用于临时规避某个框架插件引起的启动异常、类转换异常或热重载副作用。
+
+可选插件按类型分组：
+
+| 分组 | 插件 |
+| --- | --- |
+| Base | `JdkPlugin`、`Class`、`Proxy`、`HotSwapper`、`WatchResources` |
+| Third Party | `Spring`、`Feign`、`MyBatis`、`Solon` |
+| Other | `IntelliJIdea`、`HibernateValidator`、`EasyExcel`、`Gson`、`FastJson`、`HuTool` |
+
+::: warning
+- 这个配置只影响后续重新启动的热重载应用；已经启动的应用不会因为修改设置立即卸载插件。
+- 禁用插件会关闭对应能力。例如禁用 `Spring` 后，Spring Bean 新增/修改相关的热重载能力也会失效。
+- 如果只是排查问题，建议一次只禁用一个插件，确认影响范围后再决定是否长期保留。
+:::

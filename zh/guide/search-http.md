@@ -1,8 +1,8 @@
-# 搜索 http 地址以直接跳转到相应的方法定义 {#search-http-url}
+# 搜索 HTTP 地址以直接跳转到对应方法定义 {#search-http-url}
 
 ## 用途 {#purpose}
 
-当我们开发项目时，通过 Spring 的 Mapping 注解定义了多个方法，生成最终了 url，当我们通过 url 搜索对应的代码位置时十分的不方便。
+在 Spring、Spring Boot 或 WebFlux 项目中，一个 HTTP 地址通常由类上的 Mapping 和方法上的 Mapping 组合而成。DebugTools 可以根据输入的 URL 在项目中查找匹配的接口方法，并直接跳转到代码定义位置。
 
 <video controls width="640">
   <source src="https://download.debug-tools.cc/mp4/search_url.mp4" type="video/mp4">https://download.debug-tools.cc/mp4/search_url.mp4
@@ -12,41 +12,41 @@
 
 ### 快捷键
 
-默认快捷键 macOS `command option N` / windows `ctrl alt N`，可以在如下位置修改自己想要的快捷键。
+默认快捷键为 macOS `command option N` / Windows `ctrl alt N`，也可以在 IDEA 的快捷键设置中修改。
 
-![search_http_keymap.png](/images/search_http_keymap.png){v-zoom}
+![search_http_keymap.png](/images/url/search_http_keymap.png){v-zoom}
 
-唤醒搜索框输入url，选择对应的url后跳转代码定义的位置
+唤醒搜索框后输入 URL，选择匹配项即可跳转到代码定义位置。
 
-- 支持分词
+- 支持分词搜索
 
-![search_http.png](/images/search_http.png){v-zoom}
+![search_http.png](/images/url/search_http.png){v-zoom}
 
-- 支持注释
+- 支持按注释搜索
 
-![search_http_chinese.png](/images/search_http_chinese.png){v-zoom}
+![search_http_chinese.png](/images/url/search_http_chinese.png){v-zoom}
 
-- 支持注释中文及中文首字母
+- 支持中文注释和中文首字母搜索
 
-![search_http_chinese_first.png](/images/search_http_chinese_first.png){v-zoom}
+![search_http_chinese_first.png](/images/url/search_http_chinese_first.png){v-zoom}
 
-### 工具栏
+### 工具窗口
 
-点击 Idea 右侧的 <img src="/pluginIcon.svg" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> 工具栏唤醒 DebugTools 的窗口，在左侧点击 <img src="/icon/search.svg" alt="S" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> 唤醒搜索框。
+点击 IDEA 右侧的 <img src="/pluginIcon.svg" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> 工具栏打开 DebugTools 窗口，再点击左侧的 <img src="/icon/search.svg" alt="S" style="display: inline-block; width: 20px; height: 20px; vertical-align: middle;" /> 打开 HTTP 地址搜索框。
 
-![search_tools_window.png](/images/search_tools_window.png){v-zoom}
+![search_tools_window.png](/images/url/search_tools_window.png){v-zoom}
 
-### 是否搜索依赖jar中的url
+### 搜索依赖 JAR 中的 URL
 
-![config_search_jar_url.png](/images/config_search_jar_url.png){v-zoom}
+![search_settings.png](/images/url/search_settings.png){v-zoom}
 
-开启配置后可以搜索依赖jar包中的url信息。
+开启该配置后，DebugTools 会同时搜索依赖 JAR 包中的 URL 信息。
 
-### 匹配Path信息 {#match-path}
+## 匹配 Path 信息 {#match-path}
 
-#### 强大的信息提取
+### URL 信息提取
 
-::: tip 无论你如何输入url的格式(如下面)都会提提取出来 `/test` 信息
+::: tip 无论你输入下面哪种 URL 格式，DebugTools 都会提取出 `/test` 参与匹配
 - `localhost/test?test=12`
 - `http://localhost/test?test=12`
 - `https://debug-tools.cc/test?test=12`
@@ -63,31 +63,45 @@
 
 ![url-extract.png](/images/url-extract.png){v-zoom}
 
-#### 数字参数模糊匹配
+### 请求方法前缀过滤
 
-开启后将url中数字类型PathVariable信息替换为{}进行搜索匹配。
+如果项目中同一个 Path 同时存在多个请求方法，可以在 URL 前增加 HTTP 方法前缀，只查看指定方法的匹配结果。
 
-如搜索 `test/123/0`，实际转为`test/{}/{}`进行搜索。
+支持的前缀包括：`GET`、`POST`、`PUT`、`DELETE`、`PATCH`、`HEAD`、`OPTIONS`、`TRACE`、`REQUEST`，大小写不敏感。
+
+::: tip 过滤请求方法示例
+- `GET /patient`
+- `put /patient`
+- `DELETE http://localhost:8080/patient?id=1`
+:::
+
+输入 `put /patient` 时，DebugTools 会先识别 `PUT` 方法，再使用 `/patient` 进行 URL 匹配，并且只显示 `PUT /patient` 对应的方法。没有输入方法前缀时，仍保持原来的行为，按 Path 匹配所有请求方法。
+
+### 数字参数模糊匹配
+
+开启后会将 URL 中数字类型的 PathVariable 信息替换为 `{}` 进行搜索匹配。
+
+例如搜索 `test/123/0`，实际会转换为 `test/{}/{}` 进行搜索。
 
 配置：
 
-![search_replace_number_setting.png](/images/search_replace_number_setting.png){v-zoom}
+![search_settings.png](/images/url/search_settings.png){v-zoom}
 
 效果：
 
-![search_replace_number.png](/images/search_replace_number.png){v-zoom}
+![search_replace_number.png](/images/url/search_replace_number.png){v-zoom}
 
-#### 移除ContextPath信息
+### 移除 ContextPath 信息
 
-很多时候我们会配置 `server.servlet.context-path`，这样在搜索的时候就会无法匹配到对应的方法；或者有网关转发时会有多余的 Path 信息。
+很多项目会配置 `server.servlet.context-path`，这会导致直接按 URL 搜索时无法匹配到对应方法；经过网关转发时，也可能出现多余的 Path 信息。
 
-我们在可以在配置中配置要移除的 `ContextPath` 信息，多个信息可以通过分隔符进行切分。DebugTools支持的分隔符有 `,` 、`，` 和 `换行符号`(`\r`、`\n`、`\r\n`)。
+可以在配置中填写需要移除的 `ContextPath`。多个配置可以通过分隔符切分，DebugTools 支持的分隔符包括 `,`、`，` 和换行符（`\r`、`\n`、`\r\n`）。
 
-![config_context_path.png](/images/config_context_path.png){v-zoom}
+![search_settings.png](/images/url/search_settings.png){v-zoom}
 
-上面的配置我都会得到要移除的配置为`contextPath1`、`contextPath2`、`contextPath3` 和 `contextPath4`。
+上图配置会解析出需要移除的 `contextPath1`、`contextPath2`、`contextPath3` 和 `contextPath4`。
 
-::: tip 当你配置了移除的ContentPath信息，无论你如何输入url的格式(如下面)都会提提取出来 `/test` 信息
+::: tip 配置需要移除的 ContextPath 后，无论你输入下面哪种 URL 格式，DebugTools 都会提取出 `/test` 参与匹配
 - `localhost/contextPath1/test?test=12`
 - `http://localhost/contextPath2/test?test=12`
 - `https://debug-tools.cc/contextPath3/test?test=12`
@@ -102,4 +116,4 @@
 - `http://192.31.1.3:31/contextPath4/test`
 :::
 
-![remove_context_path_demo.png](/images/remove_context_path_demo.png){v-zoom}
+![remove_context_path_demo.png](/images/url/remove_context_path_demo.png){v-zoom}

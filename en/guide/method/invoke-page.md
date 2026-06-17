@@ -29,6 +29,26 @@ Click the method invocation entry from the method gutter icon or the context men
 
 You can open multiple method requests at the same time. When switching tabs, each method keeps its own parameters, target connection, and result area, which is useful when repeatedly verifying several Service, Mapper, or Job methods.
 
+## Window Toolbar
+
+The outer method invocation workspace is hosted by the DebugTools tool window. The vertical toolbar switches between connection management, method invocation, invocation history, SQL history, and other pages. After switching to the method invocation page, the top area shows the opened request tabs.
+
+![method_invoke_window_toolbar.png](/images/method/method_invoke_window_toolbar.png){v-zoom}
+
+The request tab context menu manages tabs in the current method invocation workspace:
+
+| Menu | Description |
+| --- | --- |
+| `Close` | Close the currently selected method request tab. |
+| `Close Other Tabs` | Keep the current tab and close the other opened method request tabs. |
+| `Close All Tabs` | Close all request tabs in the current method invocation workspace. |
+| `Close Tabs to the Left` | Close request tabs opened before the current tab. It is unavailable when there are no closable tabs on the left. |
+| `Close Tabs to the Right` | Close request tabs opened after the current tab. It is unavailable when there are no closable tabs on the right. |
+| `Tab Layout -> Single Row` | Display all request tabs in one row. When there are many tabs, switch through scrolling or the overflow menu. |
+| `Tab Layout -> Multiple Rows` | Wrap request tabs into multiple rows when there are many tabs, making more opened methods visible directly. |
+
+The default tab layout can also be configured in `Settings | DebugTools | Method Invocation`. Changes from the context menu take effect immediately for the currently opened method invocation workspace.
+
 ## Page Toolbar
 
 The toolbar on the method invocation page only affects the current request tab.

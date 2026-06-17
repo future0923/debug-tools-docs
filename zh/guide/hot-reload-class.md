@@ -68,9 +68,11 @@ public class StaticClass {
 
 变量 var1 、var2 、var3 更改为重载之后的值。
 
-::: tip 注意
+::: warning 
 静态变量的热重载会重新执行class的`clinit`方法，所以<span style="color: red;">热重载会编译时初始化的值覆盖掉运行时的值</span>。 
+:::
 
+::: details 产生原因
 如下面的变动如果不覆盖，则 var1 不会从 String 类型变为 Integer。
 ```java
 private static String var1 = "debug"; // [!code --]
@@ -85,7 +87,9 @@ private static Map<String, Long> var1 = new HashMap<>();
 
 所以<span style="color: red;">DebugTools默认会覆盖运行时数据，但你可以通过如下方法禁止覆盖字段运行时数据</span>。
 
-**方法1**：在静态代码库写上变量为空时候才赋值，如：
+:::
+
+::: details 解决方法1：在静态代码库写上变量为空时候才赋值，如：
 
 ```java
 private static Map<String, Long> var1;
@@ -97,20 +101,28 @@ static {
     }
 }
 ```
+:::
 
-**方法2**：在插件中配置
+::: details 解决方法2：在插件中配置
 
-鼠标在字段上时可以通过右键菜单增加配置可以在热重载时忽略字段，使其可以不用编译时的值覆盖运行时的值，添加之后在行头有icon提示，点击可以移出忽略。
+鼠标在静态字段上时，可以通过右键菜单点击 `热重载时忽略该静态字段`。
 
-![hotswap_ignores_this_field.png](/images/hotswap_ignores_this_field.png){v-zoom}
+添加之后行头会显示提示图标，点击该图标可以从当前配置中移出忽略规则。
 
-在页面增加配置，可以编写和切换对应的配置文件
+![hot_reload_ignore_static_field_action.png](/images/method/hot_reload_ignore_static_field_action.png){v-zoom}
 
-![setting_hotswap_ignores_field.png](/images/setting_hotswap_ignores_field.png){v-zoom}
+也可以在 `Settings | DebugTools | 热重载` 中维护忽略静态字段配置。这里可以切换当前使用的配置文件，也可以重新载入、查看详情或新增配置。
 
-文件内容就是普通的conf，内容 `类#字段名` 和 `类.字段名` 均可以，支持 `#` 和 `;` 注释
+![hot_reload_ignore_static_field_setting.png](/images/method/hot_reload_ignore_static_field_setting.png){v-zoom}
 
-![hotswap_ignores_field_conf.png](/images/hotswap_ignores_field_conf.png){v-zoom}
+- 下拉框：选择当前热重载启动时使用的忽略静态字段配置，默认配置名为 `default`。
+- `重新载入`：从本地配置目录重新读取配置文件列表。
+- `详情`：打开当前选中的配置文件，可以直接编辑规则内容。
+- `添加`：新增一个忽略静态字段配置文件，适合为不同项目或不同场景保存多套规则。
+
+配置文件保存在本机用户目录的 `.debugTools/IgnoreStaticField/` 下，文件内容就是普通的 `.conf` 文本。规则支持 `类#字段名` 和 `类.字段名` 两种写法，也支持 `#` 和 `;` 注释。
+
+![hot_reload_ignore_static_field_conf.png](/images/method/hot_reload_ignore_static_field_conf.png){v-zoom}
 :::
 
 ## 枚举类信息变动

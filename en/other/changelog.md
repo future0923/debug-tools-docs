@@ -4,6 +4,15 @@ aside: false
 ---
 # ChangeLog
 
+## [5.0.1](https://github.com/future0923/debug-tools/compare/v5.0.0...v5.0.1) (xxxx-xx-xx)
+
+- Added completion for class-type parameters in method invocation.
+- Invocation history supports viewing execution results as JSON.
+- [#282](https://github.com/future0923/debug-tools/issues/282) - Fixed a bug where restarting an application with auto attach enabled cleared the filled application attachment information.
+- [#283](https://github.com/future0923/debug-tools/issues/283) - Fixed a bug where method invocation failed when the `RequestContextHolder` class did not exist.
+- [#284](https://github.com/future0923/debug-tools/issues/284) - Fixed a bug where invocation history stayed loading forever for methods that could not be found.
+- [#285](https://github.com/future0923/debug-tools/issues/285) - HTTP method search supports request method prefix filtering.
+
 ## [4.6.1](https://github.com/future0923/debug-tools/compare/v4.6.0...v4.6.1) (2026-04-07)
 
 - Changed to asynchronous class loader retrieval to avoid delays blocking the main IntelliJ IDEA UI process when the application appears to freeze.

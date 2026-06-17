@@ -16,7 +16,9 @@ When writing code traditionally, you need to restart the application to take eff
 
 ![start_hotswap.png](/images/start_hotswap.png){v-zoom}
 
-If you find it cumbersome to open `More Actions` every time, you can place the button in the `Main Toolbar`. For example, add a button on the right side as shown below:
+::: details If you find it cumbersome to open `More Actions` every time, you can place the button in the `Main Toolbar`
+
+For example, add a button on the right side as shown below:
 
 ![main_toolbar.png](/images/main_toolbar.png){v-zoom}
 
@@ -27,6 +29,8 @@ Search for `Hotswap with DebugTools`. If you want to change the icon, you can al
 This will allow you to click from outside the application.
 
 ![start_hotswap_toolbar.png](/images/start_hotswap_toolbar.png){v-zoom}
+
+:::
 
 ::: tip
 Hot reload requires a specific JDK to take effect. Please refer to [JDK installation](install#jdk) to complete JDK initialization
@@ -200,3 +204,25 @@ Supports hot reload of [OpenFeign](https://github.com/OpenFeign/feign)
 ### 3.15 Others
 
 Hot reload can also be used in other situations. I won’t give examples here. If it doesn’t work, please submit an [issue](https://github.com/future0923/debug-tools/issues) to give feedback.
+
+## 4. Disable Hot Reload Plugins
+
+If a hot reload plugin has compatibility issues in the current project, temporarily disable the specified plugin in `Settings | DebugTools | Hot Reload`, then restart the application with hot reload.
+
+![hot_reload_disable_plugins.png](/images/method/hot_reload_disable_plugins.png){v-zoom}
+
+`Disabled Plugins` writes the selected plugin names into the hot reload startup parameter `disabledPlugins`. During Agent initialization, plugins with matching names are skipped. This is useful for temporarily avoiding startup exceptions, class transformation exceptions, or hot reload side effects caused by a specific framework plugin.
+
+Available plugins are grouped by type:
+
+| Group | Plugins |
+| --- | --- |
+| Base | `JdkPlugin`, `Class`, `Proxy`, `HotSwapper`, `WatchResources` |
+| Third Party | `Spring`, `Feign`, `MyBatis`, `Solon` |
+| Other | `IntelliJIdea`, `HibernateValidator`, `EasyExcel`, `Gson`, `FastJson`, `HuTool` |
+
+::: warning
+- This configuration only affects applications started with hot reload after the setting changes. Already running applications do not unload plugins immediately.
+- Disabling a plugin also disables the corresponding capability. For example, after disabling `Spring`, hot reload capabilities related to adding or modifying Spring Beans stop working.
+- If you are only troubleshooting, disable one plugin at a time, confirm the impact, then decide whether to keep it disabled.
+:::
