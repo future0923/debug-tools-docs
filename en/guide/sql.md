@@ -1,129 +1,124 @@
-# Print SQL execution and time {#print_sql}
+# Print SQL Statements And Execution Time {#print_sql}
 
 ## Purpose {#purpose}
 
-**Pain point:** When we test the business, we need to view the actual SQL execution and time consumption. Many
-upper-level drivers have multiple ways to enable printing, and many of them require code modification or configuration
-modification for printing.
+When debugging business code, you often need to confirm the actual SQL statement, SQL parameters, and execution time. Many connection pools, ORM frameworks, or logging frameworks have their own SQL logging options, which often means changing configuration or even code.
 
-DebugTools to print SQL and time consumption at runtime by `modifying the database driver bytecode` at
-the [jdbc](https://www.oracle.com/database/technologies/appdev/jdbc.html) layer, thereby avoiding the impact of
-different upper-level database connection pools on SQL printing.
+DebugTools intercepts SQL execution at the JDBC layer by modifying database driver bytecode. It does not depend on a specific connection pool or ORM. As long as the application uses an adapted JDBC driver, DebugTools can print SQL statements and execution time at runtime.
 
-**Theoretically supports all database drivers connected through Jdbc:**
+Currently adapted JDBC drivers:
 
 - [MySQL](https://www.mysql.com/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [SQLServer](https://www.microsoft.com/en-us/sql-server/)
+- [KingbaseES](https://www.kingbase.com.cn/)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/)
 - [ClickHouse](https://clickhouse.com/)
 - [Oracle](https://www.oracle.com/database/technologies/)
-- ...
+- [Dameng DM](https://www.dameng.com/)
 
-## Use {#use}
+## Enable SQL Printing {#setting}
 
-### Idea {#idea}
+Open `Settings -> Other Settings -> DebugTools -> SQL`, then select a SQL printing mode from `Print format`.
 
-Configure to open or close in `setting -> Other Settings -> DebugTools`
+![sql_setting.png](/images/sql/sql_setting.png){v-zoom}
 
-![print_sql_setting](/images/print_sql_setting.png){v-zoom}
+| Print format | Description |
+| --- | --- |
+| `Pretty` | Format SQL before printing. Useful for reading long SQL statements. |
+| `Compress` | Compress SQL into one line before printing. Useful for reducing log size. |
+| `No` | Disable SQL printing. |
 
-- `Pretty`: Print SQL statements in formatted form
-- `Compress`: Print SQL statements in compressed form
-- `No`: Do not print SQL statements
-- `Auto save sql to file`: Save SQL statements to a file
-- `SQL Retention Days`: Retain SQL statements for a certain number of days
+::: tip
+After changing `Print format` in Settings, restart the application so DebugTools can enhance the database driver bytecode. After the application starts and attaches successfully, you can dynamically switch the SQL printing mode on the connection card.
+:::
 
-The SQL file is in the `.idea/DebugTools/sql` folder. You can also open the latest SQL file by clicking the
-`ToolsWindow`.
-
-![sql_file.png](/images/sql_file.png){v-zoom}
-
-Success will output `Print xxx(mysql/oracle/...) log bytecode enhancement in the log successful`
-
-![print_sql_success](/images/print_sql_success.png){v-zoom}
-
-**The printing effect is as follows:**
+After enhancement succeeds, the application log prints content similar to:
 
 ```text
-Execute consume Time: 3 ms; Execute SQL:Execute consume Time: 3 ms; Execute SQL: 
+Print xxx(mysql/oracle/...) log bytecode enhancement successful
+```
+
+Example output:
+
+```text
+Execute consume Time: 3 ms; Execute SQL:
 SELECT
     id,
     name,
     age,
-    version 
+    version
 FROM
-    dp_user 
+    dp_user
 WHERE
-    id=1
+    id=1;
 ```
 
-::: tip
+## Filter SQL {#filter}
 
-1. Since DebugTools prints SQL in bytecode, you need to restart the application to take effect after modifying the
-   configuration.
-2. Enabling SQL printing configuration (Compress/Pretty) at application startup allows you to dynamically modify the SQL
-   printing configuration after attaching the application.
+When SQL logs are too noisy, click `Filter SQL print config` to print only specified packages or SQL statements, or to ignore specified packages or SQL statements.
 
-:::
+![sql_filter_config.png](/images/sql/sql_filter_config.png){v-zoom}
 
-### Dynamic Configuration
+The configuration file has four fixed sections:
 
-Enabling SQL printing configuration (Compress/Pretty) at application startup allows you to dynamically modify the SQL
-printing configuration after attaching the application.
+| Section | Description | Priority |
+| --- | --- | --- |
+| `[[sql.print.packages]]` | Print only SQL whose call chain matches these package-name regular expressions. | Higher than `sql.print.ignore-packages`. |
+| `[[sql.print.ignore-packages]]` | Ignore SQL whose call chain matches these package-name regular expressions. | Ignored when `sql.print.packages` is configured. |
+| `[[sql.print.statement]]` | Print only SQL statements that match these SQL regular expressions. | Higher than `sql.print.ignore-statement`. |
+| `[[sql.print.ignore-statement]]` | Ignore SQL statements that match these SQL regular expressions. | Ignored when `sql.print.statement` is configured. |
 
-![dynamic_sql.png](/images/dynamic_sql.png){v-zoom}
+Package rules match the current execution thread stack. For MyBatis, MyBatis-Plus, and JPA proxy classes, DebugTools tries to restore the corresponding Mapper or interface package name before matching.
 
-### Filtering SQL
+SQL rules match the final SQL text. The configuration supports regular expressions. Blank lines, lines starting with `#`, and lines starting with `;` are ignored.
 
-When there are too many SQL statements, we can configure filters to target specific SQL statements.
-
-![filter_sql_setting.png](/images/filter_sql_setting.png){v-zoom}
-
-::: tip
-The configuration to ignore SQL is only visible when printing SQL is enabled.
-:::
-
-**Supports the following four configurations**
-
-- `sql.print.packages`: Prints SQL statements from the specified call chain package.
-    - **Identification method: Checks if the execution thread stack information matches the configured package name
-      using regular expressions.**
-    - **This configuration has higher priority than sql.print.ignore-packages.**
-    - **Supports regular expressions.**
-- `sql.print.ignore-packages`: Ignores printing SQL statements from the specified call chain package.
-    - **Identification method: Checks if the execution thread stack information matches the configured package name
-      using regular expressions.**
-    - **This configuration is disabled if sql.print.packages is configured.**
-    - **Supports regular expressions.**
-- `sql.print.statement`: Prints the specified SQL statement.
-    - **This configuration has higher priority than sql.print.ignore-statement.**
-    - **Supports regular expressions.**
-- `sql.print.ignore-statement`: Ignore the specified SQL statement
-    - **This configuration is ineffective if `sql.print.statement` is configured**
-    - **Supports regular expressions**
-
-The file content is a regular text file, with content appended to the corresponding paragraph. It supports `#` and `;`
-comments. `[[xxx]]` is a fixed format. Multi-line support is supported. For example:
+Example:
 
 ```txt
 [[sql.print.packages]]
-com.example.demo
-com.example.test
+com.example.order
+com.example.user
 
 [[sql.print.ignore-packages]]
-com.example.demo
-com.example.test
+com.example.health
 
 [[sql.print.statement]]
-select 1
-select * from user
+select .* from user
 
 [[sql.print.ignore-statement]]
 select 1
-select * from user
 ```
+
+::: tip
+The target application watches the filter configuration after it has been loaded. Changes to the configuration file are reloaded automatically, so adjusting filter rules does not require restarting the application.
+:::
+
+## Save SQL Files {#save}
+
+After enabling `Save executed SQL to file`, DebugTools appends printed SQL to the current user's home directory:
+
+```text
+~/.debugTools/sql/{application}/{yyyy-MM-dd}.sql
+```
+
+Each record contains the execution time, database type, elapsed time, and SQL text:
+
+```sql
+-- 2026-05-18 14:30:12 | mysql | 12ms
+select * from user where id = 1;
+```
+
+SQL files are kept until you delete them manually. Open [SQL History](./sql-history.md) in the DebugTools tool window to view, open, reveal, or delete these SQL files.
+
+## Dynamic Switching On Connections {#dynamic}
+
+If SQL printing enhancement was enabled when the application started, you can switch the current connection's SQL printing mode from the `SQL` dropdown on the connection card. The operation is sent to the target application and takes effect immediately for that connection.
+
+![sql_dynamic_switch.png](/images/sql/sql_dynamic_switch.png){v-zoom}
+
+If SQL printing enhancement was not enabled when the application started, switching the printing mode on the connection card cannot add the missing database driver bytecode enhancement. Restart the application after enabling SQL printing.
 
 ## Warning {#warning}
 
-> [!WARNING] It is best not to use it in a production environment
-> Because DebugTools implements SQL printing by **modifying the database driver bytecode**, there may be incompatibility or other unconsidered situations, and there may be risks in the production environment.
+> [!WARNING] Not recommended for production
+> DebugTools implements SQL printing by modifying database driver bytecode. Different drivers, connection pools, or runtime environments may have compatibility risks, so enable it carefully in production.

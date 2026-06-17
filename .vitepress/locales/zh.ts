@@ -155,6 +155,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'SQL', link: 'sql'},
+        {text: 'SQL历史记录', link: 'sql-history'},
       ]
     },
     {
