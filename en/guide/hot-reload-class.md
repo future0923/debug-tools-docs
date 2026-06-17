@@ -111,11 +111,11 @@ When the mouse is on a static field, open the context menu and click `Ignore thi
 
 After adding it, a hint icon appears in the gutter. Click the icon to remove the ignore rule from the current configuration.
 
-![hot_reload_ignore_static_field_action.png](/images/method/hot_reload_ignore_static_field_action.png){v-zoom}
+![hot_reload_ignore_static_field_action.png](/images/hotswap/hot_reload_ignore_static_field_action.png){v-zoom}
 
 You can also maintain ignored static field configuration in `Settings | DebugTools | Hot Reload`. This page can switch the active configuration file, reload the list, view details, or add a new configuration.
 
-![hot_reload_ignore_static_field_setting.png](/images/method/hot_reload_ignore_static_field_setting.png){v-zoom}
+![hot_reload_ignore_static_field_setting.png](/images/hotswap/hot_reload_ignore_static_field_setting.png){v-zoom}
 
 - Dropdown: select the ignored static field configuration used when hot reload starts. The default configuration name is `default`.
 - `Reload`: reread the configuration file list from the local configuration directory.
@@ -124,7 +124,7 @@ You can also maintain ignored static field configuration in `Settings | DebugToo
 
 Configuration files are stored under `.debugTools/IgnoreStaticField/` in the local user directory. The file content is regular `.conf` text. Rules support both `class#fieldName` and `class.fieldName`, and comments starting with `#` or `;`.
 
-![hot_reload_ignore_static_field_conf.png](/images/method/hot_reload_ignore_static_field_conf.png){v-zoom}
+![hot_reload_ignore_static_field_conf.png](/images/hotswap/hot_reload_ignore_static_field_conf.png){v-zoom}
 :::
 
 ## Enumeration class information changes.

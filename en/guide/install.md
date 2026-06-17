@@ -113,7 +113,7 @@ Download the corresponding version of the .jar file. <span style="color: red;">C
 
 Run the corresponding `java -jar DCEVM-8uXX-installer.jar` file, find the corresponding version, and click the `Install DCEVM as altjvm` button.
 
-![dcevm-installer.png](/images/dcevm-installer.png){v-zoom}
+![dcevm-installer.png](/images/hotswap/dcevm-installer.png){v-zoom}
 
 :::
 

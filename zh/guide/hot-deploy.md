@@ -190,13 +190,13 @@ autoHotswap.port=
 
 打开连接卡片的更多操作，点击 <img class="dt-inline-icon" src="/icon/method/hot_deployment.svg" alt="热部署" /> 打开热部署窗口。
 
-![hot_deploy_more_menu.png](/images/method/hot_deploy_more_menu.png){v-zoom}
+![hot_deploy_more_menu.png](/images/hotswap/hot_deploy_more_menu.png){v-zoom}
 
 插件会先保存当前 IDEA 中未保存的文件，再按当前选择的文件类型加载可部署文件。
 
 默认会勾选 `版本控制(git/svn)`，此时文件列表来自 VCS 变更；取消勾选后，文件列表来自项目打开后或上一次热部署清理时间之后修改过的文件。
 
-![hot_deploy_multi_file_dialog.png](/images/method/hot_deploy_multi_file_dialog.png){v-zoom}
+![hot_deploy_multi_file_dialog.png](/images/hotswap/hot_deploy_multi_file_dialog.png){v-zoom}
 
 工具栏可维护本次部署范围：
 
@@ -223,13 +223,13 @@ autoHotswap.port=
 
 如果启用了 `版本控制(git/svn)`，双击文件可以查看变更前后的 diff。
 
-![hot_deploy_vcs_diff.png](/images/method/hot_deploy_vcs_diff.png){v-zoom}
+![hot_deploy_vcs_diff.png](/images/hotswap/hot_deploy_vcs_diff.png){v-zoom}
 
 确认文件列表和选项后点击 `OK`。Java 文件会发送到目标应用的 `extraClasspath` 目录并触发类重定义；Resource 文件会发送到目标应用的 `watchResources` 目录。
 
 执行结果会显示在 IDEA 的 Run 工具窗口中，标题为 `远程部署结果`；多应用连接时标题会带上应用名称。
 
-![hot_deploy_multi_file_result.png](/images/method/hot_deploy_multi_file_result.png){v-zoom}
+![hot_deploy_multi_file_result.png](/images/hotswap/hot_deploy_multi_file_result.png){v-zoom}
 
 ::: tip
 - 只有附着应用后才支持通过热部署的方式热重载变动文件。
@@ -247,11 +247,11 @@ autoHotswap.port=
 
 如果当前项目同时连接了多个应用，点击后会先选择要部署到的连接；执行时会使用该连接卡片中当前选中的 `ClassLoader`。
 
-![hot_deploy_xml_context_menu.png](/images/method/hot_deploy_xml_context_menu.png){v-zoom}
+![hot_deploy_xml_context_menu.png](/images/hotswap/hot_deploy_xml_context_menu.png){v-zoom}
 
 热部署完成后，结果会输出到 IDEA 的 Run 工具窗口，页签标题为 `远程部署结果`；多应用连接时标题会带上应用名称。
 
-![hot_deploy_xml_result.png](/images/method/hot_deploy_xml_result.png){v-zoom}
+![hot_deploy_xml_result.png](/images/hotswap/hot_deploy_xml_result.png){v-zoom}
 
 ::: tip
 - 只有附着应用后才支持通过热部署的方式热重载变动文件

@@ -10,25 +10,25 @@
 
 - 请关掉idea的 `Build, Execution, Deployment -> Debugger -> Async Stack Traces` 配置 
 
-![instrumenting_agent.png](/images/instrumenting_agent.png){v-zoom}
+![instrumenting_agent.png](/images/hotswap/instrumenting_agent.png){v-zoom}
 
 - 点击 `More Actions` 中的 `Hotswap 'xxx' with DebugTools` 以热重载的方式启动应用。
 
-![start_hotswap.png](/images/start_hotswap.png){v-zoom}
+![start_hotswap.png](/images/hotswap/start_hotswap.png){v-zoom}
 
 ::: details 如果觉得每次都要展开 `More Actions` 比较繁琐，可以将按钮配置在 `Main Toolbar` 中
 
 比如在右侧添加按钮如下图所示：
 
-![main_toolbar.png](/images/main_toolbar.png){v-zoom}
+![main_toolbar.png](/images/hotswap/main_toolbar.png){v-zoom}
 
 搜索 `Hotswap with DebugTools`，如果想调 Icon 也可以在下面修改。
 
-![add_hotswap_action.png](/images/add_hotswap_action.png){v-zoom}
+![add_hotswap_action.png](/images/hotswap/add_hotswap_action.png){v-zoom}
 
 这样就可以在外面点击了
 
-![start_hotswap_toolbar.png](/images/start_hotswap_toolbar.png){v-zoom}
+![start_hotswap_toolbar.png](/images/hotswap/start_hotswap_toolbar.png){v-zoom}
 
 :::
 
@@ -38,7 +38,7 @@
 :::
 
 > 启动项目如果提示 `DCEVM is not installed` ，检查[JDK安装](install#jdk)是否正确。JDK8 检查命令 `java -XXaltjvm=dcevm -version` 是否能正常输出。
-> ![dcevm_not_install.png](/images/dcevm_not_install.png){v-zoom}
+> ![dcevm_not_install.png](/images/hotswap/dcevm_not_install.png){v-zoom}
 
 
 
@@ -56,11 +56,11 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 
 - 通过右键菜单的 `Compile and Reload Modified Files` 按钮.
   
-![compile_reload_file.png](/images/compile_reload_file.png){v-zoom}
+![compile_reload_file.png](/images/hotswap/compile_reload_file.png){v-zoom}
 
 - 文件主页面的 `Code changed` 按钮.
 
-![compile_code_changed.png](/images/compile_code_changed.png){v-zoom}
+![compile_code_changed.png](/images/hotswap/compile_code_changed.png){v-zoom}
 
 ### 2.2 热部署
 
@@ -80,7 +80,7 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 
 在 XML 文件的编辑器或项目树中打开右键菜单，点击 `编译 "xxx.xml" 到target目录`，插件会先保存当前 XML 文件，再按源码根下的相对路径写入当前模块的编译输出目录。
 
-![hot_reload_xml_context_menu.png](/images/method/hot_reload_xml_context_menu.png){v-zoom}
+![hot_reload_xml_context_menu.png](/images/hotswap/hot_reload_xml_context_menu.png){v-zoom}
 
 ::: tip
 - 这个操作只覆盖编译输出目录中的资源文件，不会修改源码目录下的 XML。
@@ -206,7 +206,7 @@ MyBatisPlus 目前支持在 `Spring` 环境下，其他情况未知。
 
 如果某个热重载插件在当前项目中存在兼容问题，可以先在 `Settings | DebugTools | 热重载` 中临时禁用指定插件，再重新以热重载方式启动应用。
 
-![hot_reload_disable_plugins.png](/images/method/hot_reload_disable_plugins.png){v-zoom}
+![hot_reload_disable_plugins.png](/images/hotswap/hot_reload_disable_plugins.png){v-zoom}
 
 `禁用插件` 会把选中的插件名称写入热重载启动参数 `disabledPlugins`。Agent 初始化时会根据插件名跳过对应插件，适合用于临时规避某个框架插件引起的启动异常、类转换异常或热重载副作用。
 

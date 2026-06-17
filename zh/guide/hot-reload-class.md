@@ -109,11 +109,11 @@ static {
 
 添加之后行头会显示提示图标，点击该图标可以从当前配置中移出忽略规则。
 
-![hot_reload_ignore_static_field_action.png](/images/method/hot_reload_ignore_static_field_action.png){v-zoom}
+![hot_reload_ignore_static_field_action.png](/images/hotswap/hot_reload_ignore_static_field_action.png){v-zoom}
 
 也可以在 `Settings | DebugTools | 热重载` 中维护忽略静态字段配置。这里可以切换当前使用的配置文件，也可以重新载入、查看详情或新增配置。
 
-![hot_reload_ignore_static_field_setting.png](/images/method/hot_reload_ignore_static_field_setting.png){v-zoom}
+![hot_reload_ignore_static_field_setting.png](/images/hotswap/hot_reload_ignore_static_field_setting.png){v-zoom}
 
 - 下拉框：选择当前热重载启动时使用的忽略静态字段配置，默认配置名为 `default`。
 - `重新载入`：从本地配置目录重新读取配置文件列表。
@@ -122,7 +122,7 @@ static {
 
 配置文件保存在本机用户目录的 `.debugTools/IgnoreStaticField/` 下，文件内容就是普通的 `.conf` 文本。规则支持 `类#字段名` 和 `类.字段名` 两种写法，也支持 `#` 和 `;` 注释。
 
-![hot_reload_ignore_static_field_conf.png](/images/method/hot_reload_ignore_static_field_conf.png){v-zoom}
+![hot_reload_ignore_static_field_conf.png](/images/hotswap/hot_reload_ignore_static_field_conf.png){v-zoom}
 :::
 
 ## 枚举类信息变动

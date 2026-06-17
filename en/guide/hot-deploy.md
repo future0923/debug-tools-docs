@@ -168,13 +168,13 @@ In Connection Management, make sure the target application is attached and the d
 
 Open the connection card's More menu, then click <img class="dt-inline-icon" src="/icon/method/hot_deployment.svg" alt="Hot Deployment" /> to open the hot deployment window.
 
-![hot_deploy_more_menu.png](/images/method/hot_deploy_more_menu.png){v-zoom}
+![hot_deploy_more_menu.png](/images/hotswap/hot_deploy_more_menu.png){v-zoom}
 
 The plugin first saves unsaved files in IDEA, then loads deployable files according to the selected file type.
 
 `Version Control (git/svn)` is selected by default. When it is selected, the file list comes from VCS changes. When it is cleared, the file list comes from files modified after the project was opened or after the last hot deployment cleanup time.
 
-![hot_deploy_multi_file_dialog.png](/images/method/hot_deploy_multi_file_dialog.png){v-zoom}
+![hot_deploy_multi_file_dialog.png](/images/hotswap/hot_deploy_multi_file_dialog.png){v-zoom}
 
 Use the toolbar to manage the current deployment scope:
 
@@ -201,13 +201,13 @@ The main area is a change tree. Files are grouped by project-relative path and m
 
 If `Version Control (git/svn)` is enabled, double-click a file to view the diff.
 
-![hot_deploy_vcs_diff.png](/images/method/hot_deploy_vcs_diff.png){v-zoom}
+![hot_deploy_vcs_diff.png](/images/hotswap/hot_deploy_vcs_diff.png){v-zoom}
 
 After confirming the file list and options, click `OK`. Java files are sent to the target application's `extraClasspath` directory and trigger class redefinition. Resource files are sent to the target application's `watchResources` directory.
 
 The result is displayed in IDEA's Run tool window. The tab title is `Remote Deploy Result`; when multiple applications are connected, the title also includes the application name.
 
-![hot_deploy_multi_file_result.png](/images/method/hot_deploy_multi_file_result.png){v-zoom}
+![hot_deploy_multi_file_result.png](/images/hotswap/hot_deploy_multi_file_result.png){v-zoom}
 
 ::: tip
 - Hot reloading changed files through hot deployment is only supported after the application is attached.
@@ -225,11 +225,11 @@ Open the context menu in an XML file editor or project tree, then click `Deploy 
 
 If the current project is connected to multiple applications, the plugin asks you to choose the target connection first. The request uses the `ClassLoader` currently selected on that connection card.
 
-![hot_deploy_xml_context_menu.png](/images/method/hot_deploy_xml_context_menu.png){v-zoom}
+![hot_deploy_xml_context_menu.png](/images/hotswap/hot_deploy_xml_context_menu.png){v-zoom}
 
 After hot deployment completes, the result is printed in IDEA's Run tool window. The tab title is `Remote Deploy Result`; when multiple applications are connected, the title also includes the application name.
 
-![hot_deploy_xml_result.png](/images/method/hot_deploy_xml_result.png){v-zoom}
+![hot_deploy_xml_result.png](/images/hotswap/hot_deploy_xml_result.png){v-zoom}
 
 ::: tip
 - Hot reloading changed files through hot deployment is only supported after the application is attached.

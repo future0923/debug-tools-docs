@@ -111,7 +111,7 @@ wget https://download.debug-tools.cc/install/linux-install.tar.gz -O linux-insta
 
 运行对应的 `java -jar DCEVM-8uXX-installer.jar` 文件，找到对应的版本，点击 `Install DCEVM as altjvm` 按钮即可。
 
-![dcevm-installer.png](/images/dcevm-installer.png){v-zoom}
+![dcevm-installer.png](/images/hotswap/dcevm-installer.png){v-zoom}
 
 :::
 

@@ -10,25 +10,25 @@ When writing code traditionally, you need to restart the application to take eff
 
 - Please disable the `Build, Execution, Deployment -> Debugger -> Async Stack Traces` configuration in IDEA.
 
-![instrumenting_agent.png](/images/instrumenting_agent.png){v-zoom}
+![instrumenting_agent.png](/images/hotswap/instrumenting_agent.png){v-zoom}
 
 - Click `Hotswap 'xxx' with DebugTools` in `More Actions` to start the application with a hot reload.
 
-![start_hotswap.png](/images/start_hotswap.png){v-zoom}
+![start_hotswap.png](/images/hotswap/start_hotswap.png){v-zoom}
 
 ::: details If you find it cumbersome to open `More Actions` every time, you can place the button in the `Main Toolbar`
 
 For example, add a button on the right side as shown below:
 
-![main_toolbar.png](/images/main_toolbar.png){v-zoom}
+![main_toolbar.png](/images/hotswap/main_toolbar.png){v-zoom}
 
 Search for `Hotswap with DebugTools`. If you want to change the icon, you can also modify it below.
 
-![add_hotswap_action.png](/images/add_hotswap_action.png){v-zoom}
+![add_hotswap_action.png](/images/hotswap/add_hotswap_action.png){v-zoom}
 
 This will allow you to click from outside the application.
 
-![start_hotswap_toolbar.png](/images/start_hotswap_toolbar.png){v-zoom}
+![start_hotswap_toolbar.png](/images/hotswap/start_hotswap_toolbar.png){v-zoom}
 
 :::
 
@@ -37,7 +37,7 @@ Hot reload requires a specific JDK to take effect. Please refer to [JDK installa
 :::
 
 > If the startup project prompts `DCEVM is not installed`, check whether the [JDK installation](install#jdk) is correct. JDK8 Check whether the command `java -XXaltjvm=dcevm -version` can be output normally.
-> ![dcevm_not_install.png](/images/dcevm_not_install.png){v-zoom}
+> ![dcevm_not_install.png](/images/hotswap/dcevm_not_install.png){v-zoom}
 
 ## 2. Trigger hot reload
 
@@ -54,11 +54,11 @@ If the application is started by `Debug`, hot reload can be triggered by the fol
 
 - Use the `Compile and Reload Modified Files` button in the right-click menu.
 
-![compile_reload_file.png](/images/compile_reload_file.png){v-zoom}
+![compile_reload_file.png](/images/hotswap/compile_reload_file.png){v-zoom}
 
 - Use the `Code changed` button on the main file page.
 
-![compile_code_changed.png](/images/compile_code_changed.png){v-zoom}
+![compile_code_changed.png](/images/hotswap/compile_code_changed.png){v-zoom}
 
 ### 2.2 Hot deployment
 
@@ -78,7 +78,7 @@ During hot deployment, idea may sometimes fail to obtain the latest breakpoint i
 
 Open the context menu in an XML file editor or project tree, then click `Compile "xxx.xml" to target directory`. The plugin saves the current XML file and writes it to the current module's compilation output directory by its relative path from the source root.
 
-![hot_reload_xml_context_menu.png](/images/method/hot_reload_xml_context_menu.png){v-zoom}
+![hot_reload_xml_context_menu.png](/images/hotswap/hot_reload_xml_context_menu.png){v-zoom}
 
 ::: tip
 - This operation only overwrites the resource file in the compilation output directory. It does not modify the XML file in the source directory.
@@ -209,7 +209,7 @@ Hot reload can also be used in other situations. I won’t give examples here. I
 
 If a hot reload plugin has compatibility issues in the current project, temporarily disable the specified plugin in `Settings | DebugTools | Hot Reload`, then restart the application with hot reload.
 
-![hot_reload_disable_plugins.png](/images/method/hot_reload_disable_plugins.png){v-zoom}
+![hot_reload_disable_plugins.png](/images/hotswap/hot_reload_disable_plugins.png){v-zoom}
 
 `Disabled Plugins` writes the selected plugin names into the hot reload startup parameter `disabledPlugins`. During Agent initialization, plugins with matching names are skipped. This is useful for temporarily avoiding startup exceptions, class transformation exceptions, or hot reload side effects caused by a specific framework plugin.
 
