@@ -4,11 +4,7 @@
 热重载实现复杂且需要兼容情况较多，如果这个项目帮你节省了开发时间，不妨点个 <a target="_blank" href="https://github.com/future0923/debug-tools"><img src="https://img.shields.io/github/stars/future0923/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a> <a target="_blank" href="https://gitee.com/future94/debug-tools"><img src="https://gitee.com/future94/debug-tools/badge/star.svg?theme=dark" style="display: inline-block; vertical-align: middle;" /></a>，你的认可会让更多人发现它，你的支持是我更新的动力。如果不生效麻烦提交 <a target="_blank" href="https://github.com/future0923/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/future0923/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> 反馈一下。
 :::
 
-传统编写代码时，需要重启应用才能生效，而热重载可以在不重启应用下让编写的代码生效立刻，让开发者编写的代码改动瞬间生效，极大提升迭代效率。支持类(包括代理类)的属性和方法变动、Spring、Solon、Mybatis等主流框架。同时适配 jdk8、jdk11、jdk17、jdk21 等多个JDK版本。
-
-<video controls width="640">
-  <source src="https://download.debug-tools.cc/mp4/hot_reload.mp4" type="video/mp4">https://download.debug-tools.cc/mp4/hot_reload.mp4
-</video>
+传统编写代码时，需要重启应用才能生效，而热重载可以在不重启应用下让编写的代码生效立刻，让开发者编写的代码改动瞬间生效，极大提升迭代效率。支持类(包括代理类)的属性和方法变动、Spring、Solon、Mybatis等主流框架。同时适配 jdk8、jdk11、jdk17、jdk21、jdk25 等多个JDK版本。
 
 ## 1. 开启热重载
 
@@ -64,11 +60,9 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 
 ### 2.2 热部署
 
-<!--@include: ./parts/hot-deploy-muti-file.md-->
+热部署能发远程应用，当然也可以用于将本地变更部署到已经附着的目标应用。
 
-::: tip
-热部署时idea可能有时无法获取到最新的断点信息，如果需要及时更新断点请使用[方式1](#compile-reload-file)
-:::
+详细配置和操作请查看[热部署](./hot-deploy)。
 
 ### 2.3 单文件远程编译
 
@@ -78,15 +72,16 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 热部署时idea可能有时无法获取到最新的断点信息，如果需要及时更新断点请使用[方式1](#compile-reload-file)
 :::
 
-### 2.4 单XML文件
+### 2.4 单 XML 文件
 
-变动的 `xml` 文件可以还可以通过右键菜单的 `Compile 'xxx.xml' to Target` 方式单独触发热重载.
+在 XML 文件的编辑器或项目树中打开右键菜单，点击 `编译 "xxx.xml" 到target目录`，插件会先保存当前 XML 文件，再按源码根下的相对路径写入当前模块的编译输出目录。
 
-![compile_xml.png](/images/compile_xml.png){v-zoom}
+![hot_reload_xml_context_menu.png](/images/method/hot_reload_xml_context_menu.png){v-zoom}
 
 ::: tip
-- 实现方式就是将 xml 文件从 `src/main/resources` 移动到对应的 `target/` 下。
-- 也可以通过[方式1](#compile-project)触发 xml 文件。
+- 这个操作只覆盖编译输出目录中的资源文件，不会修改源码目录下的 XML。
+- XML 文件需要位于项目源码根或资源根下，否则插件无法计算写入 `target/classes` 的相对路径。
+- 也可以通过[方式1](#compile-project)重新编译项目来触发 XML 文件更新。
 :::
 
 ## 3. 哪些情况可以热重载

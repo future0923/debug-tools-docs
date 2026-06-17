@@ -4,11 +4,7 @@
 Hot reload is complex to implement and requires many compatibility scenarios. If this project helps you save development time, you might as well click <a target="_blank" href="https://github.com/future0923/debug-tools"><img src="https://img.shields.io/github/stars/future0923/debug-tools?style=flat&logo=GitHub" style="display: inline-block; vertical-align: middle;" /></a>. Your recognition will make more people discover it, and your support is my motivation to update. If it doesn't work, please submit <a target="_blank" href="https://github.com/future0923/debug-tools/issues"><img src="https://img.shields.io/github/issues-closed/future0923/debug-tools?style=flat&logo=github" style="display: inline-block; vertical-align: middle;" /></a> for feedback.
 :::
 
-When writing code traditionally, you need to restart the application to take effect, while hot reload can make the written code take effect immediately without restarting the application, so that the code changes written by the developer can take effect instantly, greatly improving the iteration efficiency. Supports changes to properties and methods of classes (including proxy classes), Spring, Solon, Mybatis and other mainstream frameworks. At the same time, it is compatible with multiple JDK versions such as jdk8, jdk11, jdk17, jdk21, etc.
-
-<video controls width="640">
-  <source src="https://download.debug-tools.cc/mp4/hot_reload.mp4" type="video/mp4">https://download.debug-tools.cc/mp4/hot_reload.mp4
-</video>
+When writing code traditionally, you need to restart the application to take effect. Hot reload makes code changes take effect immediately without restarting the application, greatly improving iteration efficiency. It supports changes to class properties and methods (including proxy classes), Spring, Solon, MyBatis, and other mainstream frameworks. It is compatible with JDK 8, JDK 11, JDK 17, JDK 21, JDK 25, and other versions.
 
 ## 1. Enable hot reload
 
@@ -62,11 +58,9 @@ If the application is started by `Debug`, hot reload can be triggered by the fol
 
 ### 2.2 Hot deployment
 
-<!--@include: ./parts/hot-deploy-muti-file.md-->
+Hot deployment can send changes to remote applications, and it can also deploy local changes to an already attached target application.
 
-::: tip
-During hot deployment, idea may sometimes fail to obtain the latest breakpoint information. If you need to update the breakpoint in time, please use [method 1](#compile-reload-file)
-:::
+For detailed configuration and operation steps, see [Hot Deploy](./hot-deploy.md).
 
 ### 2.3 Single file remote compilation
 
@@ -78,14 +72,15 @@ During hot deployment, idea may sometimes fail to obtain the latest breakpoint i
 
 ### 2.4 Single XML file
 
-The changed `xml` file can also trigger hot reload separately through the `Compile 'xxx.xml' to Target` method in the right-click menu.
+Open the context menu in an XML file editor or project tree, then click `Compile "xxx.xml" to target directory`. The plugin saves the current XML file and writes it to the current module's compilation output directory by its relative path from the source root.
 
-![compile_xml.png](/images/compile_xml.png){v-zoom}
+![hot_reload_xml_context_menu.png](/images/method/hot_reload_xml_context_menu.png){v-zoom}
 
 ::: tip
-- The implementation method is to move the xml file from `src/main/resources` to the corresponding `target/`.
-- You can also trigger the xml file through [Method 1](#compile-project).
-  :::
+- This operation only overwrites the resource file in the compilation output directory. It does not modify the XML file in the source directory.
+- The XML file must be under a project source root or resource root. Otherwise, the plugin cannot calculate the relative path to write into `target/classes`.
+- You can also trigger XML updates by recompiling the project through [Method 1](#compile-project).
+:::
 
 ## 3. In which cases can hot reload be performed
 

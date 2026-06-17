@@ -1,11 +1,10 @@
 # Quick Start {#quick-start}
 
-Please make sure you have successfully [installed](install)
+Please make sure you have successfully [installed](./install.md)
 
-- [Hot reload](hot-reload)
-- [Hot deploy](hot-deploy)
-- [Call local method](method/quick-start)
-- [Call remote method](method/quick-start)
-- [Search URL address](search-http)
-- [Print SQL statement](sql)
-- [Execute Groovy script](groovy-execute)
+- [Hot reload](./hot-reload.md)
+- [Hot deploy](./hot-deploy.md)
+- [Call method](./method/quick-start.md)
+- [Search URL address](./search-http.md)
+- [Print SQL statement](./sql.md)
+- [Execute Groovy script](./groovy-execute.md)
