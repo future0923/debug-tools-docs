@@ -19,7 +19,7 @@
 }
 </style>
 
-SQL 历史记录用于查看 `将执行的SQL保存到文件` 生成的本地 SQL 文件。开启保存后，DebugTools 会按应用和日期把 SQL 写入当前用户目录，SQL 历史记录页会扫描这些文件并展示成列表。
+SQL 历史记录用于查看 `将执行的SQL保存到文件` 生成的本地 SQL 文件。开启保存后，DebugTools 会按 IDEA 项目、应用和日期把 SQL 写入当前用户目录，SQL 历史记录页会扫描这些文件并展示成列表。
 
 ## 打开 SQL 历史记录
 
@@ -31,11 +31,11 @@ SQL 历史记录用于查看 `将执行的SQL保存到文件` 生成的本地 SQ
 
 | 列 | 说明 |
 | --- | --- |
-| `应用` | SQL 文件所属应用。应用名称会用于生成本地目录名。 |
+| `项目 / 应用` | SQL 文件所属 IDEA 项目和应用。新记录会显示项目目录名和应用名；旧记录没有项目维度时只显示应用名。 |
 | `日期` | SQL 文件日期，对应 `{yyyy-MM-dd}.sql`。 |
 | `操作` | 打开文件、在文件夹中显示、删除文件。 |
 
-顶部搜索框可以按应用名或日期过滤列表。点击 <img class="dt-inline-icon" src="/icon/method/idea_refresh.svg" alt="刷新" /> 会重新扫描本地 SQL 文件。
+顶部搜索框可以按项目名、应用名或日期过滤列表。点击 <img class="dt-inline-icon" src="/icon/method/idea_refresh.svg" alt="刷新" /> 会重新扫描本地 SQL 文件。
 
 ## 常用操作
 
@@ -51,10 +51,20 @@ SQL 历史记录用于查看 `将执行的SQL保存到文件` 生成的本地 SQ
 SQL 历史文件保存在当前用户目录：
 
 ```text
+~/.debugTools/sql/{project}/{application}/{yyyy-MM-dd}.sql
+```
+
+`{project}` 是当前 IDEA 项目名称加项目路径 hash 生成的目录名，例如 `order-service-a8f31c2b`。项目名称用于阅读，路径 hash 用于区分本机同名项目。
+
+`{application}` 优先使用启动主类名，例如 `com.foo.OrderApplication`；如果当前场景取不到主类名，会回退到应用名或运行配置名。项目名和应用名都会转换成适合文件系统使用的目录名，例如空格、斜杠等字符会被替换成 `-`。如果应用名为空，会使用 `application`。
+
+旧版本生成的 SQL 文件仍然使用旧目录：
+
+```text
 ~/.debugTools/sql/{application}/{yyyy-MM-dd}.sql
 ```
 
-应用名会转换成适合文件系统使用的目录名，例如空格、斜杠等字符会被替换成 `-`。如果应用名为空，会使用 `application`。
+SQL 历史记录页会兼容读取旧目录。旧记录没有项目维度，所以列表中只显示应用名。
 
 每个应用每天一个 `.sql` 文件，新 SQL 会追加到当天文件末尾。文件内容包含执行时间、数据库类型、耗时和 SQL 文本：
 

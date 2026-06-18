@@ -98,8 +98,18 @@ select 1
 勾选 `将执行的SQL保存到文件` 后，DebugTools 会把打印出来的 SQL 追加保存到当前用户目录：
 
 ```text
+~/.debugTools/sql/{project}/{application}/{yyyy-MM-dd}.sql
+```
+
+其中 `{project}` 是当前 IDEA 项目名称加项目路径 hash 生成的目录名，用来区分本机不同项目；`{application}` 优先使用启动主类名，取不到主类名时回退到应用名或运行配置名。这样即使多个项目中存在同名运行配置，也会写入各自项目目录。
+
+旧版本已经生成的 SQL 文件仍然保留在旧目录：
+
+```text
 ~/.debugTools/sql/{application}/{yyyy-MM-dd}.sql
 ```
+
+SQL 历史记录页会同时读取新旧目录。
 
 每条记录会包含执行时间、数据库类型、耗时和 SQL 文本，例如：
 
