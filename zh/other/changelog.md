@@ -4,14 +4,17 @@ aside: false
 ---
 # 版本迭代记录
 
-## [5.0.1](https://github.com/future0923/debug-tools/compare/v5.0.0...v5.0.1) (xxxx-xx-xx)
+## [5.0.1](https://github.com/future0923/debug-tools/compare/v5.0.0...v5.0.1) (2026-06-21)
 
 - 调用方法输入 class 类型时增加提示功能
 - 调用方法历史支持 json 方式查看执行结果
+- 鼠标悬停应用信息展示增加模块和项目信息
+- 优化热部署、设置首页样式
+- [#285](https://github.com/future0923/debug-tools/issues/285) - 搜索 http 方法支持请求方法前缀过滤
 - [#282](https://github.com/future0923/debug-tools/issues/282) - 修复开启自动附着重启应用会导致填写的应用附加信息为空的 bug
 - [#283](https://github.com/future0923/debug-tools/issues/283) - 修复没有 RequestContextHolder 类时无法调用方法的 bug
 - [#284](https://github.com/future0923/debug-tools/issues/284) - 修复调用历史找不到的方法会一直卡在加载中的 bug
-- [#285](https://github.com/future0923/debug-tools/issues/285) - 搜索 http 方法支持请求方法前缀过滤
+- [#287](https://github.com/future0923/debug-tools/issues/287) - 修复调用记录重启项目时重新执行方法失败的bug
 
 ## [5.0.0](https://github.com/future0923/debug-tools/compare/v4.6.1...v5.0.0) (2026-06-09)
 
