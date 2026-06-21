@@ -11,6 +11,7 @@ aside: false
 - Added module and project information to the application info shown on hover.
 - Optimized the hot deployment and settings home page styles.
 - [#285](https://github.com/future0923/debug-tools/issues/285) - HTTP method search supports request method prefix filtering.
+- [#280](https://github.com/future0923/debug-tools/issues/280) - Fixed a bug where SQL history was shared between multiple applications with the same name.
 - [#282](https://github.com/future0923/debug-tools/issues/282) - Fixed a bug where restarting an application with auto attach enabled cleared the filled application attachment information.
 - [#283](https://github.com/future0923/debug-tools/issues/283) - Fixed a bug where method invocation failed when the `RequestContextHolder` class did not exist.
 - [#284](https://github.com/future0923/debug-tools/issues/284) - Fixed a bug where invocation history stayed loading forever for methods that could not be found.
