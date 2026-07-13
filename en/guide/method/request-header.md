@@ -19,78 +19,106 @@
 }
 </style>
 
-Request headers add context to a method invocation, such as authentication tokens, tenant identifiers, language, gray release flags, and request source information. DebugTools supports headers at three levels: method-level, connection-level, and project-level. When a method is invoked, DebugTools merges these headers and sends the final map to the target JVM.
+Request headers add context to a method invocation, such as authentication tokens, tenant identifiers, language, canary release flags, and request source information. DebugTools supports headers at three levels: method, application, and project. When a method is invoked, DebugTools merges these headers and sends the result to the target JVM. Application-level headers are stored in the current connection and affect only the application associated with that connection.
 
 ## Three Configuration Levels
 
 ### Method-Level
 
-Method-level headers are filled in the `Headers` tab on the method invocation page. They only apply to the current method invocation page.
+The `Headers` tab on the method invocation page shows all method-level, application-level, and project-level headers that currently take effect. The number after the tab name is the number of effective headers after merging and deduplication.
 
-![method_invoke_panel.png](/images/method/method_invoke_panel.png){v-zoom}
+![Layered headers on the method invocation page](/images/method/request_header_layered.png){v-zoom}
+
+#### Identify the Header Source
+
+The colored dot before `Key` indicates the header source. Hover over the dot or the key to see the source tooltip:
+
+| Source | Light Theme | Dark Theme | Tooltip | Scope |
+| --- | --- | --- | --- | --- |
+| Method | Blue `#2563EB` | Blue `#60A5FA` | `Method` | Applies only to the current method. |
+| Application | Orange `#D97706` | Orange `#F59E0B` | `Application` | Applies to the application associated with the current connection. |
+| Project | Green `#16A34A` | Green `#22C55E` | `Project` | Applies to all DebugTools invocations in the current IDEA project. |
+
+Only the highest-priority row is shown for duplicate keys. For example, if the same key exists at both the method and application levels, the table only shows the method-level value.
+
+#### Configure Request Headers
 
 Each row is one header key-value pair:
 
 - Only enabled rows are included in the invocation.
 - `Key` is the header name, such as `Authorization`, `X-Tenant-Id`, or `Accept-Language`.
 - `Value` is the header value, such as `Bearer token` or `tenant-a`.
-- When entering a header name, the editor suggests common HTTP headers and shows a short description for each option. Selecting an item writes it into the current cell.
-- If the same method needs to reuse these headers, click <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> in the toolbar to save them to the method parameter cache. The next time the same method is opened, they are restored automatically.
+- When entering a header name, the editor suggests common HTTP headers and shows a description for each one. Selecting a suggestion writes it into the current cell.
+- To reuse these headers for the same method, click <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> in the toolbar to save them to the method parameter cache. They are restored automatically the next time you open the same method.
 
-Method-level headers are suitable for temporary debugging, method-specific differences, or overriding connection-level and project-level defaults. For example, if only one method needs to switch tenants, fill `X-Tenant-Id` at the method level.
+Method-level headers are suitable for temporary debugging, method-specific differences, or overriding application-level and project-level defaults. For example, if only one method in an application needs to switch tenants, configure `X-Tenant-Id` at the method level.
+
+The checkboxes and keys of inherited application-level and project-level rows cannot be changed on the method invocation page. You can edit the Value directly and then use the sync button in the `Action` column to save it to the corresponding level. Editing a Value without performing a sync action does not change the header used by the actual invocation.
+
+#### Row Actions
+
+Buttons in the `Action` column vary with the header source. Hover over a button to see the action name:
+
+| Button | Tooltip | Action |
+| --- | --- | --- |
+| <img class="dt-table-icon" src="/icon/method/sync_application.svg" alt="Sync to Application Headers" /> | `Sync to Application Headers` | Moves a method-level row to the application level. For an application-level row, saves the edited Value to the current application. This button is not shown on project-level rows. |
+| <img class="dt-table-icon" src="/icon/method/sync_project.svg" alt="Sync to Project Headers" /> | `Sync to Project Headers` | Saves the current value at the project level. For a method-level or application-level row, it also removes same-key overrides from the current method and application, so the source shown in the table changes to project. For a project-level row, it saves the edited Value. |
+| <img class="dt-table-icon" src="/icon/method/remove.svg" alt="Remove Header" /> | `Remove Header` | Removes the header from the level it belongs to. If an application-level header is removed and a project-level header with the same key exists, the project-level value becomes visible and takes effect again. |
+
+All three Action icons use the plugin's neutral gray color. The colored dot before the Key identifies the source.
 
 #### Editing Toolbar
 
-The toolbar above the header table is used to maintain headers in the current tab:
+The toolbar above the header table is used to maintain headers:
 
-| Button | Description |
-| --- | --- |
-| <img class="dt-table-icon" src="/icon/method/idea_table_add.svg" alt="Add" /> | Add a new enabled header row. |
-| <img class="dt-table-icon" src="/icon/method/idea_table_remove.svg" alt="Clear" /> | Clear all header rows in the current tab. |
-| <img class="dt-table-icon" src="/icon/method/idea_reset.svg" alt="Reset" /> | Discard the current edits and reload the default headers. On the method invocation page, this goes back to the project-level default headers. In connection-level or project-level dialogs, it goes back to the corresponding saved values. |
-| <img class="dt-table-icon" src="/icon/method/idea_menu_save_all.svg" alt="Save" /> | Save the currently enabled headers. On the method invocation page, use it together with saving request parameters from the page toolbar. In connection-level or project-level dialogs, it saves to that level. |
-| <img class="dt-table-icon" src="/icon/method/table_convert_pair.svg" alt="Table pair conversion" /> | Switch between table mode and text mode. |
+| Button | Shown In | Action |
+| --- | --- | --- |
+| <img class="dt-table-icon" src="/icon/method/idea_table_add.svg" alt="Add" /> | Method invocation page, application-level settings, and project-level settings | Adds an enabled header row at the current level. |
+| <img class="dt-table-icon" src="/icon/method/idea_table_remove.svg" alt="Clear" /> | Method invocation page, application-level settings, and project-level settings | On the method invocation page, clears only method-level headers while inherited application-level and project-level rows remain. In a settings dialog, clears the current level. |
+| <img class="dt-table-icon" src="/icon/method/idea_reset.svg" alt="Reset" /> | Application-level and project-level settings | Discards current edits and reloads the saved headers for that level. |
+| <img class="dt-table-icon" src="/icon/method/idea_menu_save_all.svg" alt="Save" /> | Application-level and project-level settings | Saves enabled headers at the current level. Save method-level headers with <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> in the method invocation toolbar. |
+| <img class="dt-table-icon" src="/icon/method/table_convert_pair.svg" alt="Table/text conversion" /> | Table toolbar | Switches between table mode and text mode. |
 
 The checkbox in the first column controls whether a row is enabled. Click the header checkbox to enable or disable all rows in bulk. The remove button in each row deletes only that row.
 
-Click <img class="dt-inline-icon" src="/icon/method/table_convert_pair.svg" alt="Table pair conversion" /> to switch headers to text mode, which is convenient for pasting or batch editing:
+Click <img class="dt-inline-icon" src="/icon/method/table_convert_pair.svg" alt="Table/text conversion" /> to switch headers to text mode, which is convenient for pasting or batch editing:
 
-![request_header_text_mode.png](/images/method/request_header_text_mode.png){v-zoom}
+![Headers in text mode](/images/method/request_header_text_mode.png){v-zoom}
 
-In text mode, each line uses the `Key: Value` format. Prefix a line with `#` to disable that header. For example, `#Authorization: Bearer token` is converted into an unchecked header row. Click <img class="dt-inline-icon" src="/icon/method/table_convert_pair.svg" alt="Table pair conversion" /> again to convert the text back to the table.
+In text mode, each line uses the `Key: Value` format. Prefix a line with `#` to disable that header. For example, `#Authorization: Bearer token` becomes an unchecked header row. Click <img class="dt-inline-icon" src="/icon/method/table_convert_pair.svg" alt="Table/text conversion" /> again to convert the text back to the table.
 
-### Connection-Level
+### Application-Level
 
-Connection-level headers are configured on a single connection card in the connection management page. They only apply to that connection.
+Application-level headers are configured on an individual connection card on the connection management page. They apply only to the application associated with that connection.
 
-Click <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> on a connection card to open the Header dialog. After saving, all method invocations under this connection include these headers by default. After expanding a connection card, you can also view the headers already saved for that connection in the details area.
+Click <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Header" /> on a connection card to open the Header dialog. After saving, all method invocations for that application include these headers by default. Expand the connection card to view the headers already saved for the application in the details area.
 
-![request_header_connection_position.png](/images/method/request_header_connection_position.png){v-zoom}
+![Application-level header location](/images/method/request_header_connection_position.png){v-zoom}
 
-Connection-level headers are suitable for fixed context by application, environment, or instance, for example:
+Application-level headers are suitable for fixed context that differs by application, environment, or instance, for example:
 
 - A test application always uses `X-Env: test`.
 - A tenant-specific application always uses `X-Tenant-Id: tenant-a`.
-- When the same IDEA project connects to multiple applications, each connection keeps its own authentication or environment headers.
+- When the same IDEA project connects to multiple applications, each connection stores its own authentication or environment headers.
 
 ::: tip
-Connection-level headers are saved with the connection record. After disconnecting and reconnecting, the headers kept by the connection card continue to take effect.
+Application-level headers are stored in memory with the connection record.
 :::
 
 ### Project-Level
 
 Project-level headers are configured through <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Global Header" /> in the connection management toolbar. The button is shown as `Global Header`, and its practical scope is the default DebugTools headers for the current IDEA project.
 
-![request_header_project_position.png](/images/method/request_header_project_position.png){v-zoom}
+![Project-level header location](/images/method/request_header_project_position.png){v-zoom}
 
-After saving, all connections and all method invocations in the current project include these headers by default. Project-level headers are suitable for truly shared defaults, such as:
+After saving, all connections and method invocations in the current project include these headers by default. Project-level headers are suitable for truly shared defaults, such as:
 
 - A `User-Agent` used by all debug invocations.
 - A base authentication header shared by the current project.
 - Language, channel, or request source identifiers shared by all services.
 
 ::: warning
-Project-level headers have the widest scope. If the same IDEA project connects to multiple applications with different authentication, tenant, or environment values, prefer connection-level headers instead of project-level headers.
+Project-level headers have the widest scope. If the same IDEA project connects to multiple applications with different authentication, tenant, or environment values, use application-level headers instead of project-level headers.
 :::
 
 ## Merge Priority
@@ -98,12 +126,12 @@ Project-level headers have the widest scope. If the same IDEA project connects t
 When invoking a method, DebugTools merges the three levels into the final request headers:
 
 ```text
-Method-level > connection-level > project-level
+Method-level > Application-level > Project-level
 ```
 
-If the same header key appears in multiple levels, the highest-priority value is used:
+If the same header key appears at multiple levels, only the highest-priority value is used:
 
-| Header Key | Project-Level | Connection-Level | Method-Level | Final Value |
+| Header Key | Project-Level | Application-Level | Method-Level | Final Value |
 | --- | --- | --- | --- | --- |
 | `Authorization` | `Bearer project-token` | `Bearer connection-token` | `Bearer method-token` | `Bearer method-token` |
 | `X-Tenant-Id` | `tenant-default` | `tenant-a` | Not set | `tenant-a` |
@@ -111,34 +139,27 @@ If the same header key appears in multiple levels, the highest-priority value is
 
 In other words:
 
-- Headers filled at the method level are not overwritten by connection-level or project-level headers.
-- Headers filled at the connection level are not overwritten by project-level headers.
-- Project-level headers are used only when neither method-level nor connection-level headers contain the same key.
+- Method-level headers are not overwritten by application-level or project-level headers.
+- Application-level headers are not overwritten by project-level headers.
+- Project-level headers are used only when neither the method nor the application has the same key.
 
-## Recommended Usage
+## Storage and Cache Cleanup
 
-Put each header in the smallest reusable scope:
+**Storage**
 
-- If it only affects the current method debugging session, use method-level.
-- If multiple methods under the same connection need it, use connection-level.
-- If every connection in the current IDEA project can share it, use project-level.
+- Method-level: file
+- Application-level: memory
+- Project-level: file
 
-If you repeatedly fill the same header in method pages, consider moving it to connection-level or project-level. If a project-level header is frequently overridden by different connections, it is usually a better fit for connection-level.
+**Cache cleanup**
 
-## Cache and Restore
+![Cache cleanup menu](/images/method/clear_cache_menu.png){v-zoom}
 
-Click <img class="dt-inline-icon" src="/icon/method/idea_save.svg" alt="Save request parameters" /> in the method invocation toolbar to save the current method-level headers. When the same method is opened again, method-level headers are restored together with the parameter JSON, XXL-JOB parameter, trace configuration, and selected script.
-
-When restoring a request from invocation history, DebugTools also fills in the headers from that record, making previous invocations easier to reproduce.
-
-Connection-level headers are saved on the connection card. Project-level headers are saved through <img class="dt-inline-icon" src="/icon/method/http.svg" alt="Global Header" /> in the toolbar and stored as plugin global settings, not as part of a specific method or connection record. They are not lost after closing IDEA, reopening the project, or restarting IDEA.
-
-Click <img class="dt-inline-icon" src="/icon/method/clear.svg" alt="Clear Cache" /> in the toolbar to open the cache cleanup menu. `Method param cache` only clears the saved method invocation form content, including method-level parameters, headers, scripts, and related fields. It does not affect connection-level headers or project-level header settings.
-
-Click `Clear all` to clear the core Jar cache, method parameter cache, and project-level header settings at once. Project-level headers are also cleared if you delete them in the project-level Header dialog and save, or if the IDEA DebugTools plugin configuration file is removed.
-
-![Clear cache menu](/images/method/clear_cache_menu.png){v-zoom}
+- `Method param cache` clears method-level headers.
+- `Clear all` clears method-level and project-level headers.
+- You can also delete headers individually at their corresponding locations and save the changes.
 
 ::: tip
-Headers are used when DebugTools builds Spring MVC and Spring WebFlux request objects. If the target method has parameters such as `HttpServletRequest`, `ServerHttpRequest`, or `ServerWebExchange`, those objects can also read the merged headers from the current invocation.
+- Headers are used when constructing Spring MVC and Spring WebFlux request objects.
+- If the target method has parameters such as `HttpServletRequest`, `ServerHttpRequest`, or `ServerWebExchange`, those objects can also read the merged headers for the current invocation.
 :::

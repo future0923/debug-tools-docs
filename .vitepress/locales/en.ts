@@ -26,6 +26,10 @@ export const en = defineConfig({
         base: '/en/guide/',
         items: sidebarGuide()
       },
+      '/en/ai': {
+        base: '/en/ai/',
+        items: sidebarAi()
+      },
       '/en/other': {
         base: '/en/other/',
         items: sidebarOther()
@@ -48,6 +52,11 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'Document',
       link: '/en/guide/introduction',
       activeMatch: '/en/guide/'
+    },
+    {
+      text: 'AI',
+      link: '/en/ai/mcp/idea',
+      activeMatch: '/en/ai/'
     },
     {
       text: 'Contact Me',
@@ -113,6 +122,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Trace', link: 'method/trace-method'},
         {text: 'Reactive', link: 'method/reactive'},
         {text: 'Invocation History', link: 'method/invoke-record'},
+        {text: 'Convert to HTTP', link: 'method/convert-http'},
       ]
     },
     {
@@ -152,5 +162,29 @@ function sidebarOther(): DefaultTheme.SidebarItem[] {
   return [
     {text: 'changeLog', link: 'changelog'},
     {text: 'contributing', link: 'contributing'},
+  ]
+}
+
+function sidebarAi(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'MCP',
+      collapsed: false,
+      items: [
+        {text: 'Using IDEA MCP', link: 'mcp/idea'},
+        {text: 'Method Invocation MCP', link: 'mcp/method-invocation'},
+        {text: 'Hotswap MCP', link: 'mcp/hotswap'},
+      ]
+    },
+    {
+      text: 'Skills',
+      collapsed: false,
+      items: [
+        {text: 'Install and Use', link: 'skill/quick-start'},
+        {text: 'Method Invocation Skill', link: 'skill/method-invocation'},
+        {text: 'Hotswap Skill', link: 'skill/hotswap'},
+        {text: 'Spring Configuration Skill', link: 'skill/spring-config'},
+      ]
+    },
   ]
 }

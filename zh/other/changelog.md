@@ -4,6 +4,19 @@ aside: false
 ---
 # 版本迭代记录
 
+## [5.1.0](https://github.com/future0923/debug-tools/compare/v5.0.1...v5.1.0) (2026-07-13)
+
+- 调用方法如果是 controller 方法支持转为 http 调用
+- 适配 idea 的 mcp 模块，提供调用 java 方法和热重载的 mcp 工具
+- 修改方法 header 样式样式及体验
+- [#265](https://github.com/future0923/debug-tools/issues/265) - 搜索url支持JAX-RS规范注解
+- 修复主类模块索引未就绪时查找异常的bug
+- 修复调用历史页面 tree 模式搜索没效果的bug
+- [#281](https://github.com/future0923/debug-tools/issues/281) - 修复多环境下找不到配置信息的bug
+- [#292](https://github.com/future0923/debug-tools/issues/292) - 修复sa-token高版本无法调用方法的bug
+- [#293](https://github.com/future0923/debug-tools/issues/293) - 修复附着之后如果请求 spring 信息过早导致无法使用的bug
+- [#294](https://github.com/future0923/debug-tools/issues/294) - 修复开启打印 sql 偶发导致 Spring Boot 启动死锁的bug by [@C.](https://github.com/suntaoSCB)
+
 ## [5.0.1](https://github.com/future0923/debug-tools/compare/v5.0.0...v5.0.1) (2026-06-21)
 
 - 调用方法输入 class 类型时增加提示功能

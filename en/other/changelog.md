@@ -4,6 +4,19 @@ aside: false
 ---
 # ChangeLog
 
+## [5.1.0](https://github.com/future0923/debug-tools/compare/v5.0.1...v5.1.0) (2026-07-13)
+
+- Added support for converting Controller method invocations to HTTP requests
+- Integrated with IDEA MCP and added MCP tools for Java method invocation and hot reload
+- Improved the method Header UI and interaction experience
+- [#265](https://github.com/future0923/debug-tools/issues/265) - Added JAX-RS annotation support to URL search
+- Fixed an error when searching before the main class module index is ready
+- Fixed search not working in tree mode on the invocation history page
+- [#281](https://github.com/future0923/debug-tools/issues/281) - Fixed configuration lookup failures in multi-environment projects
+- [#292](https://github.com/future0923/debug-tools/issues/292) - Fixed method invocation failures with newer Sa-Token versions
+- [#293](https://github.com/future0923/debug-tools/issues/293) - Fixed Spring features becoming unavailable when Spring information was requested too soon after attaching
+- [#294](https://github.com/future0923/debug-tools/issues/294) - Fixed an occasional Spring Boot startup deadlock when SQL printing was enabled, by [@C.](https://github.com/suntaoSCB)
+
 ## [5.0.1](https://github.com/future0923/debug-tools/compare/v5.0.0...v5.0.1) (2026-06-21)
 
 - Added completion for class-type parameters in method invocation.

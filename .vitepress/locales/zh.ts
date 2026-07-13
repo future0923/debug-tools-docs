@@ -42,6 +42,10 @@ export const zh = defineConfig({
         base: '/blog/',
         items: sidebarBlog()
       },
+      '/ai': {
+        base: '/ai/',
+        items: sidebarAi()
+      },
       'other': {
         base: '/other/',
         items: sidebarOther()
@@ -63,6 +67,11 @@ function nav(): DefaultTheme.NavItem[] {
     {
       text: '文档',
       link: '/guide/introduction',
+    },
+    {
+      text: 'AI',
+      link: '/ai/mcp/idea',
+      activeMatch: '/ai/'
     },
     {
       text: '博客',
@@ -141,6 +150,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: '链路耗时', link: 'method/trace-method'},
         {text: 'Reactive', link: 'method/reactive'},
         {text: '调用历史', link: 'method/invoke-record'},
+        {text: '转为 HTTP', link: 'method/convert-http'},
       ]
     },
     {
@@ -181,6 +191,30 @@ function sidebarBlog(): DefaultTheme.SidebarItem[] {
     {text: 'Java多版本管理', link: 'java-env'},
     {text: '远程调试', link: 'remote-debug'},
     {text: '@Autowired与@Value源码解析', link: 'autowired-value'},
+  ]
+}
+
+function sidebarAi(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'MCP',
+      collapsed: false,
+      items: [
+        {text: 'IDEA MCP 使用说明', link: 'mcp/idea'},
+        {text: '方法调用 MCP', link: 'mcp/method-invocation'},
+        {text: 'Hotswap MCP', link: 'mcp/hotswap'},
+      ]
+    },
+    {
+      text: 'Skill',
+      collapsed: false,
+      items: [
+        {text: '安装与使用', link: 'skill/quick-start'},
+        {text: '方法调用 Skill', link: 'skill/method-invocation'},
+        {text: 'Hotswap Skill', link: 'skill/hotswap'},
+        {text: 'Spring 配置 Skill', link: 'skill/spring-config'},
+      ]
+    },
   ]
 }
 
