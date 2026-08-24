@@ -201,7 +201,13 @@ Supports hot reload of [OpenFeign](https://github.com/OpenFeign/feign)
 
 - Supports adding/modifying interfaces annotated with `@FeignClient`
 
-### 3.15 Others
+### 3.15 Forest
+
+Supports hot reload of [Forest](https://github.com/dromara/forest)
+
+- Supports adding/modifying interfaces and other components
+
+### 3.16 Others
 
 Hot reload can also be used in other situations. I won’t give examples here. If it doesn’t work, please submit an [issue](https://github.com/future0923/debug-tools/issues) to give feedback.
 

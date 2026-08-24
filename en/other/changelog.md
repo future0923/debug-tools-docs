@@ -4,6 +4,21 @@ aside: false
 ---
 # ChangeLog
 
+## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
+
+- Added Forest hot reload support by [@wangqiqi95](https://github.com/wangqiqi95)
+- Significantly improved HTTP URL search response speed
+- Improved the auto-attach ready indicator when multiple projects start simultaneously
+- [#299](https://github.com/future0923/debug-tools/issues/299) - Added zooming and bidirectional docking to the method invocation page
+- [#300](https://github.com/future0923/debug-tools/issues/300) - Added one-click cURL copying for method invocations and HTTP requests
+- Adapted MCP tool descriptors for IntelliJ IDEA 2026.2+
+- [#265](https://github.com/future0923/debug-tools/issues/265) - Added JAX-RS URL search support
+- [#298](https://github.com/future0923/debug-tools/issues/298) - Added GBase database support to SQL printing by [@ayuayue](https://github.com/ayuayue)
+- Added support for `@FeignClient` annotation configuration when scanning URLs by [@javalover123](https://github.com/javalover123)
+- [#302](https://github.com/future0923/debug-tools/issues/302) - Added stored procedure support to SQL printing by [@javalover123](https://github.com/javalover123)
+- [#304](https://github.com/future0923/debug-tools/issues/304) - Preserved `/* block comments */` when the SQL print format is set to `Compress` by [@javalover123](https://github.com/javalover123)
+- [#297](https://github.com/future0923/debug-tools/issues/297) - Fixed the full request URL not being visible and mouse-wheel scrolling not working under Actual Request in invocation history and HTTP debugging by [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [5.1.0](https://github.com/future0923/debug-tools/compare/v5.0.1...v5.1.0) (2026-07-13)
 
 - Added support for converting Controller method invocations to HTTP requests

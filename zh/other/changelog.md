@@ -4,6 +4,21 @@ aside: false
 ---
 # 版本迭代记录
 
+## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
+
+- 支持 forest 热重载 by [@wangqiqi95](https://github.com/wangqiqi95)
+- 巨幅提升搜索 http url 响应速率
+- 优化多项目同时启动自动附着就绪标记
+- [#299](https://github.com/future0923/debug-tools/issues/299) 支持方法调用页面支持放大缩小双向停靠
+- [#300](https://github.com/future0923/debug-tools/issues/300) 调用方法和http请求增加一键复制cURL的功能
+- 适配2026.2+ MCP 工具描述符
+- [#265](https://github.com/future0923/debug-tools/issues/265) 支持搜索 JAX-RS 的 url
+- [#298](https://github.com/future0923/debug-tools/issues/298) 打印 sql 支持 GBase 数据库 by [@ayuayue](https://github.com/ayuayue)
+- 扫描 url 支持 FeignClient 注解配置 by [@javalover123](https://github.com/javalover123)
+- [#302](https://github.com/future0923/debug-tools/issues/302) 打印 sql 支持存储过程 by [@javalover123](https://github.com/javalover123)
+- [#304](https://github.com/future0923/debug-tools/issues/304) 打印 sql 格式选择为 Compress，保留 `/* 块注释 */` 注释 by [@javalover123](https://github.com/javalover123)
+- [#297](https://github.com/future0923/debug-tools/issues/297) 修复调用记录页面 | http调试 | 实际请求：请求 URL没有完整显示 鼠标滚轮无效的 bug by [@wangqiqi95](https://github.com/wangqiqi95)
+
 ## [5.1.0](https://github.com/future0923/debug-tools/compare/v5.0.1...v5.1.0) (2026-07-13)
 
 - 调用方法如果是 controller 方法支持转为 http 调用

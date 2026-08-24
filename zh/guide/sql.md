@@ -15,6 +15,7 @@ DebugTools 在 JDBC 层通过修改数据库驱动字节码拦截 SQL 执行，�
 - [ClickHouse](https://clickhouse.com/)
 - [Oracle](https://www.oracle.com/database/technologies/)
 - [达梦 DM](https://www.dameng.com/)
+- [GBase](https://www.gbase.cn/)
 
 ## 开启 SQL 打印 {#setting}
 

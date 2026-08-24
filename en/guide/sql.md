@@ -15,6 +15,7 @@ Currently adapted JDBC drivers:
 - [ClickHouse](https://clickhouse.com/)
 - [Oracle](https://www.oracle.com/database/technologies/)
 - [Dameng DM](https://www.dameng.com/)
+- [GBase](https://www.gbase.cn/)
 
 ## Enable SQL Printing {#setting}
 

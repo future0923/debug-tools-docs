@@ -2,7 +2,7 @@
 
 ## Purpose {#purpose}
 
-In Spring, Spring Boot, or WebFlux projects, an HTTP URL is usually composed from Mapping annotations on both the class and the method. DebugTools can search for the matching interface method based on the entered URL and jump directly to the code definition.
+In Spring, Spring Boot, JAX-RS, or WebFlux projects, an HTTP URL is usually composed from Mapping annotations on both the class and the method. DebugTools can search for the matching interface method based on the entered URL and jump directly to the code definition.
 
 <video controls width="640">
   <source src="https://download.debug-tools.cc/mp4/search_url.mp4" type="video/mp4">https://download.debug-tools.cc/mp4/search_url.mp4

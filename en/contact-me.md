@@ -16,6 +16,6 @@ Click or scan the code to add QQ Group: [518757118](https://qm.qq.com/cgi-bin/qm
 
 ## WeChat Group
 
-Add me to WeChat Note DebugTools Group
+Scan the QR code to follow the DebugTools official WeChat account, then join the WeChat group through its custom menu.
 
 <img src="/wechat.png" width="200" height="200" v-zoom alt=""/>

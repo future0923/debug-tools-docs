@@ -2,7 +2,7 @@
 
 ## 用途 {#purpose}
 
-在 Spring、Spring Boot 或 WebFlux 项目中，一个 HTTP 地址通常由类上的 Mapping 和方法上的 Mapping 组合而成。DebugTools 可以根据输入的 URL 在项目中查找匹配的接口方法，并直接跳转到代码定义位置。
+在 Spring、Spring Boot、JAX-RS 或 WebFlux 项目中，一个 HTTP 地址通常由类上的 Mapping 和方法上的 Mapping 组合而成。DebugTools 可以根据输入的 URL 在项目中查找匹配的接口方法，并直接跳转到代码定义位置。
 
 <video controls width="640">
   <source src="https://download.debug-tools.cc/mp4/search_url.mp4" type="video/mp4">https://download.debug-tools.cc/mp4/search_url.mp4

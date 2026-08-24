@@ -16,6 +16,6 @@
 
 ## 微信群
 
-添加我微信备注 DebugTools 拉群
+扫码关注 DebugTools 公众号，通过公众号自定义菜单加入微信群
 
 <img src="/wechat.png" width="200" height="200" v-zoom  alt=""/>
