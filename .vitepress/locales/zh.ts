@@ -154,6 +154,13 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       ]
     },
     {
+      text: 'Kubernetes 调试',
+      collapsed: false,
+      items: [
+        {text: 'Kubernetes 微服务调试', link: 'k8s-debug'},
+      ]
+    },
+    {
       text: '搜索Http地址',
       collapsed: false,
       items: [
