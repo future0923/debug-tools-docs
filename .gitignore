@@ -49,3 +49,5 @@ build/
 
 node_modules
 /.vitepress/cache/
+/.vitepress/dist/
+/.xcodemap/

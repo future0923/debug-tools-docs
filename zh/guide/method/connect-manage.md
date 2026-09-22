@@ -33,6 +33,7 @@
 | --- | --- | --- |
 | <img class="dt-table-icon" src="/icon/method/attach.svg" alt="附着" /> | `附着` | 选择本机正在运行的 Java 进程并附着。 |
 | <img class="dt-table-icon" src="/icon/method/connect.svg" alt="连接" /> | `连接` | 连接远程 DebugTools 服务。 |
+| <img class="dt-table-icon" src="/icon/method/k8s.svg" alt="K8s 连接" /> | `K8s` | 连接 Kubernetes 集群中的 Pod 或 Deployment 并建立调试隧道。 |
 | <img class="dt-table-icon" src="/icon/method/http.svg" alt="全局 Header" /> | `全局 Header` | 配置所有连接默认携带的 Header。 |
 | <img class="dt-table-icon" src="/icon/method/clear.svg" alt="清理缓存" /> | `清理缓存` | 清理核心 Jar 缓存、方法参数缓存，或一键清理全部缓存。 |
 | <img class="dt-table-icon" src="/icon/method/help.svg" alt="帮助" /> | `帮助` | 打开 DebugTools 使用文档。 |
@@ -74,6 +75,12 @@
 
 <!--@include: ../parts/connect-remote.md-->
 
+### Kubernetes
+
+点击工具栏中的 <img class="dt-inline-icon" src="/icon/method/k8s.svg" alt="K8s 连接" /> 按钮，可以连接 Kubernetes 集群中的 Pod 或 Deployment。插件会自动解析多集群 Context、命名空间并拉取目标服务，支持自动检测/注入 Agent 并建立本地安全端口转发隧道。
+
+详细的使用前提、连接步骤与运行指标说明请参考 [Kubernetes 微服务调试](../k8s-debug)。
+
 ## 查看连接列表
 
 ### 应用信息
@@ -86,8 +93,8 @@
 
 - 应用名称：默认展示短应用名，鼠标悬停可查看完整名称。
 - 连接状态：绿色表示已连接，断开后会显示为非连接状态。
-- 来源标签：本地附着显示 `本地`，远程连接显示 `远程`。
-- 运行信息：展开卡片后可以查看 `PID` 或 `Host`、`TCP` 端口、`HTTP` 端口。
+- 来源标签：本地附着显示 `本地`，远程连接显示 `远程`（通过 Kubernetes 连接时带有 `k8s:` 前缀）。
+- 运行信息：展开卡片后可以查看 `PID` 或 `Host`、`TCP` 端口、`HTTP` 端口；如果是 Kubernetes 连接，还会展示 `Cluster`、`Namespace`、`Pod`、`Target`、`Forward` 映射与 `Tunnel` 隧道状态（`● 运行中` / `○ 已停止`）。
 
 点击卡片标题区域或空白区域可以展开或收起详情。按钮、下拉框、输入框等操作控件不会触发展开收起。
 
