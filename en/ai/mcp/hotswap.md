@@ -1,6 +1,6 @@
 # Hotswap MCP
 
-The DebugTools IDEA plugin provides three MCP tools in `DebugToolsHotswapToolset`. They list IDEA run configurations, start a run configuration through DebugTools Hotswap, and trigger compilation and hot reload through IDEA Java Debugger.
+The DebugTools IDEA plugin provides run configuration discovery, Hotswap startup, Java Debugger reload, operation lookup, and the `run_and_invoke` orchestration tool in `DebugToolsHotswapToolset`.
 
 This page is a tool reference and covers only each tool's purpose, input parameters, and return values. The [Hotswap Skill](../skill/hotswap.md) defines how an AI should select run configurations, handle auto-attach, and decide when to trigger hot reload.
 
@@ -11,10 +11,12 @@ This page is a tool reference and covers only each tool's purpose, input paramet
 | `list_debug_tools_run_configurations` | Lists run configurations in the current IDEA project, with optional module, main class, and configuration type filters. |
 | `execute_debug_tools_run_configuration` | Starts a specified IDEA run configuration with the DebugTools Hotswap executor. |
 | `compile_and_reload_modified_files` | Triggers Compile and Reload Modified Files for an attached Java Debugger session. |
+| `get_hotswap_operation` | Queries the latest status for a previously requested HotSwap operation. |
+| `run_and_invoke` | Orchestrates status, optional start/attach, reload, invocation, and optional logs/SQL verification. |
 
 ## Common Conventions
 
-All three tools support an optional `projectPath` parameter:
+These tools support an optional `projectPath` parameter:
 
 | Parameter | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -191,6 +193,8 @@ There are no unconditionally required tool-specific parameters.
 | `projectPath` | No | `string` | Target IDEA project path; see Common Conventions. |
 | `sessionName` | Conditional | `string` | Java Debugger session name. It can be omitted when only one session is available, but is required when multiple sessions exist. |
 | `compileBeforeReload` | No | `boolean` | Whether to compile before hot reload. When omitted, uses the current IDEA Java Debugger `COMPILE_BEFORE_HOTSWAP` setting. |
+| `waitMillis` | No | `integer` | Maximum bounded wait for the request, capped at 120 seconds. |
+| `operationId` | No | `string` | Existing operation id to query or continue tracking. |
 
 **Return Value**
 
@@ -201,6 +205,9 @@ There are no unconditionally required tool-specific parameters.
 | `compileBeforeReload` | `boolean` | Effective compile-before-reload setting for this request. |
 | `message` | `string` | Request result or failure reason. |
 | `availableSessionNames` | `string[]` | Candidate session names when multiple sessions exist without a selection, the requested session does not exist, or a similar selection error occurs. |
+| `operationId` | `string \| null` | Identifier for querying the operation. |
+| `status` | `string` | Request or operation status. |
+| `errorCode` | `string \| null` | Structured HotSwap error code when available. |
 
 ::: warning
 `success=true` only means the request was submitted to IDEA Java Debugger. Compilation progress, HotSwap results, and failure details are still shown by IDEA's native UI or notifications.
@@ -240,3 +247,9 @@ Response when multiple debugger sessions exist and `sessionName` is omitted:
 ```
 
 If the current project has no attached Java Debugger session, the tool returns `success=false` with `message` set to `No attached Java debugger session is available for hotswap`.
+
+## Operation feedback and orchestration
+
+`compile_and_reload_modified_files` accepts `waitMillis` and returns `operationId`, `status`, `errorCode`, and optional changed/compiled/reloaded/skipped class lists. The status can be `REQUESTED`, `COMPILING`, `RELOADING`, `SUCCESS`, `PARTIAL_SUCCESS`, `FAILED`, `TIMEOUT`, or `UNSUPPORTED`. If a request times out, call `get_hotswap_operation` with the returned `operationId` instead of submitting the reload again. IDEA versions without per-class progress may return an empty or `UNKNOWN` `classResults` list.
+
+`run_and_invoke` provides the complete status → optional start/attach → reload → invoke flow. Starting is explicit: use `allowStart=true` together with an exact `runConfigurationName`. Attaching is explicit: use `allowAttach=true` together with a `pid`. `verifyLogs` and `verifySql` add bounded post-invocation evidence. The tool returns separate step statuses, so a successful start request does not hide a later attach, reload, invocation, logs, or SQL failure.

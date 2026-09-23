@@ -75,3 +75,9 @@ Compile and Reload Modified Files 使用 IDEA Java Debugger 从调试会话启�
 ## 无法触发时
 
 如果当前 AI 客户端看不到 Hotswap MCP 工具，应先检查 [IDEA MCP 配置](../mcp/idea.md) 和 DebugTools 插件。不要让 Agent 通过读取 `.idea` 文件、执行 Gradle/Maven 命令或直接启动 Java 进程来冒充 Hotswap 工作流。
+
+## 操作反馈和闭环调用
+
+`compile_and_reload_modified_files` 支持 `waitMillis`，并返回 `operationId`、`status`、`errorCode` 及可选的类结果列表。请求超时时使用 `get_hotswap_operation` 查询原操作，不要重复提交热重载。IDEA 没有逐类进度时，`classResults` 可能为空或为 `UNKNOWN`。
+
+需要端到端热重载和验证时，使用 `run_and_invoke`。它可以分别返回方法结果、日志和 SQL。启动和附着都是显式选项，必须提供精确运行配置名或明确 PID。

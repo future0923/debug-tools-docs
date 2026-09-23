@@ -1,6 +1,6 @@
 # Hotswap MCP
 
-DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供 3 个 MCP 工具，分别负责查询 IDEA 运行配置、通过 DebugTools Hotswap 启动运行配置，以及触发 IDEA Java Debugger 的编译并热重载。
+DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供运行配置查询、Hotswap 启动、Java Debugger 热重载、操作查询和 `run_and_invoke` 编排工具。
 
 本页是工具参考手册，只说明每个工具的作用、输入参数和返回值。AI 应该如何选择运行配置、怎样处理自动附着、什么时候触发热重载等组合规则，由 [Hotswap Skill](../skill/hotswap.md) 负责。
 
@@ -11,10 +11,12 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供 3 个 MCP 工具�
 | `list_debug_tools_run_configurations` | 查询当前 IDEA 项目中的运行配置，并支持按模块、主类和配置类型筛选。 |
 | `execute_debug_tools_run_configuration` | 使用 DebugTools Hotswap executor 启动指定 IDEA 运行配置。 |
 | `compile_and_reload_modified_files` | 对已附着的 Java Debugger 会话触发 Compile and Reload Modified Files。 |
+| `get_hotswap_operation` | 查询之前提交的热重载操作状态。 |
+| `run_and_invoke` | 编排状态检查、可选启动/附着、热重载、方法调用以及可选日志/SQL 验证。 |
 
 ## 公共约定
 
-3 个工具都支持可选参数 `projectPath`：
+这些工具都支持可选参数 `projectPath`：
 
 | 参数 | 必填 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -191,6 +193,8 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供 3 个 MCP 工具�
 | `projectPath` | 否 | `string` | 目标 IDEA 项目路径，含义见“公共约定”。 |
 | `sessionName` | 条件必填 | `string` | Java Debugger 会话名称。只有一个可用会话时可省略；存在多个会话时必须指定。 |
 | `compileBeforeReload` | 否 | `boolean` | 是否先编译再热重载。省略时使用 IDEA Java Debugger 当前的 `COMPILE_BEFORE_HOTSWAP` 设置。 |
+| `waitMillis` | 否 | `integer` | 请求的最长等待时间，最大 120 秒。 |
+| `operationId` | 否 | `string` | 用于查询或继续跟踪已有操作的 ID。 |
 
 **返回值**
 
@@ -201,6 +205,9 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供 3 个 MCP 工具�
 | `compileBeforeReload` | `boolean` | 本次请求最终采用的“先编译再重载”设置。 |
 | `message` | `string` | 请求结果或失败原因。 |
 | `availableSessionNames` | `string[]` | 多会话未指定、指定会话不存在等情况下返回的候选会话名称。 |
+| `operationId` | `string \| null` | 用于查询操作的 ID。 |
+| `status` | `string` | 请求或操作状态。 |
+| `errorCode` | `string \| null` | 可用时返回结构化热重载错误码。 |
 
 ::: warning
 `success=true` 只表示请求已经提交给 IDEA Java Debugger。后续编译进度、HotSwap 结果和失败详情仍由 IDEA 原生界面或通知展示。
@@ -240,3 +247,9 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供 3 个 MCP 工具�
 ```
 
 当前项目没有已附着的 Java Debugger 会话时，返回 `success=false`，`message` 为 `No attached Java debugger session is available for hotswap`。
+
+## 操作反馈和编排
+
+`compile_and_reload_modified_files` 支持 `waitMillis`，并返回 `operationId`、`status`、`errorCode`，以及可选的变更、编译、重载和跳过类列表。状态包括 `REQUESTED`、`COMPILING`、`RELOADING`、`SUCCESS`、`PARTIAL_SUCCESS`、`FAILED`、`TIMEOUT` 和 `UNSUPPORTED`。请求超时时，使用返回的 `operationId` 调用 `get_hotswap_operation` 查询原操作，不要重复提交热重载。IDEA 没有逐类进度 API 时，`classResults` 可能为空或为 `UNKNOWN`。
+
+`run_and_invoke` 提供“状态 → 可选启动/附着 → 热重载 → 调用”的完整流程。启动必须显式传入精确的 `runConfigurationName` 并设置 `allowStart=true`；附着必须显式传入 `pid` 并设置 `allowAttach=true`。`verifyLogs` 和 `verifySql` 可追加有上限的调用后证据。工具会分别返回每一步的状态，不会用启动请求成功掩盖后续附着、热重载、调用、日志或 SQL 失败。

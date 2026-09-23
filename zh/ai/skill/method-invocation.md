@@ -2,6 +2,8 @@
 
 方法调用 Skill 用来让 AI Agent 连接运行中的 Java 应用并调用指定方法。它会处理 JVM 发现、DebugTools 连接、方法参数、重载方法和 ClassLoader 等细节，用户不需要自己逐个指定 MCP 工具。
 
+如果用户要求使用已经保存的前后置脚本，先调用 `list_method_around_scripts`，必要时用 `get_method_around_script` 查看源码，再把返回的精确名称（不含 `.java`）传给 `invoke_java_method.methodAroundName` 或 `run_and_invoke.methodAroundName`。不要把项目文件路径直接传给 MCP。
+
 Skill 名称是 `debug-tools-method-invocation`。
 
 ## 能做什么
@@ -96,3 +98,9 @@ JSON 和 Debug 视图依赖连接返回的 HTTP 信息；连接不提供对应�
 ## 无法触发时
 
 如果当前 AI 客户端报告没有 DebugTools MCP 工具，不要让它改用 `jps`、端口扫描或临时 Java 程序模拟调用。先检查 [IDEA MCP 配置](../mcp/idea.md) 和 DebugTools 插件是否正常暴露工具。
+
+## 状态和可观测性
+
+需要完整目标快照时，Agent 应优先调用 `get_debug_tools_status`。只有一个活跃连接时可以自动选择；存在多个活跃连接时必须明确传入 `connectionId`。调用后需要证据时，可以使用带过滤条件的 `read_target_application_logs` 和 `get_last_sql_statements`。`LOGS_UNAVAILABLE` 和 `SQL_HISTORY_UNAVAILABLE` 表示能力不可用，不代表没有记录。
+
+当前插件支持 `invoke_java_method.resultView=TO_STRING|JSON|DEBUG|NONE`，并返回 `resultJson`、`resultFetchStatus` 和 `resultFetchError`。结果获取失败会与方法调用失败分开报告。恢复时应使用结构化错误中的 `code`、`availableOptions`、`retryable` 和 `nextAction`。

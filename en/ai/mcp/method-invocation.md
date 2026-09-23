@@ -1,6 +1,6 @@
 # Method Invocation MCP
 
-The DebugTools IDEA plugin provides five MCP tools in `DebugToolsMethodInvocationToolset`. They inspect connections, list attachable JVMs, attach to a JVM, generate method argument templates, and invoke Java methods.
+The DebugTools IDEA plugin provides connection, JVM attachment, method invocation, status, HTTP URL search, log, and SQL tools in `DebugToolsMethodInvocationToolset`.
 
 This page is a tool reference and covers only each tool's purpose, input parameters, and return values. The [Method Invocation Skill](../skill/method-invocation.md) defines when an AI should use each tool, how to combine them, and how to recover from failures.
 
@@ -13,10 +13,16 @@ This page is a tool reference and covers only each tool's purpose, input paramet
 | `attach_local_jvm` | Loads the DebugTools agent into a specified local JVM and can wait for a connection. |
 | `generate_method_args_template` | Generates a DebugTools `argsJson` template from a Java method signature in the IDEA project. |
 | `invoke_java_method` | Invokes a Java method in the target JVM through a specified DebugTools connection. |
+| `list_method_around_scripts` | Lists saved Method Around scripts in the current IDEA project. |
+| `get_method_around_script` | Reads the source and identity of one saved Method Around script. |
+| `get_debug_tools_status` | Aggregates project, connection, JVM, debugger session, readiness, and capability status. |
+| `search_http_url` | Searches indexed HTTP endpoints and returns stable controller metadata. |
+| `read_target_application_logs` | Reads bounded recent logs from the target JVM. |
+| `get_last_sql_statements` | Reads bounded recent SQL from the target JVM. |
 
 ## Common Conventions
 
-All five tools support an optional `projectPath` parameter:
+These tools support an optional `projectPath` parameter:
 
 | Parameter | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -278,9 +284,11 @@ Converts MCP parameters into the existing DebugTools `RunDTO` request, sends it 
 | `xxlJobParam` | No | `string` | XXL-JOB parameter injected into the target invocation context. |
 | `traceMethodDTO` | No | `object` | Trace settings for method calls, MyBatis, and SQL. |
 | `methodAroundContent` | No | `string` | Method Around Java source executed before and after the target method. |
+| `methodAroundName` | No | `string` | Saved script name without `.java`. Call `list_method_around_scripts` to get the exact name; explicit source wins when both are provided. |
 | `methodAroundContentIdentity` | No | `string` | Method Around content identity. If content is provided without an identity, the plugin uses the content MD5. |
 | `classLoaderIdentity` | No | `string` | Target ClassLoader identity. When omitted, uses the connection's currently selected default ClassLoader. |
 | `timeoutMillis` | No | `integer` | Time to wait for the target JVM response, in milliseconds. Defaults to `30000`; values below `1` are treated as `1`. |
+| `resultView` | No | `string` | `TO_STRING` (default), `JSON`, `DEBUG`, or `NONE`. Controls the optional rendered result fetch. |
 
 If `connectionId` is omitted and the project has no active connection, the tool returns `No active DebugTools connection found`. If multiple active connections exist, it returns an error listing the available `connectionId` values.
 
@@ -379,3 +387,22 @@ Failure response example:
   "durationMillis": 3
 }
 ```
+
+## Result views and closed-loop helpers
+
+`invoke_java_method` keeps `result` as the compatible ToString result and accepts an optional `resultView`:
+
+- `TO_STRING` (default) keeps the existing response shape.
+- `JSON` fetches the JSON representation and may return `resultJson`.
+- `DEBUG` fetches the DebugTools object representation.
+- `NONE` returns invocation metadata without fetching a rendered result.
+
+`resultFetchStatus` and `resultFetchError` describe the additional result fetch. A failed fetch does not mean the Java method itself failed. Older plugin versions can use the documented `/result/type` and `/result/detail` HTTP fallback with the selected connection's `host`, `httpPort`, and `offsetPath`.
+
+Use `get_debug_tools_status` for a complete project snapshot and its `nextAction` before choosing a target. Use `read_target_application_logs` for bounded recent target logs and `get_last_sql_statements` for recent SQL. These tools report `LOGS_UNAVAILABLE` or `SQL_HISTORY_UNAVAILABLE` when the source is unavailable; an unavailable source is different from an empty result.
+
+New tools expose structured errors with `code`, `hint`, `availableOptions`, `retryable`, `nextAction`, and `details`. When several connections are available, choose an explicit `connectionId` from `availableOptions` instead of guessing.
+
+## Saved before/after scripts
+
+Scripts saved by the IDEA method invocation page live under `.idea/DebugTools/MethodAround/` in the project. The AI should call `list_method_around_scripts`, optionally inspect a source with `get_method_around_script`, then pass the exact name without `.java` as `invoke_java_method.methodAroundName` or `run_and_invoke.methodAroundName`. MCP does not expose local file paths and rejects path traversal names; explicit `methodAroundContent` takes precedence when both forms are provided.

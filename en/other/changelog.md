@@ -4,6 +4,12 @@ aside: false
 ---
 # ChangeLog
 
+## MCP workflow improvements
+
+- Added status aggregation, stable HTTP URL search, target log and SQL queries, HotSwap operation lookup, and the `run_and_invoke` closed-loop tool.
+- Added `resultView=TO_STRING|JSON|DEBUG|NONE` and separate result fetch status fields to `invoke_java_method`.
+- Added bounded HotSwap feedback fields and explicit start/attach controls for orchestrated runs.
+
 ## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
 
 - Added Forest hot reload support by [@wangqiqi95](https://github.com/wangqiqi95)

@@ -4,6 +4,12 @@ aside: false
 ---
 # 版本迭代记录
 
+## MCP 工作流完善
+
+- 增加状态聚合、稳定的 HTTP 地址搜索、目标日志和 SQL 查询、HotSwap 操作查询以及 `run_and_invoke` 闭环工具。
+- `invoke_java_method` 增加 `resultView=TO_STRING|JSON|DEBUG|NONE` 和独立的结果获取状态字段。
+- 增加有边界的热重载反馈字段，以及编排运行时显式启动和附着控制。
+
 ## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
 
 - 支持 forest 热重载 by [@wangqiqi95](https://github.com/wangqiqi95)

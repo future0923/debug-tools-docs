@@ -208,8 +208,11 @@ function sidebarAi(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'IDEA MCP 使用说明', link: 'mcp/idea'},
+        {text: 'MCP 状态', link: 'mcp/status'},
         {text: '方法调用 MCP', link: 'mcp/method-invocation'},
         {text: 'Hotswap MCP', link: 'mcp/hotswap'},
+        {text: '日志和 SQL MCP', link: 'mcp/observability'},
+        {text: 'MCP 闭环工作流', link: 'mcp/workflow'},
       ]
     },
     {

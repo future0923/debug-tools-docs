@@ -2,6 +2,8 @@
 
 The Method Invocation Skill lets an AI agent connect to a running Java application and invoke a specified method. It handles JVM discovery, DebugTools connections, method arguments, overloads, and ClassLoaders, so you do not need to choose each MCP tool manually.
 
+When the user asks to use a saved before/after script, call `list_method_around_scripts`, optionally inspect it with `get_method_around_script`, then pass the exact returned name without `.java` as `invoke_java_method.methodAroundName` or `run_and_invoke.methodAroundName`. Do not pass a project file path to MCP.
+
 The skill name is `debug-tools-method-invocation`.
 
 ## What It Can Do
@@ -96,3 +98,9 @@ JSON and Debug views depend on the HTTP information returned by the connection. 
 ## If the Skill Does Not Trigger
 
 If the AI client reports that no DebugTools MCP tools are available, do not ask it to simulate invocation with `jps`, port scanning, or a temporary Java program. Check the [IDEA MCP configuration](../mcp/idea.md) and confirm that the DebugTools plugin exposes its tools correctly.
+
+## Status and observability
+
+For a complete target snapshot, the agent should prefer `get_debug_tools_status`. It automatically selects exactly one active connection, but multiple active connections require an explicit `connectionId`. The skill can also use `read_target_application_logs` and `get_last_sql_statements` with bounded filters after an invocation. `LOGS_UNAVAILABLE` and `SQL_HISTORY_UNAVAILABLE` are capability errors, not empty streams.
+
+Current plugins support `resultView=TO_STRING|JSON|DEBUG|NONE` on `invoke_java_method`, plus `resultJson`, `resultFetchStatus`, and `resultFetchError`. A result fetch error is reported separately from method invocation failure. Structured error fields such as `code`, `availableOptions`, `retryable`, and `nextAction` drive recovery.

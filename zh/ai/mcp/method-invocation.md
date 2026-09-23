@@ -1,6 +1,6 @@
 # 方法调用 MCP
 
-DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供 5 个 MCP 工具，分别负责查询连接、查询可附着 JVM、附着 JVM、生成方法参数模板和调用 Java 方法。
+DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供连接、JVM 附着、方法调用、状态聚合、HTTP 地址搜索、日志和 SQL 查询工具。
 
 本页是工具参考手册，只说明每个工具的作用、输入参数和返回值。AI 应该在什么条件下选择工具、工具之间如何组合、失败后如何恢复，由 [方法调用 Skill](../skill/method-invocation.md) 负责。
 
@@ -13,10 +13,16 @@ DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供 5 个 MC
 | `attach_local_jvm` | 向指定本地 JVM 加载 DebugTools agent，并可等待连接建立。 |
 | `generate_method_args_template` | 根据 IDEA 项目中的 Java 方法签名生成 DebugTools `argsJson` 参数模板。 |
 | `invoke_java_method` | 通过指定 DebugTools 连接调用目标 JVM 中的 Java 方法。 |
+| `list_method_around_scripts` | 列出当前 IDEA 项目中已保存的 Method Around 脚本。 |
+| `get_method_around_script` | 读取指定已保存 Method Around 脚本的源码和标识。 |
+| `get_debug_tools_status` | 聚合项目、连接、JVM、调试会话、就绪状态和能力信息。 |
+| `search_http_url` | 搜索索引中的 HTTP 地址并返回稳定的 Controller 元数据。 |
+| `read_target_application_logs` | 查询目标 JVM 最近的一段日志。 |
+| `get_last_sql_statements` | 查询目标 JVM 最近的 SQL。 |
 
 ## 公共约定
 
-5 个工具都支持可选参数 `projectPath`：
+这些工具都支持可选参数 `projectPath`：
 
 | 参数 | 必填 | 类型 | 说明 |
 | --- | --- | --- | --- |
@@ -278,9 +284,11 @@ DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供 5 个 MC
 | `xxlJobParam` | 否 | `string` | 传入目标调用上下文的 XXL-JOB 参数。 |
 | `traceMethodDTO` | 否 | `object` | 方法链路、MyBatis 和 SQL 等 Trace 配置。 |
 | `methodAroundContent` | 否 | `string` | 在目标方法前后执行的 Method Around Java 源码内容。 |
+| `methodAroundName` | 否 | `string` | 已保存脚本名称，不含 `.java`。先用 `list_method_around_scripts` 获取精确名称；如果同时提供源码，源码优先。 |
 | `methodAroundContentIdentity` | 否 | `string` | Method Around 内容标识。省略但提供了内容时，插件使用内容 MD5。 |
 | `classLoaderIdentity` | 否 | `string` | 目标 ClassLoader 标识。省略时使用连接当前选中的默认 ClassLoader。 |
 | `timeoutMillis` | 否 | `integer` | 等待目标 JVM 响应的超时时间，单位毫秒，默认 `30000`。小于 `1` 时按 `1` 处理。 |
+| `resultView` | 否 | `string` | `TO_STRING`（默认）、`JSON`、`DEBUG` 或 `NONE`，控制是否获取额外的结果视图。 |
 
 省略 `connectionId` 时，如果项目没有活跃连接，返回 `No active DebugTools connection found`；如果存在多个活跃连接，返回错误并列出可选的 `connectionId`。
 
@@ -379,3 +387,22 @@ DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供 5 个 MC
   "durationMillis": 3
 }
 ```
+
+## 结果视图和闭环辅助工具
+
+`invoke_java_method` 保留兼容的 `result` ToString 结果，同时支持可选的 `resultView`：
+
+- `TO_STRING`（默认）保持原有返回结构。
+- `JSON` 获取 JSON 结果，并可能返回 `resultJson`。
+- `DEBUG` 获取 DebugTools 对象结构。
+- `NONE` 只返回调用元数据，不获取渲染结果。
+
+`resultFetchStatus` 和 `resultFetchError` 描述额外结果获取过程。结果获取失败不等于 Java 方法调用失败。旧版本插件仍可使用文档中的 `/result/type` 和 `/result/detail` HTTP 兜底方式，此时使用所选连接的 `host`、`httpPort` 和 `offsetPath`。
+
+使用 `get_debug_tools_status` 获取项目、连接、可附着 JVM、调试会话和能力探测的完整快照，并根据 `nextAction` 选择下一步。使用 `read_target_application_logs` 查询有上限的目标日志，使用 `get_last_sql_statements` 查询最近 SQL。能力不可用时工具会返回 `LOGS_UNAVAILABLE` 或 `SQL_HISTORY_UNAVAILABLE`，这和“没有记录”不同。
+
+新增工具使用结构化错误，包含 `code`、`hint`、`availableOptions`、`retryable`、`nextAction` 和 `details`。存在多个连接时，应从 `availableOptions` 选择明确的 `connectionId`，不要猜测。
+
+## 已保存的前后置脚本
+
+IDEA 方法调用页保存的脚本位于项目的 `.idea/DebugTools/MethodAround/` 目录。AI 应先调用 `list_method_around_scripts` 获取脚本名称，再按需调用 `get_method_around_script` 查看源码，最后把不含 `.java` 的精确名称传给 `invoke_java_method.methodAroundName` 或 `run_and_invoke.methodAroundName`。MCP 不返回本地文件路径，也不接受路径穿越参数；`methodAroundContent` 与名称同时提供时，以显式源码为准。

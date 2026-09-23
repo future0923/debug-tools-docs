@@ -172,8 +172,11 @@ function sidebarAi(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'Using IDEA MCP', link: 'mcp/idea'},
+        {text: 'Status MCP', link: 'mcp/status'},
         {text: 'Method Invocation MCP', link: 'mcp/method-invocation'},
         {text: 'Hotswap MCP', link: 'mcp/hotswap'},
+        {text: 'Logs and SQL MCP', link: 'mcp/observability'},
+        {text: 'MCP Closed Loop', link: 'mcp/workflow'},
       ]
     },
     {
