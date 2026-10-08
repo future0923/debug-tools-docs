@@ -4,11 +4,34 @@ aside: false
 ---
 # 版本迭代记录
 
-## MCP 工作流完善
+## 5.3.0
 
-- 增加状态聚合、稳定的 HTTP 地址搜索、目标日志和 SQL 查询、HotSwap 操作查询以及 `run_and_invoke` 闭环工具。
-- `invoke_java_method` 增加 `resultView=TO_STRING|JSON|DEBUG|NONE` 和独立的结果获取状态字段。
-- 增加有边界的热重载反馈字段，以及编排运行时显式启动和附着控制。
+### 热重载与资源部署
+
+- 新增[自动监听 class 文件并重载](../guide/hot-reload.md#auto-hotswap)配置，默认关闭；编译输出发生变化后自动重载已加载的类。
+- 支持 [Freemarker 热重载](../guide/hot-reload-freemarker.md)，更新模板后重新读取内容，并在类重定义后清理对象包装器缓存。
+- 支持 [Thymeleaf 热重载](../guide/hot-reload-thymeleaf.md)，模板渲染前清理对应模板缓存。
+- 单文件资源操作从 XML 扩展到[非 Java 文件](../guide/hot-reload-resource.md)，支持复制到模块输出目录，以及按资源相对路径部署到目标应用。
+- 自动监听和手动热部署共用类重定义锁，避免多个重定义通道并发执行。
+
+### Groovy 断点调试
+
+- 新增[调试当前 Groovy 脚本](../guide/groovy-execute.md#debug-groovy)入口，支持在目标 JVM 中命中脚本断点，并使用 IDEA Debugger 查看变量和单步执行。
+- 按目标 JVM 标识匹配 Java 调试会话，按脚本文件与内容区分源码版本。
+
+### MCP 工具
+
+- 提供 16 个 MCP 工具，详见 [IDEA MCP 使用说明](../ai/mcp/idea.md)。
+- 新增[状态聚合](../ai/mcp/status.md)、[HTTP 地址搜索](../ai/mcp/method-invocation.md#search-http-url)、[最近日志和 SQL 查询](../ai/mcp/observability.md)。
+- 新增[热重载操作查询与 run_and_invoke 编排](../ai/mcp/hotswap.md#operation-query)，支持显式启动运行配置或附着指定 PID。
+- 新增[已保存前后置脚本查询](../ai/mcp/method-invocation.md#saved-method-around)，方法调用可按脚本名称复用 Method Around。
+- `invoke_java_method` 增加 `resultView=TO_STRING|JSON|DEBUG|NONE`，将额外结果获取状态与方法执行状态分别返回。
+
+### 升级说明
+
+IDEA 插件和目标 JVM 的 Agent 建议一起升级到 5.3.0。远程应用需要替换 Agent 并重启，才能使用新增的 Groovy 调试、日志和 SQL 查询端点。自动热重载设置也只影响后续启动的应用。
+
+HotSwap MCP 返回成功表示请求已提交，仍需在 IDEA 中确认编译和重载结果；具体限制见 [MCP 工作流](../ai/mcp/workflow.md)。
 
 ## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
 

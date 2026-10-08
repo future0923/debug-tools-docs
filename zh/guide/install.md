@@ -1,5 +1,7 @@
 # 安装说明 {#install}
 
+DebugTools 5.3.0 的插件最低支持 IntelliJ IDEA 2023.3（build 233）。使用 MCP 工具还需要支持并启用 MCP Server 的 IDEA，详见 [IDEA MCP 使用说明](../ai/mcp/idea.md)。
+
 ## 1. 安装插件 {#install-plugin}
 
 ### 1.1 Marketplace 商店（推荐） {#marketplace}
@@ -27,13 +29,15 @@ git clone https://github.com/future0923/debug-tools.git
 cd debug-tools
 # maven打包需要使用 `java17+` 版本构建
 mvn clean install -T 2C -Dmaven.test.skip=true
-# dist目录下
-# debug-tools-boot.jar 远程agent包
+# Agent 产物位于 debug-tools/dist
+cd ..
+git clone https://github.com/future0923/debug-tools-idea.git
 cd debug-tools-idea
-# grade打包Idea插件时需要使用`java17+`版本构建
-./gradlew clean buildPlugin
-# dist目录下
-# DebugTools-{version}.zip IDEA插件包
+# 先完成上面的 Maven install，插件需要同版本 common 依赖。
+# 当前 ideVersion=2026.1 对应 Java/Kotlin 21 toolchain，请准备 JDK 21。
+./gradlew clean build -Pkotlin.daemon.jvmargs=-Xmx2g
+# 插件 ZIP 位于 build/distributions，并由 build 复制到 dist。
+# DebugTools-5.3.0.zip
 ```
 
 ```text [github]
@@ -45,6 +49,12 @@ https://gitee.com/future94/debug-tools/releases
 ```
 
 :::
+
+### 1.3 升级到 5.3.0
+
+升级 IDEA 插件后重启 IDEA。远程或预加载 Agent 的应用，还需要把目标机器上的 `debug-tools-agent.jar` 替换为 5.3.0 并重启 JVM，再重新建立连接。
+
+Groovy 断点调试、最近日志和 SQL 查询依赖新版 Agent 的端点，仅升级插件不能让旧的目标 JVM 获得这些功能。自动监听 class 文件的设置也需要在应用重新启动后生效。
 
 ## 2. 安装JDK {#jdk}
 

@@ -76,8 +76,8 @@ After the request is submitted, compilation progress, HotSwap success, and unsup
 
 If the AI client cannot see the Hotswap MCP tools, check the [IDEA MCP configuration](../mcp/idea.md) and the DebugTools plugin first. Do not ask the agent to imitate the Hotswap workflow by reading `.idea` files, running Gradle or Maven commands, or starting a Java process directly.
 
-## Operation feedback and closed-loop invocation
+## Operation Feedback and Orchestrated Invocation
 
-`compile_and_reload_modified_files` accepts `waitMillis` and returns an `operationId`, `status`, `errorCode`, and optional class result lists. If it times out, query the same operation with `get_hotswap_operation`; do not submit the reload repeatedly. IDEA versions without per-class progress may return `UNKNOWN` or no `classResults`.
+In 5.3.0, `compile_and_reload_modified_files` returns `operationId`, `status`, and `errorCode`. `get_hotswap_operation` reads the stored request record, but the current status only confirms `REQUESTED`; it does not report compilation or reload completion. `waitMillis` does not guarantee a completed reload either.
 
-For an end-to-end reload and verification task, use `run_and_invoke`. It can include invocation result, logs, and SQL in separate steps. Start and attach are opt-in and require an exact run configuration name or an explicit PID.
+`run_and_invoke` combines explicit startup/attachment, a hot reload request, and method invocation, but invocation may occur before reloading finishes. To verify newly edited code, confirm HotSwap in IDEA first and invoke the method separately. With multiple active connections, use independent logs and SQL tools and select the connection explicitly. See [MCP Workflow](../mcp/workflow.md) for the limits.

@@ -2,7 +2,7 @@
 
 IntelliJ IDEA 从 2025.2 开始内置 MCP Server。启用后，Codex、Claude Code、Cursor、VS Code 等外部 AI 客户端可以通过 MCP 调用 IDEA 提供的工具，在当前打开的项目中读取代码、搜索符号、运行配置和执行其他 IDE 操作。
 
-DebugTools 在 IDEA MCP Server 的基础上增加 Java 方法调用、和 Hotswap 等工具。
+DebugTools 5.3.0 在 IDEA MCP Server 的基础上提供 16 个工具，覆盖 Java 方法调用、Hotswap、状态查询、HTTP 地址搜索、已保存前后置脚本、最近日志和 SQL 查询。
 
 本页先介绍如何启用和连接 IDEA MCP Server，再说明 DebugTools 如何把自己的工具适配进去。
 
@@ -107,9 +107,15 @@ list_attachable_jvms
 attach_local_jvm
 generate_method_args_template
 invoke_java_method
+list_method_around_scripts
+get_method_around_script
+get_debug_tools_status
+search_http_url
+read_target_application_logs
+get_last_sql_statements
 ```
 
-这组工具用于查看 DebugTools 连接、附着本地 JVM、生成方法参数模板和调用 Java 方法。详细用法见 [方法调用 MCP](./method-invocation.md)。
+这组包含 11 个工具，用于连接和方法调用，以及状态、HTTP 地址、脚本、日志和 SQL 查询。详细用法见 [方法调用 MCP](./method-invocation.md)。
 
 ### Hotswap 工具组
 
@@ -119,6 +125,8 @@ invoke_java_method
 list_debug_tools_run_configurations
 execute_debug_tools_run_configuration
 compile_and_reload_modified_files
+get_hotswap_operation
+run_and_invoke
 ```
 
 这组工具用于查看 IDEA 运行配置、通过 DebugTools Hotswap 启动应用，以及调用 IDEA Java Debugger 的编译并热重载能力。详细用法见 [Hotswap MCP](./hotswap.md)。
@@ -140,6 +148,6 @@ compile_and_reload_modified_files
 
 ## 接下来
 
-- 查看 [方法调用 MCP](./method-invocation.md)，了解 5 个方法调用工具的参数和完整流程。
-- 查看 [Hotswap MCP](./hotswap.md)，了解 3 个启动与热重载工具的用法。
+- 查看 [方法调用 MCP](./method-invocation.md)，了解连接、调用、HTTP 搜索和前后置脚本工具的参数。
+- 查看 [Hotswap MCP](./hotswap.md)，了解 5 个启动、热重载与编排工具的用法。
 - 安装 [DebugTools Skill](../skill/quick-start.md)，让 AI 自动遵循推荐的工具调用顺序。

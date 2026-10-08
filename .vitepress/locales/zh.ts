@@ -128,6 +128,9 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Mybatis', link: 'hot-reload-mybatis'},
         {text: 'MybatisPlus', link: 'hot-reload-mybatis-plus'},
         {text: 'Solon', link: 'hot-reload-solon'},
+        {text: 'Freemarker', link: 'hot-reload-freemarker'},
+        {text: 'Thymeleaf', link: 'hot-reload-thymeleaf'},
+        {text: '资源文件', link: 'hot-reload-resource'},
       ]
     },
     {
@@ -212,7 +215,7 @@ function sidebarAi(): DefaultTheme.SidebarItem[] {
         {text: '方法调用 MCP', link: 'mcp/method-invocation'},
         {text: 'Hotswap MCP', link: 'mcp/hotswap'},
         {text: '日志和 SQL MCP', link: 'mcp/observability'},
-        {text: 'MCP 闭环工作流', link: 'mcp/workflow'},
+        {text: 'MCP 工作流', link: 'mcp/workflow'},
       ]
     },
     {

@@ -2,7 +2,7 @@
 
 IntelliJ IDEA has included a built-in MCP Server since version 2025.2. Once enabled, external AI clients such as Codex, Claude Code, Cursor, and VS Code can use MCP to call IDEA tools, read code, search symbols, run configurations, and perform other IDE operations in the currently open project.
 
-DebugTools adds Java method invocation and Hotswap tools to the IDEA MCP Server.
+DebugTools 5.3.0 provides 16 tools through the IDEA MCP Server, covering Java method invocation, Hotswap, status queries, HTTP URL search, saved pre/post scripts, and recent logs and SQL.
 
 This page explains how to enable and connect to the IDEA MCP Server, then describes how DebugTools exposes its own tools through it.
 
@@ -107,9 +107,15 @@ list_attachable_jvms
 attach_local_jvm
 generate_method_args_template
 invoke_java_method
+list_method_around_scripts
+get_method_around_script
+get_debug_tools_status
+search_http_url
+read_target_application_logs
+get_last_sql_statements
 ```
 
-These tools inspect DebugTools connections, attach to local JVMs, generate method argument templates, and invoke Java methods. See [Method Invocation MCP](./method-invocation.md) for details.
+These 11 tools cover connections and method invocation, plus status, HTTP URL, script, log, and SQL queries. See [Method Invocation MCP](./method-invocation.md) for details.
 
 ### Hotswap Toolset
 
@@ -119,6 +125,8 @@ This toolset appears in `Exposed Tools` as `DebugToolsHotswapToolset`:
 list_debug_tools_run_configurations
 execute_debug_tools_run_configuration
 compile_and_reload_modified_files
+get_hotswap_operation
+run_and_invoke
 ```
 
 These tools inspect IDEA run configurations, start applications through DebugTools Hotswap, and invoke IDEA Java Debugger's compile-and-reload capability. See [Hotswap MCP](./hotswap.md) for details.
@@ -140,6 +148,6 @@ Either of these results confirms that the AI client can call DebugTools MCP:
 
 ## Next Steps
 
-- Read [Method Invocation MCP](./method-invocation.md) for the parameters and complete flow of the five method invocation tools.
-- Read [Hotswap MCP](./hotswap.md) for the three run and hot reload tools.
+- Read [Method Invocation MCP](./method-invocation.md) for connection, invocation, HTTP search, and pre/post script parameters.
+- Read [Hotswap MCP](./hotswap.md) for the five startup, hot reload, and orchestration tools.
 - Install the [DebugTools Skills](../skill/quick-start.md) so the AI follows the recommended tool sequence automatically.

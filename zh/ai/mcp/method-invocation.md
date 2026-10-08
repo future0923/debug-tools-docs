@@ -388,21 +388,118 @@ DebugTools IDEA 插件在 `DebugToolsMethodInvocationToolset` 中提供连接、
 }
 ```
 
-## 结果视图和闭环辅助工具
+### 结果视图和辅助工具
 
 `invoke_java_method` 保留兼容的 `result` ToString 结果，同时支持可选的 `resultView`：
 
 - `TO_STRING`（默认）保持原有返回结构。
 - `JSON` 获取 JSON 结果，并可能返回 `resultJson`。
-- `DEBUG` 获取 DebugTools 对象结构。
-- `NONE` 只返回调用元数据，不获取渲染结果。
+- `DEBUG` 获取 DebugTools 对象结构，内容也放在 `resultJson` 字符串中。
+- `NONE` 跳过额外 HTTP 结果获取；原有 `result` ToString 文本仍可能返回。
 
-`resultFetchStatus` 和 `resultFetchError` 描述额外结果获取过程。结果获取失败不等于 Java 方法调用失败。旧版本插件仍可使用文档中的 `/result/type` 和 `/result/detail` HTTP 兜底方式，此时使用所选连接的 `host`、`httpPort` 和 `offsetPath`。
+额外结果字段如下：
+
+| 字段 | 说明 |
+| --- | --- |
+| `resultJson` | `JSON` 或 `DEBUG` 视图的 HTTP 响应文本；无额外获取结果时为空。 |
+| `resultFetchStatus` | `NOT_REQUESTED`、`SKIPPED`、`SUCCESS` 或 `FAILED`。 |
+| `resultFetchError` | 额外结果获取失败的原因。 |
+
+只有调用成功、选择了 `JSON` 或 `DEBUG`，且结果带有 `offsetPath` 时，才会额外请求结果视图。简单值、空值或失败调用可能返回 `NOT_REQUESTED`；`NONE` 返回 `SKIPPED`。
+
+`resultFetchStatus` 和 `resultFetchError` 描述额外结果获取过程。结果获取失败不等于 Java 方法调用失败。额外结果也可通过 Agent 的 `/result/type` 和 `/result/detail` HTTP 端点读取，此时使用所选连接的 `host`、`httpPort` 和 `offsetPath`。
 
 使用 `get_debug_tools_status` 获取项目、连接、可附着 JVM、调试会话和能力探测的完整快照，并根据 `nextAction` 选择下一步。使用 `read_target_application_logs` 查询有上限的目标日志，使用 `get_last_sql_statements` 查询最近 SQL。能力不可用时工具会返回 `LOGS_UNAVAILABLE` 或 `SQL_HISTORY_UNAVAILABLE`，这和“没有记录”不同。
 
-新增工具使用结构化错误，包含 `code`、`hint`、`availableOptions`、`retryable`、`nextAction` 和 `details`。存在多个连接时，应从 `availableOptions` 选择明确的 `connectionId`，不要猜测。
+状态、HTTP 搜索、日志、SQL 和脚本查询等新增工具使用结构化错误，包含 `code`、`hint`、`availableOptions`、`retryable`、`nextAction` 和 `details`。存在多个连接时，应从 `availableOptions` 选择明确的 `connectionId`，不要猜测。
 
-## 已保存的前后置脚本
+## 6. 已保存的前后置脚本 {#saved-method-around}
 
-IDEA 方法调用页保存的脚本位于项目的 `.idea/DebugTools/MethodAround/` 目录。AI 应先调用 `list_method_around_scripts` 获取脚本名称，再按需调用 `get_method_around_script` 查看源码，最后把不含 `.java` 的精确名称传给 `invoke_java_method.methodAroundName` 或 `run_and_invoke.methodAroundName`。MCP 不返回本地文件路径，也不接受路径穿越参数；`methodAroundContent` 与名称同时提供时，以显式源码为准。
+IDEA 方法调用页保存的脚本位于项目的 `.idea/DebugTools/MethodAround/` 目录。AI 应先调用 `list_method_around_scripts` 获取脚本名称，再按需调用 `get_method_around_script` 查看源码，最后把不含 `.java` 的精确名称传给 `invoke_java_method.methodAroundName` 或 `run_and_invoke.methodAroundName`。MCP 不返回本地文件路径，也不接受路径穿越参数。只提供 `methodAroundContent` 时直接使用该源码；同时提供名称时，名称仍需对应有效的已保存脚本，执行内容以显式源码为准。
+
+### 列出脚本
+
+工具名：`list_method_around_scripts`。没有专属必填参数，可传 `projectPath`。此操作只读取项目已保存的 Java 脚本，不创建或执行脚本。
+
+正常结果使用 `success`、`data`、`error`、`requestId`、`timestamp` 包装。`data` 包含：
+
+| 字段 | 说明 |
+| --- | --- |
+| `count` | 已保存脚本数量。目录不存在时为 `0`。 |
+| `scripts[].name` | 不含 `.java` 的脚本名称，按名称排序。 |
+| `scripts[].sizeBytes` | 文件大小，单位字节。 |
+| `scripts[].modifiedAt` | 文件修改时间，Unix 毫秒时间戳。 |
+
+### 读取脚本
+
+工具名：`get_method_around_script`。
+
+| 参数 | 必填 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| `name` | 是 | `string` | 列表返回的精确名称，不含 `.java`，不能包含目录分隔符。 |
+| `projectPath` | 否 | `string` | 目标 IDEA 项目路径。 |
+
+请求示例：
+
+```json
+{
+  "name": "准备测试上下文"
+}
+```
+
+正常结果的 `data` 包含 `name`、`content`、`identity`、`sizeBytes`、`modifiedAt`。`content` 是 UTF-8 Java 源码，`identity` 是内容 MD5。脚本不存在返回 `SCRIPT_NOT_FOUND`；名称不合法返回 `INVALID_ARGUMENT`。
+
+确认脚本内容后，将名称传入方法调用：
+
+```json
+{
+  "connectionId": "demo-connection",
+  "className": "com.example.UserService",
+  "methodName": "findUser",
+  "parameterTypes": ["java.lang.Long"],
+  "argsJson": "{\"id\":{\"type\":\"simple\",\"content\":\"10001\"}}",
+  "methodAroundName": "准备测试上下文",
+  "resultView": "JSON"
+}
+```
+
+前后置脚本的执行规则见[前后置脚本](../../guide/method/method-script.md)。
+
+## 7. 搜索 HTTP 地址 {#search-http-url}
+
+工具名：`search_http_url`。读取 IDEA 项目中的 HTTP 索引并返回 Controller 元数据，不会发送 HTTP 请求，也不会调用目标方法。
+
+| 参数 | 必填 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| `projectPath` | 否 | `string` | 目标 IDEA 项目路径。 |
+| `path` | 否 | `string` | URL 路径子串，忽略大小写。 |
+| `method` | 否 | `string` | HTTP 方法，例如 `GET`、`POST`；`GET` 也匹配通用 Request 映射。 |
+| `moduleName` | 否 | `string` | IDEA 模块名称，精确匹配。 |
+| `limit` | 否 | `integer` | 默认 `50`，限制在 `1` 到 `200`。 |
+
+请求示例：
+
+```json
+{
+  "path": "/users",
+  "method": "GET",
+  "moduleName": "demo-service",
+  "limit": 20
+}
+```
+
+正常结果使用结构化包装，`data` 中包含 `count`、`indexState` 和 `items`：
+
+| 字段 | 说明 |
+| --- | --- |
+| `items[].method` | HTTP 方法。 |
+| `items[].path` | 映射路径。 |
+| `items[].moduleName` | IDEA 模块名称。 |
+| `items[].className` | Controller 类全限定名。 |
+| `items[].methodName` | Java 方法名称。 |
+| `items[].targetMethodIdentity` | 索引中的方法标识，可辅助区分重载。 |
+| `items[].comment` | 方法注释。 |
+
+部分元数据可能为空。选择候选后，仍需根据准确的方法签名生成参数模板；不要把 URL 直接当作方法调用参数。
+
+5.3.0 的正常结果中 `indexState` 为 `READY`。`count=0` 表示本次索引查询没有匹配项，不是对运行中服务端路由是否存在的验证。

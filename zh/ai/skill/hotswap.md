@@ -76,8 +76,8 @@ Compile and Reload Modified Files 使用 IDEA Java Debugger 从调试会话启�
 
 如果当前 AI 客户端看不到 Hotswap MCP 工具，应先检查 [IDEA MCP 配置](../mcp/idea.md) 和 DebugTools 插件。不要让 Agent 通过读取 `.idea` 文件、执行 Gradle/Maven 命令或直接启动 Java 进程来冒充 Hotswap 工作流。
 
-## 操作反馈和闭环调用
+## 操作反馈和编排调用
 
-`compile_and_reload_modified_files` 支持 `waitMillis`，并返回 `operationId`、`status`、`errorCode` 及可选的类结果列表。请求超时时使用 `get_hotswap_operation` 查询原操作，不要重复提交热重载。IDEA 没有逐类进度时，`classResults` 可能为空或为 `UNKNOWN`。
+5.3.0 的 `compile_and_reload_modified_files` 返回 `operationId`、`status` 和 `errorCode`。`get_hotswap_operation` 可查询保存的请求记录，但当前状态只确认 `REQUESTED`，没有编译或重载完成反馈；`waitMillis` 也不保证等待完成。
 
-需要端到端热重载和验证时，使用 `run_and_invoke`。它可以分别返回方法结果、日志和 SQL。启动和附着都是显式选项，必须提供精确运行配置名或明确 PID。
+`run_and_invoke` 可以组合显式启动/附着、热重载请求和方法调用，但方法调用可能早于实际重载完成。需要验证刚修改的代码时，应先在 IDEA 确认 HotSwap 结果，再单独调用方法。多活跃连接下，日志与 SQL 应使用独立工具并显式选择连接。详细边界见 [MCP 工作流](../mcp/workflow.md)。

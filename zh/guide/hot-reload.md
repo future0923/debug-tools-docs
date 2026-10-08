@@ -76,17 +76,39 @@ DebugTools: 2025-01-07 16:41:08.498    INFO [main] i.g.f.d.t.h.c.c.PluginRegistr
 热部署时idea可能有时无法获取到最新的断点信息，如果需要及时更新断点请使用[方式1](#compile-reload-file)
 :::
 
-### 2.4 单 XML 文件
+### 2.4 单资源文件
 
-在 XML 文件的编辑器或项目树中打开右键菜单，点击 `编译 "xxx.xml" 到target目录`，插件会先保存当前 XML 文件，再按源码根下的相对路径写入当前模块的编译输出目录。
+从 5.3.0 起，单文件操作支持 XML、HTML、FTL、YAML、Properties 等非 Java 文件。在文件编辑器或项目树中打开右键菜单，点击 `复制 '文件名' 到target目录`，将当前文件写入模块生产输出目录的相对路径。
 
-![hot_reload_xml_context_menu.png](/images/hotswap/hot_reload_xml_context_menu.png){v-zoom}
+例如 `src/main/resources/templates/index.ftlh` 会复制到 `target/classes/templates/index.ftlh`；实际目录以 IDEA 模块输出配置为准。
+
+这一步只更新资源文件，不会自动刷新所有框架的配置。使用流程和生效条件见[资源文件热重载与部署](./hot-reload-resource.md)。
+
+### 2.5 自动监听 class 文件 {#auto-hotswap}
+
+5.3.0 新增 `Settings | DebugTools | 热重载 | 自动监听 class 文件并重载`，默认关闭。
+
+1. 勾选该设置并保存。
+2. 重新启动目标应用。支持的普通 Java Run/Debug 配置也会按该设置注入热重载 Agent；Maven/Gradle 自身的启动进程不适用此入口。
+3. 修改 Java 源码后执行 IDEA 编译，或使用项目已有的编译流程更新输出目录。
+4. Agent 监听到编译后的 `.class` 文件变化后，自动重载目标 ClassLoader 中已经加载的类。
+
+自动监听不会编译 Java 源码。只保存 `.java` 文件、但没有更新编译输出时，不会触发类重载；新增类尚未加载时也不属于“重定义已加载类”的范围。
 
 ::: tip
-- 这个操作只覆盖编译输出目录中的资源文件，不会修改源码目录下的 XML。
-- XML 文件需要位于项目源码根或资源根下，否则插件无法计算写入 `target/classes` 的相对路径。
-- 也可以通过[方式1](#compile-project)重新编译项目来触发 XML 文件更新。
+- 自动监听仍受目标 JDK 的类重定义能力限制。需要新增或删除字段、方法时，请先完成 [JDK 安装](./install.md#jdk)。
+- 修改设置后要重新启动应用，不会动态改变已经启动的 JVM。
+- 自动监听可能与 `Compile and Reload Modified Files` 或手动热部署重复触发；按需要选择触发方式。
+- 禁用 `HotSwapper` 插件会关闭自动监听重载能力。
 :::
+
+不通过 IDEA 启动时，可在现有热部署启动参数中添加 `autoHotswap=true`：
+
+```shell
+-javaagent:/path/to/debug-tools-agent.jar=hotswap=true,autoHotswap=true
+```
+
+这只是 Agent 参数示例，目标 JDK 所需的 DCEVM、增强类重定义和模块访问参数仍按[热部署配置](./hot-deploy.md#_2-1-添加jvm参数)设置。
 
 ## 3. 哪些情况可以热重载
 
@@ -204,7 +226,15 @@ MyBatisPlus 目前支持在 `Spring` 环境下，其他情况未知。
 
 - 支持接口等新增/修改
 
-### 3.15 其他
+### 3.16 Freemarker
+
+支持模板内容更新，以及类重定义后的对象包装器缓存清理。详细用法见 [Freemarker 热重载](./hot-reload-freemarker.md)。
+
+### 3.17 Thymeleaf
+
+支持模板渲染前清理对应模板缓存。详细用法见 [Thymeleaf 热重载](./hot-reload-thymeleaf.md)。
+
+### 3.18 其他
 
 其他情况热重载尝试一下，这里不一一举例了，如果不能生效麻烦提交个 [issues](https://github.com/future0923/debug-tools/issues) 反馈一下。
 
@@ -221,7 +251,7 @@ MyBatisPlus 目前支持在 `Spring` 环境下，其他情况未知。
 | 分组 | 插件 |
 | --- | --- |
 | Base | `JdkPlugin`、`Class`、`Proxy`、`HotSwapper`、`WatchResources` |
-| Third Party | `Spring`、`Feign`、`MyBatis`、`Solon` |
+| Third Party | `Spring`、`Feign`、`MyBatis`、`Solon`、`Forest`、`Freemarker`、`Thymeleaf` |
 | Other | `IntelliJIdea`、`HibernateValidator`、`EasyExcel`、`Gson`、`FastJson`、`HuTool` |
 
 ::: warning

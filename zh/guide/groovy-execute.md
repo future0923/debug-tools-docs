@@ -75,3 +75,49 @@ gsc("server.port")
 | 异常 | 显示异常堆栈，方便根据脚本、参数或 `ClassLoader` 继续排查。 |
 
 如果结果中需要继续查看对象字段，可以切换到 `调试` 页签展开对象；如果只需要复制返回值，可以在结果节点中使用复制操作。
+
+## 5. 断点调试脚本 {#debug-groovy}
+
+5.3.0 新增 `调试当前 Groovy 脚本 'xxx.groovy'`。脚本仍在所选 DebugTools 目标 JVM 内执行，断点、变量和单步操作由 IDEA 的 Java Debugger 提供。
+
+### 调试前准备
+
+- IDEA 已启用 Groovy 插件，DebugTools 插件和目标 Agent 均升级到 5.3.0。
+- 目标应用已建立 DebugTools 连接，并选好了默认 `ClassLoader`。
+- 同一个目标 JVM 还需要已连接的 IDEA Java 调试会话。可以使用普通 Debug 或 DebugTools Hotswap 启动；远程目标先配置 JDWP，再通过 IDEA Remote JVM Debug 连接。
+- 目标调试会话处于运行状态；如果已经停在其他断点，先继续运行。
+- DebugTools 的 HTTP 端口可访问，插件需要通过它确认目标 JVM 身份。
+
+仅附着 DebugTools Agent 不会建立 Java 调试会话。两种连接需要指向同一个 JVM；同时调试多个应用时，插件会按目标 JVM 标识匹配，不依赖当前选中的 Debug 页签。
+
+### 执行调试
+
+1. 从目标连接打开 Groovy 控制台，编写脚本。
+2. 在希望暂停的可执行语句上设置断点。
+3. 在当前文件中打开右键菜单，点击 `调试当前 Groovy 脚本 'xxx.groovy'`。
+4. 命中断点后，在 IDEA Debug 工具窗口查看变量、表达式和调用栈，按需要单步或继续运行。
+5. 脚本执行完成后，按前述方式查看 Groovy 结果。
+
+例如：
+
+```groovy
+def port = gsc("server.port")
+def profiles = gActive()
+return [port: port, profiles: profiles]
+```
+
+可以在 `def profiles` 这一行设置断点，暂停后查看已经读取到的 `port`。
+
+调试准备期间请保持脚本内容不变。修改脚本后需要重新执行调试，让断点使用当前源码版本；旧的动态脚本类不会被当作新版本的源码。
+
+### 常见提示
+
+| 提示 | 处理方式 |
+| --- | --- |
+| 请先使用 IDEA Debug 启动或连接目标应用 | 建立 Java 调试会话；已有会话暂停时先继续运行。 |
+| 所选 DebugTools 应用没有匹配的 IDEA Java 调试会话 | 确认 DebugTools 与 Java Debugger 指向同一个 JVM；目标重启后重新连接。 |
+| 当前 agent 不支持 Groovy 调试 | 替换为 5.3.0 Agent 并重启目标应用，再重新建立连接。 |
+| 请启用 IntelliJ Groovy 插件 | 在 IDEA 插件设置中启用 Groovy。 |
+| 调试准备期间脚本内容发生变化 | 停止编辑后重新点击调试操作。 |
+
+不需要断点时，继续使用 `运行当前 Groovy 脚本`，无需 Java 调试会话。

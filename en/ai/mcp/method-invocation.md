@@ -388,21 +388,118 @@ Failure response example:
 }
 ```
 
-## Result views and closed-loop helpers
+### Result Views and Helpers
 
-`invoke_java_method` keeps `result` as the compatible ToString result and accepts an optional `resultView`:
+`invoke_java_method` keeps the compatible ToString text in `result` and accepts an optional `resultView`:
 
 - `TO_STRING` (default) keeps the existing response shape.
-- `JSON` fetches the JSON representation and may return `resultJson`.
-- `DEBUG` fetches the DebugTools object representation.
-- `NONE` returns invocation metadata without fetching a rendered result.
+- `JSON` fetches the JSON result and may return `resultJson`.
+- `DEBUG` fetches the DebugTools object representation, also stored as a string in `resultJson`.
+- `NONE` skips additional HTTP result fetching; the original `result` ToString text may still be returned.
 
-`resultFetchStatus` and `resultFetchError` describe the additional result fetch. A failed fetch does not mean the Java method itself failed. Older plugin versions can use the documented `/result/type` and `/result/detail` HTTP fallback with the selected connection's `host`, `httpPort`, and `offsetPath`.
+Additional result fields:
 
-Use `get_debug_tools_status` for a complete project snapshot and its `nextAction` before choosing a target. Use `read_target_application_logs` for bounded recent target logs and `get_last_sql_statements` for recent SQL. These tools report `LOGS_UNAVAILABLE` or `SQL_HISTORY_UNAVAILABLE` when the source is unavailable; an unavailable source is different from an empty result.
+| Field | Description |
+| --- | --- |
+| `resultJson` | HTTP response text for the `JSON` or `DEBUG` view; null when no additional result is fetched. |
+| `resultFetchStatus` | `NOT_REQUESTED`, `SKIPPED`, `SUCCESS`, or `FAILED`. |
+| `resultFetchError` | Reason for an additional result fetch failure. |
 
-New tools expose structured errors with `code`, `hint`, `availableOptions`, `retryable`, `nextAction`, and `details`. When several connections are available, choose an explicit `connectionId` from `availableOptions` instead of guessing.
+An additional view is requested only when invocation succeeds, `JSON` or `DEBUG` is selected, and the result has `offsetPath`. Simple values, null values, or failed calls may return `NOT_REQUESTED`; `NONE` returns `SKIPPED`.
 
-## Saved before/after scripts
+`resultFetchStatus` and `resultFetchError` describe the additional fetch. A failed fetch does not mean the Java method failed. Additional results can also be read through the Agent's `/result/type` and `/result/detail` HTTP endpoints using the selected connection's `host`, `httpPort`, and `offsetPath`.
 
-Scripts saved by the IDEA method invocation page live under `.idea/DebugTools/MethodAround/` in the project. The AI should call `list_method_around_scripts`, optionally inspect a source with `get_method_around_script`, then pass the exact name without `.java` as `invoke_java_method.methodAroundName` or `run_and_invoke.methodAroundName`. MCP does not expose local file paths and rejects path traversal names; explicit `methodAroundContent` takes precedence when both forms are provided.
+Use `get_debug_tools_status` to obtain the project, connections, attachable JVMs, debugger sessions, and capability probes, then choose the next step using `nextAction`. Use `read_target_application_logs` for bounded recent logs and `get_last_sql_statements` for recent SQL. `LOGS_UNAVAILABLE` and `SQL_HISTORY_UNAVAILABLE` indicate unavailability, which differs from an empty record set.
+
+New tools such as status, HTTP search, logs, SQL, and script queries use structured errors containing `code`, `hint`, `availableOptions`, `retryable`, `nextAction`, and `details`. With several connections, select an explicit `connectionId` from `availableOptions` instead of guessing.
+
+## 6. Saved Pre/Post Scripts {#saved-method-around}
+
+Scripts saved by the IDEA method invocation page are under `.idea/DebugTools/MethodAround/` in the project. Call `list_method_around_scripts` to obtain their names, inspect source with `get_method_around_script` if needed, then pass the exact name without `.java` as `invoke_java_method.methodAroundName` or `run_and_invoke.methodAroundName`. MCP does not expose local file paths and rejects path traversal names. When only `methodAroundContent` is provided, that source is used directly. If a name is also provided, it must refer to a valid saved script; the explicit source takes precedence for execution.
+
+### List Scripts
+
+Tool: `list_method_around_scripts`. There are no tool-specific required parameters; optional `projectPath` is supported. This reads saved Java scripts without creating or executing them.
+
+Normal results use a wrapper containing `success`, `data`, `error`, `requestId`, and `timestamp`. `data` contains:
+
+| Field | Description |
+| --- | --- |
+| `count` | Number of saved scripts; `0` when the directory does not exist. |
+| `scripts[].name` | Script name without `.java`, sorted by name. |
+| `scripts[].sizeBytes` | File size in bytes. |
+| `scripts[].modifiedAt` | File modification time as a Unix timestamp in milliseconds. |
+
+### Read a Script
+
+Tool: `get_method_around_script`.
+
+| Parameter | Required | Type | Description |
+| --- | --- | --- | --- |
+| `name` | Yes | `string` | Exact name returned by the list tool, without `.java` or directory separators. |
+| `projectPath` | No | `string` | Target IDEA project path. |
+
+Request example:
+
+```json
+{
+  "name": "PrepareTestContext"
+}
+```
+
+A normal result's `data` contains `name`, `content`, `identity`, `sizeBytes`, and `modifiedAt`. `content` is UTF-8 Java source; `identity` is its content MD5. Missing scripts return `SCRIPT_NOT_FOUND`; invalid names return `INVALID_ARGUMENT`.
+
+After checking the script, pass its name to method invocation:
+
+```json
+{
+  "connectionId": "demo-connection",
+  "className": "com.example.UserService",
+  "methodName": "findUser",
+  "parameterTypes": ["java.lang.Long"],
+  "argsJson": "{\"id\":{\"type\":\"simple\",\"content\":\"10001\"}}",
+  "methodAroundName": "PrepareTestContext",
+  "resultView": "JSON"
+}
+```
+
+See [Method Pre/Post Scripts](../../guide/method/method-script.md) for execution rules.
+
+## 7. Search HTTP URLs {#search-http-url}
+
+Tool: `search_http_url`. Reads the IDEA project's HTTP index and returns Controller metadata. It does not send an HTTP request or invoke a target method.
+
+| Parameter | Required | Type | Description |
+| --- | --- | --- | --- |
+| `projectPath` | No | `string` | Target IDEA project path. |
+| `path` | No | `string` | Case-insensitive substring of the URL path. |
+| `method` | No | `string` | HTTP method such as `GET` or `POST`; `GET` also matches generic Request mappings. |
+| `moduleName` | No | `string` | Exact IDEA module name. |
+| `limit` | No | `integer` | Default `50`, restricted to `1`–`200`. |
+
+Request example:
+
+```json
+{
+  "path": "/users",
+  "method": "GET",
+  "moduleName": "demo-service",
+  "limit": 20
+}
+```
+
+Normal results use a structured wrapper; `data` contains `count`, `indexState`, and `items`:
+
+| Field | Description |
+| --- | --- |
+| `items[].method` | HTTP method. |
+| `items[].path` | Mapping path. |
+| `items[].moduleName` | IDEA module name. |
+| `items[].className` | Fully qualified Controller class name. |
+| `items[].methodName` | Java method name. |
+| `items[].targetMethodIdentity` | Indexed method identity, which can help distinguish overloads. |
+| `items[].comment` | Method comment. |
+
+Some metadata may be null. After selecting a candidate, generate arguments for its exact method signature; do not treat a URL as a Java method argument.
+
+In 5.3.0, normal results return `indexState=READY`. `count=0` means the index query found no matches; it does not verify whether a route exists in the running server.

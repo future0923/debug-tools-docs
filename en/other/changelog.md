@@ -4,11 +4,34 @@ aside: false
 ---
 # ChangeLog
 
-## MCP workflow improvements
+## 5.3.0
 
-- Added status aggregation, stable HTTP URL search, target log and SQL queries, HotSwap operation lookup, and the `run_and_invoke` closed-loop tool.
-- Added `resultView=TO_STRING|JSON|DEBUG|NONE` and separate result fetch status fields to `invoke_java_method`.
-- Added bounded HotSwap feedback fields and explicit start/attach controls for orchestrated runs.
+### Hot Reload and Resource Deployment
+
+- Added [automatic class file watching and reloading](../guide/hot-reload.md#auto-hotswap), disabled by default. Compiled class file changes trigger redefinition of loaded classes.
+- Added [Freemarker hot reload](../guide/hot-reload-freemarker.md), including updated template reads and object wrapper cache clearing after class redefinition.
+- Added [Thymeleaf hot reload](../guide/hot-reload-thymeleaf.md), clearing the current template cache before rendering.
+- Extended single-file resource operations from XML to [non-Java files](../guide/hot-reload-resource.md), supporting copies to module output and deployment by relative resource path.
+- Automatic watching and manual hot deployment share a class redefinition lock to prevent concurrent redefinition across these paths.
+
+### Groovy Breakpoint Debugging
+
+- Added [Debug Current Groovy](../guide/groovy-execute.md#debug-groovy), supporting script breakpoints in the target JVM, variable inspection, and stepping through IDEA Debugger.
+- Match Java debugger sessions by target JVM identity and distinguish source versions by script file and content.
+
+### MCP Tools
+
+- Provide 16 MCP tools. See [Using IDEA MCP](../ai/mcp/idea.md).
+- Added [status aggregation](../ai/mcp/status.md), [HTTP URL search](../ai/mcp/method-invocation.md#search-http-url), and [recent logs and SQL queries](../ai/mcp/observability.md).
+- Added [HotSwap operation lookup and run_and_invoke orchestration](../ai/mcp/hotswap.md#operation-query), with explicit run configuration startup or attachment to a specified PID.
+- Added [saved pre/post script queries](../ai/mcp/method-invocation.md#saved-method-around), allowing method invocation to reuse Method Around scripts by name.
+- Added `resultView=TO_STRING|JSON|DEBUG|NONE` to `invoke_java_method`, reporting additional result fetch status separately from method execution status.
+
+### Upgrading
+
+Upgrade both the IDEA plugin and target JVM Agent to 5.3.0. Remote applications need an Agent replacement and restart to use the new Groovy debugging, logs, and SQL endpoints. Automatic hot reload settings also affect only subsequent application starts.
+
+A successful HotSwap MCP response means the request was submitted. Confirm compilation and reloading in IDEA. See [MCP Workflow](../ai/mcp/workflow.md) for the current limits.
 
 ## [5.2.0](https://github.com/future0923/debug-tools/compare/v5.1.0...v5.2.0) (2026-08-24)
 

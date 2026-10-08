@@ -193,8 +193,8 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供运行配置查询
 | `projectPath` | 否 | `string` | 目标 IDEA 项目路径，含义见“公共约定”。 |
 | `sessionName` | 条件必填 | `string` | Java Debugger 会话名称。只有一个可用会话时可省略；存在多个会话时必须指定。 |
 | `compileBeforeReload` | 否 | `boolean` | 是否先编译再热重载。省略时使用 IDEA Java Debugger 当前的 `COMPILE_BEFORE_HOTSWAP` 设置。 |
-| `waitMillis` | 否 | `integer` | 请求的最长等待时间，最大 120 秒。 |
-| `operationId` | 否 | `string` | 用于查询或继续跟踪已有操作的 ID。 |
+| `waitMillis` | 否 | `integer` | 5.3.0 保留参数；当前不等待编译或重载完成。 |
+| `operationId` | 否 | `string` | 保留参数；查询已有操作请使用 `get_hotswap_operation`，不要重复调用本工具。 |
 
 **返回值**
 
@@ -230,7 +230,9 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供运行配置查询
   "sessionName": "DemoApplication",
   "compileBeforeReload": true,
   "message": "Compile and reload modified files requested",
-  "availableSessionNames": []
+  "availableSessionNames": [],
+  "operationId": "example-operation-id",
+  "status": "REQUESTED"
 }
 ```
 
@@ -248,8 +250,105 @@ DebugTools IDEA 插件在 `DebugToolsHotswapToolset` 中提供运行配置查询
 
 当前项目没有已附着的 Java Debugger 会话时，返回 `success=false`，`message` 为 `No attached Java debugger session is available for hotswap`。
 
-## 操作反馈和编排
+## 4. 查询热重载操作 {#operation-query}
 
-`compile_and_reload_modified_files` 支持 `waitMillis`，并返回 `operationId`、`status`、`errorCode`，以及可选的变更、编译、重载和跳过类列表。状态包括 `REQUESTED`、`COMPILING`、`RELOADING`、`SUCCESS`、`PARTIAL_SUCCESS`、`FAILED`、`TIMEOUT` 和 `UNSUPPORTED`。请求超时时，使用返回的 `operationId` 调用 `get_hotswap_operation` 查询原操作，不要重复提交热重载。IDEA 没有逐类进度 API 时，`classResults` 可能为空或为 `UNKNOWN`。
+工具名：`get_hotswap_operation`。
 
-`run_and_invoke` 提供“状态 → 可选启动/附着 → 热重载 → 调用”的完整流程。启动必须显式传入精确的 `runConfigurationName` 并设置 `allowStart=true`；附着必须显式传入 `pid` 并设置 `allowAttach=true`。`verifyLogs` 和 `verifySql` 可追加有上限的调用后证据。工具会分别返回每一步的状态，不会用启动请求成功掩盖后续附着、热重载、调用、日志或 SQL 失败。
+| 参数 | 必填 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| `operationId` | 是 | `string` | `compile_and_reload_modified_files` 成功返回的操作 ID。 |
+
+```json
+{
+  "operationId": "example-operation-id"
+}
+```
+
+查询结果使用结构化包装，`data` 是保存的热重载请求结果，包含 `sessionName`、`compileBeforeReload`、`operationId`、`status` 等字段。操作不存在时返回 `HOTSWAP_OPERATION_NOT_FOUND`。
+
+::: warning 5.3.0 的反馈范围
+当前实现提交请求后记录 `status=REQUESTED`，尚未接入 IDEA 编译与重载完成回调。查询会返回这个请求记录，不会自动推进为 `SUCCESS` 或 `FAILED`。`changedFiles`、`compiledClasses`、`reloadedClasses`、`skippedClasses` 和 `classResults` 当前为空。
+
+`waitMillis` 不能用于确认类已重载，`operationId` 也不能证明编译完成。最终结果仍需查看 IDEA HotSwap UI/通知，并通过业务调用验证。
+:::
+
+## 5. 编排启动与方法调用
+
+工具名：`run_and_invoke`。按需启动或附着目标，再提交热重载请求并调用 Java 方法。工具可追加最近日志和 SQL 查询。
+
+### 参数
+
+| 参数 | 必填 | 类型 | 说明 |
+| --- | --- | --- | --- |
+| `className` | 是 | `string` | 目标 Java 类全限定名。 |
+| `methodName` | 是 | `string` | 方法名。 |
+| `projectPath` | 否 | `string` | 目标 IDEA 项目路径。 |
+| `connectionId` | 条件必填 | `string` | 方法调用目标；多活跃连接时必须明确指定。 |
+| `sessionName` | 条件必填 | `string` | 热重载的 Java 调试会话；多会话时必须指定，并确认和方法调用属于同一 JVM。 |
+| `compileBeforeReload` | 否 | `boolean` | 是否先编译，省略时使用 IDEA Java Debugger 设置。 |
+| `waitMillis` | 否 | `integer` | 启动/附着后等待连接的时间，默认 `30000`，限制在 `0` 到 `120000` 毫秒；不等待 HotSwap 完成。 |
+| `parameterTypes` | 否 | `string[]` | 方法参数类型，按声明顺序排列。 |
+| `argsJson` | 否 | `string` | DebugTools 参数 JSON 字符串。 |
+| `resultView` | 否 | `string` | `TO_STRING`、`JSON`、`DEBUG` 或 `NONE`。 |
+| `methodAroundName` | 否 | `string` | 已保存前后置脚本名，不含 `.java`。 |
+| `methodAroundContent` | 否 | `string` | 显式 Method Around Java 源码。 |
+| `methodAroundContentIdentity` | 否 | `string` | 源码内容标识。 |
+| `allowStart` | 否 | `boolean` | 没有活跃连接时允许启动配置，默认不启动。 |
+| `runConfigurationName` | 条件必填 | `string` | `allowStart=true` 且需要启动时，提供准确的 IDEA 运行配置名。 |
+| `allowAttach` | 否 | `boolean` | 没有活跃连接时允许附着指定进程，默认不附着。 |
+| `pid` | 条件必填 | `string` | `allowAttach=true` 且需要附着时，提供明确 PID。 |
+| `verifyLogs` | 否 | `boolean` | 调用后追加最近日志查询，固定最多 100 条。 |
+| `verifySql` | 否 | `boolean` | 调用后追加最近 SQL 查询，固定最多 50 条。 |
+
+有活跃连接时不会启动或附着新目标。没有活跃连接且两个开关都为 `true` 时，先尝试附着；附着失败会直接返回，不会转而启动配置。建议每次只选择一种方式。
+
+### 请求示例
+
+已有连接与 Java 调试会话时：
+
+```json
+{
+  "connectionId": "demo-connection",
+  "sessionName": "DemoApplication",
+  "className": "com.example.HealthService",
+  "methodName": "status",
+  "parameterTypes": [],
+  "argsJson": "{}",
+  "compileBeforeReload": true,
+  "resultView": "JSON"
+}
+```
+
+没有连接、需要启动明确的运行配置时：
+
+```json
+{
+  "allowStart": true,
+  "runConfigurationName": "DemoApplication",
+  "waitMillis": 30000,
+  "className": "com.example.HealthService",
+  "methodName": "status",
+  "argsJson": "{}"
+}
+```
+
+启动后需要 DebugTools 自动附着建立连接；自动附着关闭时建议分步启动、选 PID 并附着。`allowAttach` 只附着 DebugTools Agent，不会建立 Java Debugger 会话，因此仍需事先连接调试器。
+
+### 返回值与使用限制
+
+正常工具结果使用结构化包装；顶层 `success=true` 表示得到编排结果，流程是否成功需要读取 `data.success`：
+
+| `data` 字段 | 说明 |
+| --- | --- |
+| `success` | 编排的业务结果。完成调用后取方法调用成功状态。 |
+| `steps` | 步骤摘要，包含 `name`、`status`、`message`。 |
+| `invokeResult` | 方法调用结果，包括额外结果获取状态。 |
+| `hotswap` | 提交给 IDEA 的热重载请求结果。 |
+| `error` | 启动或附着等流程失败说明。 |
+| `logs`、`sql` | 开启对应查询时的最近记录；没有取得结果时为空。 |
+
+5.3.0 的 `steps` 不是完整审计记录：启动或附着成功后不单独保留步骤，失败时才返回对应失败步骤。热重载提交成功后就会进入方法调用，因此调用可能发生在实际重载完成前。
+
+`verifyLogs` 和 `verifySql` 查询当前项目枚举到的首个活跃连接，没有按 `connectionId` 绑定，也没有按调用时间过滤；查询失败返回空值，不改变方法调用的成功状态。多个活跃连接时，请关闭这两个选项，使用独立日志/SQL 工具并指定 `connectionId`、时间和过滤条件。
+
+需要严格验证新代码已经生效时，按[MCP 工作流](./workflow.md)分步执行，在 IDEA 确认 HotSwap 完成后再调用方法。

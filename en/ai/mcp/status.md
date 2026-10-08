@@ -1,37 +1,51 @@
 # DebugTools Status MCP
 
-`get_debug_tools_status` returns one diagnostic snapshot for the current IDEA project. It combines project identity, active DebugTools connections, attachable JVMs, attached Java debugger sessions, Spring readiness, and capability probes.
+`get_debug_tools_status` returns an IDEA project diagnostic snapshot combining the project, DebugTools connections, attachable JVMs, Java debugger sessions, and HTTP probes. Available from 5.3.0, it does not start applications, attach processes, or invoke business methods.
 
-::: tip Read `nextAction` first
-Treat this response as the decision point for the next MCP call. Use it to select a connection, attach a JVM, start a run configuration, or wait for Spring readiness before invoking methods.
-:::
+## Parameters and Result
 
-## Snapshot contents
+There are no required parameters. Optional `projectPath` specifies an IDEA project directory or a file within it. Provide it when several projects are open.
 
-The response contains `project`, `connections`, `attachableJvms`, `debuggerSessions`, and `nextAction`. The `nextAction` value is one of `INVOKE`, `SELECT_CONNECTION`, `ATTACH_JVM`, `START_RUN_CONFIGURATION`, `SELECT_DEBUGGER_SESSION`, `WAIT_FOR_SPRING`, `RECONNECT`, or `NONE`.
+```json
+{
+  "projectPath": "/path/to/demo"
+}
+```
 
-| Area | Purpose |
+Normal results use a wrapper containing `success`, `data`, `error`, `requestId`, and `timestamp`. The snapshot is in `data`:
+
+| Field | Purpose |
 | --- | --- |
-| `project` | Confirms which IDEA project owns the MCP call. |
-| `connections` | Identifies an invokable DebugTools target and its `connectionId`. |
-| `attachableJvms` | Lists local JVMs that can be attached when no connection exists. |
-| `debuggerSessions` | Confirms the Java debugger session and HotSwap capability before reloading. |
-| `nextAction` | Gives the most direct next step for the current state. |
+| `project.name`, `project.path` | Confirm which IDEA project owns the MCP call. |
+| `connections` | Connection IDs, application names, PIDs, addresses, sources, connection states, and availability. |
+| `connections[].springReady` | Whether this HTTP probe of `/spring/ready` succeeded. |
+| `connections[].httpProbe` | Whether this probe of the Agent root HTTP endpoint succeeded. |
+| `connections[].capabilities` | Hints for method invocation, ClassLoader queries, result fetching, logs, and SQL. |
+| `attachableJvms` | Local JVM PIDs, display names, run configuration names, and module names. |
+| `debuggerSessions` | Attached Java debugger session names, process information, and HotSwap hints. |
+| `nextAction` | A suggested next step based on this snapshot. |
 
-## Continue from the state
+An unresolved project returns `NO_PROJECT`. An aggregation error returns `INTERNAL_ERROR`.
 
-Use the snapshot as a decision point:
+## Continue from the State
 
-1. `INVOKE` means an active target can be used.
-2. `SELECT_CONNECTION` means more than one active connection is available; select by `connectionId`.
-3. `ATTACH_JVM` means a local JVM is available for `attach_local_jvm`.
-4. `START_RUN_CONFIGURATION` means list configurations first and start only an explicitly selected configuration.
-5. `WAIT_FOR_SPRING` means poll the selected connection's `/spring/ready` endpoint before invoking Spring methods.
+| `nextAction` | Next step |
+| --- | --- |
+| `INVOKE` | An active target exists. Generate arguments and invoke the method. |
+| `SELECT_CONNECTION` | Several active connections exist. Select an explicit `connectionId`. |
+| `WAIT_FOR_SPRING` | Check Agent HTTP availability and wait for Spring readiness before invoking a Spring Bean. |
+| `SELECT_DEBUGGER_SESSION` | Select an explicit Java debugger session name before hot reload. |
+| `ATTACH_JVM` | Select a PID from `attachableJvms`, then call `attach_local_jvm`. |
+| `START_RUN_CONFIGURATION` | List run configurations and start an explicitly selected configuration. |
 
-::: warning A started run configuration is not an active connection
-The start request only confirms that IDEA accepted the request. Read the connection status again and wait for the target JVM to establish its DebugTools connection.
-:::
+A successful startup response only means IDEA accepted the request. Confirm that the DebugTools connection is established afterward.
 
-## Security boundary
+## Interpret Probe Results
 
-Connection headers are intentionally omitted from this response. Capability values are `AVAILABLE`, `UNAVAILABLE`, `NOT_CONFIGURED`, or `UNKNOWN`; an `UNKNOWN` capability should not be treated as a successful probe.
+`springReady=false` means this `/spring/ready` HTTP probe did not succeed. Spring may not be ready, or the port may be unreachable. Do not wait indefinitely on this hint for a non-Spring application.
+
+In 5.3.0, `invokeJavaMethod` returns `AVAILABLE` or `UNAVAILABLE` based on socket activity. `classLoaderQuery` and `resultFetch` return `AVAILABLE` or `UNKNOWN` based on the `/getApplicationName` probe. These hints do not guarantee that business class loading, Bean lookup, or result fetching will succeed.
+
+`logs` and `sql` currently return `UNKNOWN`. Call the [logs and SQL tools](./observability.md) to confirm availability. `debuggerSessions[].hotSwap=AVAILABLE` indicates an attached session was found; it does not guarantee that the JDK supports every class structure change.
+
+This snapshot omits connection Headers. Use `list_debug_tools_connections` when you need complete connection configuration.

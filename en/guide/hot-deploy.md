@@ -74,6 +74,7 @@ https://gitee.com/future94/debug-tools/releases
 |-----------------------|----------------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------------------------------|
 | applicationName       | Application name                                               | The name of the application, which can be obtained automatically without passing | DebugTools                                         |
 | hotswap               | Whether to enable hot reload/hot deployment                    | true: Enable <br /> false: Disable                                               | true                                               |
+| autoHotswap           | Watch compiled class files and automatically reload them; configurable through Agent arguments from 5.3.0, disabled by default | true / false | true |
 | server                | Whether to start the server for client connections             | true: Enable <br /> false: Disable                                               | true                                               |
 | tcpPort               | TCP port to listen to (valid only when server=true)            | Available ports                                                                  | 12345                                              |
 | httpPort              | HTTP port to listen to (valid only when server=true)           | Available ports                                                                  | 22222                                              |
@@ -219,20 +220,10 @@ The result is displayed in IDEA's Run tool window. The tab title is `Remote Depl
 
 <!--@include: ./parts/hot-deploy-one-file.md-->
 
-### 4.3 Single XML File Remote Deployment
+### 4.3 Single Resource File Deployment
 
-Open the context menu in an XML file editor or project tree, then click `Deploy "xxx.xml" to Remote Application`. The plugin saves the current file, calculates its relative path from the resource root, and sends the XML as a resource file to the attached target application for hot deployment.
+Starting with 5.3.0, open the context menu in the editor or project tree for a non-Java file such as XML, HTML, FTL, YAML, or Properties, then click `Deploy 'filename' to remote`. The current file is sent using its path relative to the source or resource root.
 
-If the current project is connected to multiple applications, the plugin asks you to choose the target connection first. The request uses the `ClassLoader` currently selected on that connection card.
+If several applications are connected, select the target connection first. The request uses that connection's default `ClassLoader` and writes to its first `watchResources` directory; Windows uses `watchResourcesWin`.
 
-![hot_deploy_xml_context_menu.png](/images/hotswap/hot_deploy_xml_context_menu.png){v-zoom}
-
-After hot deployment completes, the result is printed in IDEA's Run tool window. The tab title is `Remote Deploy Result`; when multiple applications are connected, the title also includes the application name.
-
-![hot_deploy_xml_result.png](/images/hotswap/hot_deploy_xml_result.png){v-zoom}
-
-::: tip
-- Hot reloading changed files through hot deployment is only supported after the application is attached.
-- The XML file must be under a project source root or resource root. Otherwise, the plugin cannot calculate the resource relative path to send to the remote application.
-- If the window reports that it failed to get the default class loader, select a default ClassLoader on the target connection first. For applications with multiple class loaders, make sure the selected class loader is the one that actually loads the business resources.
-:::
+See [Resource File Hot Reload and Deployment](./hot-reload-resource.md) for the complete flow, destinations, and conditions for changes to take effect.

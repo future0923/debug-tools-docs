@@ -193,8 +193,8 @@ There are no unconditionally required tool-specific parameters.
 | `projectPath` | No | `string` | Target IDEA project path; see Common Conventions. |
 | `sessionName` | Conditional | `string` | Java Debugger session name. It can be omitted when only one session is available, but is required when multiple sessions exist. |
 | `compileBeforeReload` | No | `boolean` | Whether to compile before hot reload. When omitted, uses the current IDEA Java Debugger `COMPILE_BEFORE_HOTSWAP` setting. |
-| `waitMillis` | No | `integer` | Maximum bounded wait for the request, capped at 120 seconds. |
-| `operationId` | No | `string` | Existing operation id to query or continue tracking. |
+| `waitMillis` | No | `integer` | Reserved in 5.3.0; does not currently wait for compilation or reload completion. |
+| `operationId` | No | `string` | Reserved parameter. Query an existing operation with `get_hotswap_operation` instead of calling this tool again. |
 
 **Return Value**
 
@@ -230,7 +230,9 @@ Successful response example:
   "sessionName": "DemoApplication",
   "compileBeforeReload": true,
   "message": "Compile and reload modified files requested",
-  "availableSessionNames": []
+  "availableSessionNames": [],
+  "operationId": "example-operation-id",
+  "status": "REQUESTED"
 }
 ```
 
@@ -248,8 +250,105 @@ Response when multiple debugger sessions exist and `sessionName` is omitted:
 
 If the current project has no attached Java Debugger session, the tool returns `success=false` with `message` set to `No attached Java debugger session is available for hotswap`.
 
-## Operation feedback and orchestration
+## 4. Query a HotSwap Operation {#operation-query}
 
-`compile_and_reload_modified_files` accepts `waitMillis` and returns `operationId`, `status`, `errorCode`, and optional changed/compiled/reloaded/skipped class lists. The status can be `REQUESTED`, `COMPILING`, `RELOADING`, `SUCCESS`, `PARTIAL_SUCCESS`, `FAILED`, `TIMEOUT`, or `UNSUPPORTED`. If a request times out, call `get_hotswap_operation` with the returned `operationId` instead of submitting the reload again. IDEA versions without per-class progress may return an empty or `UNKNOWN` `classResults` list.
+Tool: `get_hotswap_operation`.
 
-`run_and_invoke` provides the complete status → optional start/attach → reload → invoke flow. Starting is explicit: use `allowStart=true` together with an exact `runConfigurationName`. Attaching is explicit: use `allowAttach=true` together with a `pid`. `verifyLogs` and `verifySql` add bounded post-invocation evidence. The tool returns separate step statuses, so a successful start request does not hide a later attach, reload, invocation, logs, or SQL failure.
+| Parameter | Required | Type | Description |
+| --- | --- | --- | --- |
+| `operationId` | Yes | `string` | Operation ID returned by a successful `compile_and_reload_modified_files` request. |
+
+```json
+{
+  "operationId": "example-operation-id"
+}
+```
+
+The response uses a structured wrapper. `data` is the stored hot reload request result, including `sessionName`, `compileBeforeReload`, `operationId`, and `status`. An unknown operation returns `HOTSWAP_OPERATION_NOT_FOUND`.
+
+::: warning Feedback Available in 5.3.0
+The current implementation records `status=REQUESTED` after submission and does not consume IDEA compilation or reload completion callbacks. Queries return this request record; the state does not automatically advance to `SUCCESS` or `FAILED`. `changedFiles`, `compiledClasses`, `reloadedClasses`, `skippedClasses`, and `classResults` are currently empty.
+
+`waitMillis` cannot confirm that classes were reloaded, and `operationId` does not prove compilation completed. Check the final result in IDEA's HotSwap UI or notifications and verify it through business calls.
+:::
+
+## 5. Orchestrate Startup and Method Invocation
+
+Tool: `run_and_invoke`. Starts or attaches a target when needed, then submits a hot reload request and invokes a Java method. It can also query recent logs and SQL.
+
+### Parameters
+
+| Parameter | Required | Type | Description |
+| --- | --- | --- | --- |
+| `className` | Yes | `string` | Fully qualified target Java class name. |
+| `methodName` | Yes | `string` | Method name. |
+| `projectPath` | No | `string` | Target IDEA project path. |
+| `connectionId` | Conditional | `string` | Method invocation target; required when several active connections exist. |
+| `sessionName` | Conditional | `string` | Java debugger session for hot reload; required with multiple sessions. Confirm it belongs to the same JVM as the method connection. |
+| `compileBeforeReload` | No | `boolean` | Whether to compile first; defaults to IDEA Java Debugger settings. |
+| `waitMillis` | No | `integer` | Connection wait after startup/attachment, default `30000`, restricted to `0`–`120000` milliseconds. Does not wait for HotSwap completion. |
+| `parameterTypes` | No | `string[]` | Method parameter types in declaration order. |
+| `argsJson` | No | `string` | DebugTools argument JSON string. |
+| `resultView` | No | `string` | `TO_STRING`, `JSON`, `DEBUG`, or `NONE`. |
+| `methodAroundName` | No | `string` | Saved pre/post script name without `.java`. |
+| `methodAroundContent` | No | `string` | Explicit Method Around Java source. |
+| `methodAroundContentIdentity` | No | `string` | Source content identity. |
+| `allowStart` | No | `boolean` | Allow startup when no active connection exists. Disabled by default. |
+| `runConfigurationName` | Conditional | `string` | Exact IDEA run configuration name when `allowStart=true` and startup is needed. |
+| `allowAttach` | No | `boolean` | Allow attachment to a specified process when no active connection exists. Disabled by default. |
+| `pid` | Conditional | `string` | Explicit PID when `allowAttach=true` and attachment is needed. |
+| `verifyLogs` | No | `boolean` | Query recent logs after invocation, up to a fixed 100 records. |
+| `verifySql` | No | `boolean` | Query recent SQL after invocation, up to a fixed 50 records. |
+
+An active connection prevents startup or attachment to a new target. If no active connection exists and both options are `true`, attachment is attempted first. An attachment failure returns immediately without trying startup. Choose one approach per request.
+
+### Request Examples
+
+With an existing connection and Java debugger session:
+
+```json
+{
+  "connectionId": "demo-connection",
+  "sessionName": "DemoApplication",
+  "className": "com.example.HealthService",
+  "methodName": "status",
+  "parameterTypes": [],
+  "argsJson": "{}",
+  "compileBeforeReload": true,
+  "resultView": "JSON"
+}
+```
+
+Without a connection, when an explicit configuration needs startup:
+
+```json
+{
+  "allowStart": true,
+  "runConfigurationName": "DemoApplication",
+  "waitMillis": 30000,
+  "className": "com.example.HealthService",
+  "methodName": "status",
+  "argsJson": "{}"
+}
+```
+
+Startup needs DebugTools auto-attach to establish a connection. If auto-attach is disabled, start separately, select a PID, and attach. `allowAttach` only attaches the DebugTools Agent; it does not create a Java Debugger session, so connect the debugger beforehand.
+
+### Return Values and Limits
+
+Normal tool results use a structured wrapper. Top-level `success=true` means an orchestration result was obtained. Read `data.success` to assess the workflow:
+
+| Field in `data` | Description |
+| --- | --- |
+| `success` | Business outcome of orchestration. After invocation, reflects method execution success. |
+| `steps` | Step summaries containing `name`, `status`, and `message`. |
+| `invokeResult` | Method invocation result, including additional result fetch status. |
+| `hotswap` | Hot reload request submitted to IDEA. |
+| `error` | Startup, attachment, or similar failure description. |
+| `logs`, `sql` | Recent records when enabled; null when no result was obtained. |
+
+In 5.3.0, `steps` is not a complete audit record. Successful startup or attachment is not retained as a separate step; its failure is. Invocation begins after the reload request is submitted, so it may run before reloading actually finishes.
+
+`verifyLogs` and `verifySql` query the first active connection enumerated in the current project. They are not bound to `connectionId` and do not filter by invocation time. Query failures return null without changing method execution success. With several active connections, disable these options and use independent logs/SQL tools with an explicit `connectionId`, time, and filters.
+
+For strict verification that new code took effect, follow the [MCP Workflow](./workflow.md) in separate steps and invoke after confirming HotSwap completion in IDEA.

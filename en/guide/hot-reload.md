@@ -74,17 +74,39 @@ For detailed configuration and operation steps, see [Hot Deploy](./hot-deploy.md
 During hot deployment, idea may sometimes fail to obtain the latest breakpoint information. If you need to update the breakpoint in time, please use [Method 1](#compile-reload-file)
 :::
 
-### 2.4 Single XML file
+### 2.4 Single Resource File
 
-Open the context menu in an XML file editor or project tree, then click `Compile "xxx.xml" to target directory`. The plugin saves the current XML file and writes it to the current module's compilation output directory by its relative path from the source root.
+Starting with 5.3.0, single-file operations support non-Java files such as XML, HTML, FTL, YAML, and Properties. Open the context menu in the file editor or project tree and click `Copy 'filename' to target` to write the file into the module's production output directory by relative path.
 
-![hot_reload_xml_context_menu.png](/images/hotswap/hot_reload_xml_context_menu.png){v-zoom}
+For example, `src/main/resources/templates/index.ftlh` is copied to `target/classes/templates/index.ftlh`. The actual directory follows the IDEA module output configuration.
+
+This updates the resource file without automatically refreshing every framework's configuration. See [Resource File Hot Reload and Deployment](./hot-reload-resource.md) for the steps and conditions.
+
+### 2.5 Automatically Reload Changed Class Files {#auto-hotswap}
+
+5.3.0 adds `Settings | DebugTools | Hot Reload | Automatically reload changed class files`, disabled by default.
+
+1. Enable the setting and save it.
+2. Restart the target application. Supported ordinary Java Run/Debug configurations also inject the hot reload Agent when this setting is enabled. This entry point does not apply to the Maven or Gradle launcher processes themselves.
+3. After editing Java source, compile it in IDEA or update the output directory through your existing compilation workflow.
+4. When the Agent detects changes in compiled `.class` files, it automatically redefines classes already loaded by the target ClassLoader.
+
+Automatic watching does not compile Java source. Saving a `.java` file without updating compilation output does not trigger reloading. New classes that have not been loaded are outside the scope of redefining loaded classes.
 
 ::: tip
-- This operation only overwrites the resource file in the compilation output directory. It does not modify the XML file in the source directory.
-- The XML file must be under a project source root or resource root. Otherwise, the plugin cannot calculate the relative path to write into `target/classes`.
-- You can also trigger XML updates by recompiling the project through [Method 1](#compile-project).
+- Automatic reloading still depends on the target JDK's class redefinition capabilities. To add or remove fields and methods, complete [JDK Installation](./install.md#jdk) first.
+- Restart the application after changing this setting. It does not change an already running JVM dynamically.
+- Automatic watching can overlap with `Compile and Reload Modified Files` or manual hot deployment. Choose the trigger method that fits your workflow.
+- Disabling the `HotSwapper` plugin disables automatic reloading.
 :::
+
+When starting outside IDEA, add `autoHotswap=true` to your existing hot deployment startup parameters:
+
+```shell
+-javaagent:/path/to/debug-tools-agent.jar=hotswap=true,autoHotswap=true
+```
+
+This is only an Agent parameter example. Configure the DCEVM, enhanced class redefinition, and module access parameters required by your JDK as described in [Hot Deploy](./hot-deploy.md#_2-1-add-jvm-parameters).
 
 ## 3. In which cases can hot reload be performed
 
@@ -207,7 +229,15 @@ Supports hot reload of [Forest](https://github.com/dromara/forest)
 
 - Supports adding/modifying interfaces and other components
 
-### 3.16 Others
+### 3.16 Freemarker
+
+Supports template content updates and object wrapper cache clearing after class redefinition. See [Freemarker Hot Reload](./hot-reload-freemarker.md).
+
+### 3.17 Thymeleaf
+
+Supports clearing the current template's cache before rendering. See [Thymeleaf Hot Reload](./hot-reload-thymeleaf.md).
+
+### 3.18 Others
 
 Hot reload can also be used in other situations. I won’t give examples here. If it doesn’t work, please submit an [issue](https://github.com/future0923/debug-tools/issues) to give feedback.
 
@@ -224,7 +254,7 @@ Available plugins are grouped by type:
 | Group | Plugins |
 | --- | --- |
 | Base | `JdkPlugin`, `Class`, `Proxy`, `HotSwapper`, `WatchResources` |
-| Third Party | `Spring`, `Feign`, `MyBatis`, `Solon` |
+| Third Party | `Spring`, `Feign`, `MyBatis`, `Solon`, `Forest`, `Freemarker`, `Thymeleaf` |
 | Other | `IntelliJIdea`, `HibernateValidator`, `EasyExcel`, `Gson`, `FastJson`, `HuTool` |
 
 ::: warning

@@ -75,3 +75,50 @@ Result display rules:
 | Exception | The exception stack is shown, so you can continue checking the script, parameters, or `ClassLoader`. |
 
 If you need to inspect object fields, switch to the `Debug` tab and expand the object. If you only need to copy the returned value, use the copy action on the result node.
+
+
+## 5. Debug Scripts with Breakpoints {#debug-groovy}
+
+5.3.0 adds `Debug Current Groovy 'xxx.groovy'`. The script still runs inside the selected DebugTools target JVM, while IDEA Java Debugger provides breakpoints, variables, and stepping.
+
+### Before Debugging
+
+- Enable the IDEA Groovy plugin and upgrade both DebugTools and the target Agent to 5.3.0.
+- Establish a DebugTools connection and select a default `ClassLoader`.
+- Connect an IDEA Java debugger session to the same target JVM. Use ordinary Debug or DebugTools Hotswap startup. For remote targets, configure JDWP and connect through IDEA Remote JVM Debug first.
+- Keep the debugger session running. If it is already paused at another breakpoint, resume it first.
+- Ensure the DebugTools HTTP port is reachable. The plugin uses it to confirm the target JVM identity.
+
+Attaching the DebugTools Agent does not establish a Java debugger session. Both connections must point to the same JVM. With several applications under debugging, the plugin matches by target JVM identity rather than the currently selected Debug tab.
+
+### Run the Debug Action
+
+1. Open the Groovy Console from the target connection and write a script.
+2. Set a breakpoint on an executable statement.
+3. Open the current file's context menu and click `Debug Current Groovy 'xxx.groovy'`.
+4. When the breakpoint is hit, inspect variables, expressions, and the call stack in IDEA's Debug tool window. Step through or resume execution as needed.
+5. When the script finishes, view its Groovy result as described above.
+
+For example:
+
+```groovy
+def port = gsc("server.port")
+def profiles = gActive()
+return [port: port, profiles: profiles]
+```
+
+Set a breakpoint on `def profiles` to inspect the `port` value already read.
+
+Keep the script unchanged while debugging is being prepared. After editing it, run the debug action again so breakpoints use the current source version. Old dynamically generated script classes are not treated as the new source version.
+
+### Common Messages
+
+| Message | Action |
+| --- | --- |
+| Start or attach the IDEA Java debugger to the target application | Establish a Java debugger session. Resume it if it is paused. |
+| The selected DebugTools application has no matching IDEA Java debug session | Confirm both connections point to the same JVM. Reconnect after the target restarts. |
+| This agent does not support Groovy debugging | Replace it with the 5.3.0 Agent, restart the target, and reconnect. |
+| Enable the IntelliJ Groovy plugin | Enable Groovy in IDEA plugin settings. |
+| The script changed while preparing the debugger | Stop editing and run the debug action again. |
+
+When you do not need breakpoints, use `Run Current Groovy`; a Java debugger session is not required.

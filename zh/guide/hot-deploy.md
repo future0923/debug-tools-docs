@@ -74,6 +74,7 @@ https://gitee.com/future94/debug-tools/releases
 |-----------------------|------------------------------|-------------------------|----------------------------------------------------|
 | applicationName       | 应用名称                         | 附着应用的名称，不传也可以自动获取       | DebugTools                                         |
 | hotswap               | 是否开启热重载/热部署                  | true:开启 <br /> false:关闭 | ture                                               |
+| autoHotswap           | 自动监听编译后的 class 文件并重载，5.3.0 起可直接通过 Agent 参数配置，默认关闭 | true / false | true |
 | server                | 是否启动Server给客户端连接             | true:开启 <br /> false:关闭 | ture                                               |
 | tcpPort               | 监听的TCP端口 (server=true时才生效)   | 可用端口                    | 12345                                              |
 | httpPort              | 监听的HTTP端口  (server=true时才生效) | 可用端口                    | 22222                                              |
@@ -140,9 +141,7 @@ lombokJarPath=
 spring.basePackagePrefix=
 # 禁用的插件，多个逗号分隔
 disabledPlugins=
-# 自动热重载
-# 在 ClassLoader 的 resources 路径下监视更改的类文件后在运行中的应用程序中重新加载类定义。
-# 它使用Java Instrumentation API来重新加载类字节码。
+# 自动监听编译后的 class 文件并重载，默认关闭
 autoHotswap=false
 # JPDA连接端口，监听更改文件后进行热重载，启动时需要指定JPDA端口
 # <pre>java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000</pre>
@@ -241,20 +240,10 @@ autoHotswap.port=
 
 <!--@include: ./parts/hot-deploy-one-file.md-->
 
-### 4.3 单 XML 文件远程部署
+### 4.3 单资源文件部署
 
-在 XML 文件的编辑器或项目树中打开右键菜单，点击 `部署 "xxx.xml" 到远程应用`，插件会先保存当前文件，再按资源根计算相对路径，并把 XML 作为资源文件发送到已附着的目标应用热部署。
+从 5.3.0 起，在 XML、HTML、FTL、YAML、Properties 等非 Java 文件的编辑器或项目树中打开右键菜单，点击 `部署 '文件名' 到远程应用`，即可按源码根或资源根的相对路径发送当前文件。
 
-如果当前项目同时连接了多个应用，点击后会先选择要部署到的连接；执行时会使用该连接卡片中当前选中的 `ClassLoader`。
+如果同时连接多个应用，点击后先选择目标连接；请求使用该连接当前选中的默认 `ClassLoader`。资源写入该 ClassLoader 的第一个 `watchResources` 目录，Windows 使用 `watchResourcesWin`。
 
-![hot_deploy_xml_context_menu.png](/images/hotswap/hot_deploy_xml_context_menu.png){v-zoom}
-
-热部署完成后，结果会输出到 IDEA 的 Run 工具窗口，页签标题为 `远程部署结果`；多应用连接时标题会带上应用名称。
-
-![hot_deploy_xml_result.png](/images/hotswap/hot_deploy_xml_result.png){v-zoom}
-
-::: tip
-- 只有附着应用后才支持通过热部署的方式热重载变动文件
-- XML 文件需要位于项目源码根或资源根下，否则插件无法计算发送到远程应用的资源相对路径。
-- 如果窗口提示获取默认类加载器失败，请先在目标连接中选择默认 ClassLoader；多 ClassLoader 应用请确认选择的是业务资源实际所在的类加载器。
-:::
+完整流程、写入路径和生效条件见[资源文件热重载与部署](./hot-reload-resource.md)。

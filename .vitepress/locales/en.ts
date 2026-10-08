@@ -100,6 +100,9 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {text: 'Mybatis', link: 'hot-reload-mybatis'},
         {text: 'MybatisPlus', link: 'hot-reload-mybatis-plus'},
         {text: 'Solon', link: 'hot-reload-solon'},
+        {text: 'Freemarker', link: 'hot-reload-freemarker'},
+        {text: 'Thymeleaf', link: 'hot-reload-thymeleaf'},
+        {text: 'Resource Files', link: 'hot-reload-resource'},
       ]
     },
     {
@@ -176,7 +179,7 @@ function sidebarAi(): DefaultTheme.SidebarItem[] {
         {text: 'Method Invocation MCP', link: 'mcp/method-invocation'},
         {text: 'Hotswap MCP', link: 'mcp/hotswap'},
         {text: 'Logs and SQL MCP', link: 'mcp/observability'},
-        {text: 'MCP Closed Loop', link: 'mcp/workflow'},
+        {text: 'MCP Workflow', link: 'mcp/workflow'},
       ]
     },
     {

@@ -1,5 +1,7 @@
 # Installation instructions {#install}
 
+The DebugTools 5.3.0 plugin requires IntelliJ IDEA 2023.3 or later (build 233). MCP tools also require IDEA with an enabled MCP Server. See [Using IDEA MCP](../ai/mcp/idea.md).
+
 ## 1. Install the plugin {#install-plugin}
 
 ### 1.1 Marketplace store (recommended) {#marketplace}
@@ -29,13 +31,15 @@ git clone https://github.com/future0923/debug-tools.git
 cd debug-tools
 # Maven packaging needs to use `java17+` version to build
 mvn clean install -T 2C -Dmaven.test.skip=true
-# In the dist directory
-# debug-tools-boot.jar remote agent package
+# Agent artifacts are under debug-tools/dist.
+cd ..
+git clone https://github.com/future0923/debug-tools-idea.git
 cd debug-tools-idea
-# When grade packages the Idea plug-in, it needs to use the `java17+` version to build
-./gradlew clean buildPlugin
-# In the dist directory
-# DebugTools-{version}.zip IDEA plug-in package
+# Complete Maven install above first; the plugin needs the same-version common dependency.
+# The current ideVersion=2026.1 selects a Java/Kotlin 21 toolchain. Prepare JDK 21.
+./gradlew clean build -Pkotlin.daemon.jvmargs=-Xmx2g
+# The plugin ZIP is under build/distributions and copied to dist by build.
+# DebugTools-5.3.0.zip
 ```
 
 ```text [github]
@@ -47,6 +51,12 @@ https://gitee.com/future94/debug-tools/releases
 ```
 
 :::
+
+### 1.3 Upgrade to 5.3.0
+
+Restart IDEA after upgrading the plugin. For remote applications or applications that preload the Agent, replace `debug-tools-agent.jar` on the target machine with 5.3.0, restart the JVM, and reconnect.
+
+Groovy breakpoint debugging and recent logs/SQL queries require new Agent endpoints. Upgrading only the plugin does not add those capabilities to an older target JVM. The automatic class file watching setting also takes effect only after an application restart.
 
 ## 2. Install JDK {#jdk}
 
